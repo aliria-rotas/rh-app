@@ -27,11 +27,10 @@ export function TrainningResponses() {
   async function loadResponses() {
     try {
       setLoading(true)
-      const { data, error: fetchError } = await supabase
-        .from('rh_training_responses')
-        .select('*')
-        .eq('training_id', 'chatbot_empatico_001')
-        .order('completed_at', { ascending: false })
+      // Usar RPC function que contorna o RLS
+      const { data, error: fetchError } = await supabase.rpc('get_training_responses', {
+        p_training_id: 'chatbot_empatico_001'
+      })
 
       if (fetchError) throw fetchError
       setResponses(data || [])

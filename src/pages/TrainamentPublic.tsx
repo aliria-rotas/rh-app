@@ -19,13 +19,12 @@ export default function TrainmentPublic() {
     question_6_response: '',
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert('✅ Formulário funciona! Enviando dados...')
     setLoading(true)
 
     try {
@@ -43,15 +42,15 @@ export default function TrainmentPublic() {
       })
 
       if (error) {
-        alert('❌ Erro: ' + error.message)
+        console.error('Erro ao enviar respostas:', error)
         setLoading(false)
         return
       }
 
-      alert('✅ Sucesso! Respostas enviadas!')
+      console.log('✅ Sucesso! Respostas enviadas!', data)
       setSubmitted(true)
     } catch (err: any) {
-      alert('❌ Erro: ' + err.message)
+      console.error('❌ Erro:', err.message)
       setLoading(false)
     }
   }
@@ -173,61 +172,148 @@ export default function TrainmentPublic() {
                 />
               </div>
 
-              {/* Pergunta 2 */}
+              {/* Pergunta 2 - ALTERNATIVA */}
               <div>
                 <label className="block font-bold mb-2 text-gray-900">
-                  2️⃣ Erros de Português no Atendimento ao Paciente: MAIS vs MAS<br/>
-                  <span className="text-sm font-normal">Reescreva com gentileza e português correto:</span>
+                  2️⃣ Erros de Português: MAIS vs MAS<br/>
+                  <span className="text-sm font-normal">Qual é a forma CORRETA de responder ao paciente?</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-2 bg-orange-50 p-2 rounded italic">"Seu documento foi rejeitado mas você pode enviar outro amanhã"</p>
-                <p className="text-sm text-gray-600 mb-3">💡 Dica: Use MAIS quando quer adicionar algo. Use MAS quando há contraste/oposição. No atendimento ao paciente, isso é muito importante!</p>
-                <Textarea
-                  name="question_2_response"
-                  value={formData.question_2_response}
-                  onChange={handleChange}
-                  required
-                  placeholder="Sua resposta corrigida e empática..."
-                  rows={4}
-                  className="w-full"
-                />
+                <p className="text-sm text-gray-600 mb-3 bg-orange-50 p-2 rounded italic">Frase original (ERRADA): "Seu documento foi rejeitado mas você pode enviar outro amanhã"</p>
+                <div className="space-y-3">
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_2_response"
+                      value="A) Seu documento foi rejeitado mas temos a solução! Posso orientá-lo."
+                      checked={formData.question_2_response === 'A) Seu documento foi rejeitado mas temos a solução! Posso orientá-lo.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>A)</strong> Seu documento foi rejeitado mas temos a solução! Posso orientá-lo.</span>
+                  </label>
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_2_response"
+                      value="B) Seu documento não atendeu aos requisitos, mas sem problema! Posso ajudar com exatamente o que falta."
+                      checked={formData.question_2_response === 'B) Seu documento não atendeu aos requisitos, mas sem problema! Posso ajudar com exatamente o que falta.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>B)</strong> Seu documento não atendeu aos requisitos, mas sem problema! Posso ajudar com exatamente o que falta.</span>
+                  </label>
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_2_response"
+                      value="C) Seu documento foi rejeitado mais temos outra opção para você."
+                      checked={formData.question_2_response === 'C) Seu documento foi rejeitado mais temos outra opção para você.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>C)</strong> Seu documento foi rejeitado mais temos outra opção para você.</span>
+                  </label>
+                </div>
+                <p className="text-xs text-gray-500 mt-3">💡 MAS = contraste/oposição | MAIS = adição/quantidade</p>
               </div>
 
-              {/* Pergunta 3 */}
+              {/* Pergunta 3 - ALTERNATIVA */}
               <div>
                 <label className="block font-bold mb-2 text-gray-900">
-                  3️⃣ Uso Correto do Gerúndio no Atendimento ao Paciente<br/>
-                  <span className="text-sm font-normal">Reescreva com gerúndio correto:</span>
+                  3️⃣ Uso Correto do Gerúndio<br/>
+                  <span className="text-sm font-normal">Qual frase está CORRETA?</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-2 bg-orange-50 p-2 rounded italic">"Você vai recebendo o resultado em breve" ou "Você vai consultando o médico amanhã"</p>
-                <p className="text-sm text-gray-600 mb-3">💡 Dica: Gerúndio (-ando, -endo, -indo) é para ações em PROGRESSO. "Estou analisando" está certo. "Você vai fazendo" está ERRADO. Isso confunde o paciente!</p>
-                <Textarea
-                  name="question_3_response"
-                  value={formData.question_3_response}
-                  onChange={handleChange}
-                  required
-                  placeholder="Sua resposta corrigida..."
-                  rows={4}
-                  className="w-full"
-                />
+                <p className="text-sm text-gray-600 mb-3">Qual forma de falar sobre o resultado está certa para o paciente?</p>
+                <div className="space-y-3">
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_3_response"
+                      value="A) Você vai recebendo o resultado em breve."
+                      checked={formData.question_3_response === 'A) Você vai recebendo o resultado em breve.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>A)</strong> Você vai recebendo o resultado em breve.</span>
+                  </label>
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_3_response"
+                      value="B) Seu resultado está sendo preparado neste momento e você receberá em breve."
+                      checked={formData.question_3_response === 'B) Seu resultado está sendo preparado neste momento e você receberá em breve.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>B)</strong> Seu resultado está sendo preparado neste momento e você receberá em breve.</span>
+                  </label>
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_3_response"
+                      value="C) Você vai consultando o médico amanhã pela manhã."
+                      checked={formData.question_3_response === 'C) Você vai consultando o médico amanhã pela manhã.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>C)</strong> Você vai consultando o médico amanhã pela manhã.</span>
+                  </label>
+                </div>
+                <p className="text-xs text-gray-500 mt-3">💡 Gerúndio (-ando,-endo,-indo) = ação em progresso: "Estou analisando" ✅ | "Você vai fazendo" ❌</p>
               </div>
 
-              {/* Pergunta 4 */}
+              {/* Pergunta 4 - ALTERNATIVA */}
               <div>
                 <label className="block font-bold mb-2 text-gray-900">
-                  4️⃣ Erro Comum: "Vou estar" vs "Vou" / "Estou"<br/>
-                  <span className="text-sm font-normal">Reescreva com português correto:</span>
+                  4️⃣ Erro Comum: "Vou estar verificando"<br/>
+                  <span className="text-sm font-normal">Qual forma de falar está CORRETA?</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-2 bg-orange-50 p-2 rounded italic">"Vou estar verificando seu resultado em breve"</p>
-                <p className="text-sm text-gray-600 mb-3">💡 Dica: "Vou estar verificando" é ERRADO e confunde muito. Use: "Vou verificar" (futuro) ou "Estou verificando" (em progresso). Esse erro é muito comum na saúde!</p>
-                <Textarea
-                  name="question_4_response"
-                  value={formData.question_4_response}
-                  onChange={handleChange}
-                  required
-                  placeholder="Sua resposta corrigida..."
-                  rows={4}
-                  className="w-full"
-                />
+                <p className="text-sm text-gray-600 mb-3">Como avisar ao paciente que você vai verificar o resultado?</p>
+                <div className="space-y-3">
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_4_response"
+                      value="A) Vou estar verificando seu resultado em breve, combinado?"
+                      checked={formData.question_4_response === 'A) Vou estar verificando seu resultado em breve, combinado?'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>A)</strong> Vou estar verificando seu resultado em breve, combinado?</span>
+                  </label>
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_4_response"
+                      value="B) Vou verificar seu resultado agora mesmo e retorno com você em minutos."
+                      checked={formData.question_4_response === 'B) Vou verificar seu resultado agora mesmo e retorno com você em minutos.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>B)</strong> Vou verificar seu resultado agora mesmo e retorno com você em minutos.</span>
+                  </label>
+                  <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
+                    <input
+                      type="radio"
+                      name="question_4_response"
+                      value="C) Estou verificando seu resultado neste exato momento."
+                      checked={formData.question_4_response === 'C) Estou verificando seu resultado neste exato momento.'}
+                      onChange={handleChange}
+                      required
+                      className="mt-1"
+                    />
+                    <span className="text-sm"><strong>C)</strong> Estou verificando seu resultado neste exato momento.</span>
+                  </label>
+                </div>
+                <p className="text-xs text-gray-500 mt-3">💡 ❌ "Vou estar verificando" confunde! ✅ Use: "Vou verificar" (futuro) ou "Estou verificando" (em progresso)</p>
               </div>
 
               {/* Pergunta 5 */}
@@ -236,7 +322,7 @@ export default function TrainmentPublic() {
                   5️⃣ Situação Complexa: Investigação + Empatia<br/>
                   <span className="text-sm font-normal">Um paciente irritado diz: "Já fiz o exame na segunda e ainda não tenho resultado! Como assim?"</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Como você investigaria o problema enquanto acalma o paciente? Use pontuação correta e português adequado. Use gerúndio quando apropriado!</p>
+                <p className="text-sm text-gray-600 mb-3">Como você investigaria o problema enquanto acalma o paciente? Use português correto!</p>
                 <Textarea
                   name="question_5_response"
                   value={formData.question_5_response}
@@ -254,7 +340,7 @@ export default function TrainmentPublic() {
                   6️⃣ Aplicação Prática dos 3 Pilares no Atendimento ao Paciente<br/>
                   <span className="text-sm font-normal">Descreva uma situação REAL de atendimento ao paciente onde você usaria Clareza, Empatia e Eficiência juntos.</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Seja prático! Mostre como os pilares funcionam na prática. Atente-se ao português correto (MAIS vs MAS, gerúndio, pontuação)!</p>
+                <p className="text-sm text-gray-600 mb-3">Seja prático! Mostre como os pilares funcionam na prática. Atente-se ao português correto!</p>
                 <Textarea
                   name="question_6_response"
                   value={formData.question_6_response}
