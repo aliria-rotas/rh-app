@@ -361,7 +361,9 @@ export default function PlanoTreinamento() {
       )}
 
       {activeTab === 'respostas' && (
-        <TrainningResponses />
+        <div>
+          <TrainningResponses />
+        </div>
       )}
 
       <Modal
