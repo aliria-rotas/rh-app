@@ -74,7 +74,7 @@ export default function TrainmentPublic() {
         </div>
 
         {/* Conteúdo do Treinamento */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8 max-h-96 overflow-y-auto">
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8 max-h-80 overflow-y-auto border-2 border-blue-200">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">📚 Resumo do Treinamento</h2>
 
           <div className="space-y-4 text-gray-700">
@@ -118,6 +118,13 @@ export default function TrainmentPublic() {
               <br/><code className="bg-yellow-100 px-2 py-1 rounded text-xs">C:\Users\Klissia Corazza\Downloads\Treinamento-Atendimento-Empatico-em-Chatbot.md</code>
             </p>
           </div>
+        </div>
+
+        {/* Separador */}
+        <div className="my-8 flex items-center gap-4">
+          <div className="flex-1 h-px bg-blue-300"></div>
+          <span className="text-blue-600 font-bold">✍️ AGORA RESPONDA AS PERGUNTAS ABAIXO</span>
+          <div className="flex-1 h-px bg-blue-300"></div>
         </div>
 
         {/* Formulário de Respostas */}
