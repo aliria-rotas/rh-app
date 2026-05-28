@@ -360,11 +360,7 @@ export default function PlanoTreinamento() {
         </>
       )}
 
-      {activeTab === 'respostas' && (
-        <div>
-          <TrainningResponses />
-        </div>
-      )}
+      {activeTab === 'respostas' && <TrainningResponses />}
 
       <Modal
         open={modal}
