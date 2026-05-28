@@ -74,7 +74,7 @@ export default function TrainmentPublic() {
         </div>
 
         {/* Conteúdo do Treinamento */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8 max-h-80 overflow-y-auto border-2 border-blue-200">
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8 border-2 border-blue-200">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">📚 Resumo do Treinamento</h2>
 
           <div className="space-y-4 text-gray-700">
