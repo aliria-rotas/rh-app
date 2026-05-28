@@ -214,16 +214,17 @@ export default function TrainmentPublic() {
               {/* Pergunta 4 */}
               <div>
                 <label className="block font-bold mb-2 text-gray-900">
-                  4️⃣ Equilíbrio: Empatia + Eficiência<br/>
-                  <span className="text-sm font-normal">Um paciente diz: "Preciso de atendimento URGENTE! Meu filho está com febre alta!"</span>
+                  4️⃣ Erro Comum: "Vou estar" vs "Vou" / "Estou"<br/>
+                  <span className="text-sm font-normal">Reescreva com português correto:</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Como você ofereceria informações úteis mantendo calma, clareza e gentileza? O que você faria?</p>
+                <p className="text-sm text-gray-600 mb-2 bg-orange-50 p-2 rounded italic">"Vou estar verificando seu resultado em breve"</p>
+                <p className="text-sm text-gray-600 mb-3">💡 Dica: "Vou estar verificando" é ERRADO e confunde muito. Use: "Vou verificar" (futuro) ou "Estou verificando" (em progresso). Esse erro é muito comum na saúde!</p>
                 <Textarea
                   name="question_4_response"
                   value={formData.question_4_response}
                   onChange={handleChange}
                   required
-                  placeholder="Sua resposta..."
+                  placeholder="Sua resposta corrigida..."
                   rows={4}
                   className="w-full"
                 />
