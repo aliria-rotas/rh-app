@@ -158,9 +158,9 @@ export default function TrainmentPublic() {
               <div>
                 <label className="block font-bold mb-2 text-gray-900">
                   1️⃣ Reconhecimento de Emoções do Paciente<br/>
-                  <span className="text-sm font-normal">Um paciente envia: "Tentei marcar consulta 3 vezes e ninguém consegue me ajudar! Estou desesperado!"</span>
+                  <span className="text-sm font-normal">Um paciente envia: "Pedi meu medicamento há 3 dias e ainda não chegou! Preciso urgente para tomar hoje! Estou desesperado!"</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Como você responderia reconhecendo a frustração e o desespero dele de forma empática e gentil?</p>
+                <p className="text-sm text-gray-600 mb-3">Como você responderia reconhecendo a urgência e o desespero dele de forma empática e gentil, sem fazer promessas que não pode cumprir?</p>
                 <Textarea
                   name="question_1_response"
                   value={formData.question_1_response}
@@ -178,43 +178,43 @@ export default function TrainmentPublic() {
                   2️⃣ Erros de Português: MAIS vs MAS<br/>
                   <span className="text-sm font-normal">Qual é a forma CORRETA de responder ao paciente?</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3 bg-orange-50 p-2 rounded italic">Frase original (ERRADA): "Seu documento foi rejeitado mas você pode enviar outro amanhã"</p>
+                <p className="text-sm text-gray-600 mb-3 bg-orange-50 p-2 rounded italic">Situação: Paciente ligou pedindo um medicamento que está temporariamente fora de estoque.</p>
                 <div className="space-y-3">
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_2_response"
-                      value="A) Seu documento foi rejeitado mas temos a solução! Posso orientá-lo."
-                      checked={formData.question_2_response === 'A) Seu documento foi rejeitado mas temos a solução! Posso orientá-lo.'}
+                      value="A) O medicamento está fora de estoque mas temos alternativas que funcionam igualmente bem!"
+                      checked={formData.question_2_response === 'A) O medicamento está fora de estoque mas temos alternativas que funcionam igualmente bem!'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>A)</strong> Seu documento foi rejeitado mas temos a solução! Posso orientá-lo.</span>
+                    <span className="text-sm"><strong>A)</strong> O medicamento está fora de estoque mas temos alternativas que funcionam igualmente bem!</span>
                   </label>
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_2_response"
-                      value="B) Seu documento não atendeu aos requisitos, mas sem problema! Posso ajudar com exatamente o que falta."
-                      checked={formData.question_2_response === 'B) Seu documento não atendeu aos requisitos, mas sem problema! Posso ajudar com exatamente o que falta.'}
+                      value="B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo."
+                      checked={formData.question_2_response === 'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>B)</strong> Seu documento não atendeu aos requisitos, mas sem problema! Posso ajudar com exatamente o que falta.</span>
+                    <span className="text-sm"><strong>B)</strong> Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.</span>
                   </label>
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_2_response"
-                      value="C) Seu documento foi rejeitado mais temos outra opção para você."
-                      checked={formData.question_2_response === 'C) Seu documento foi rejeitado mais temos outra opção para você.'}
+                      value="C) O medicamento não está disponível, mais temos outros que você pode usar."
+                      checked={formData.question_2_response === 'C) O medicamento não está disponível, mais temos outros que você pode usar.'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>C)</strong> Seu documento foi rejeitado mais temos outra opção para você.</span>
+                    <span className="text-sm"><strong>C)</strong> O medicamento não está disponível, mais temos outros que você pode usar.</span>
                   </label>
                 </div>
                 <p className="text-xs text-gray-500 mt-3">💡 MAS = contraste/oposição | MAIS = adição/quantidade</p>
@@ -226,46 +226,46 @@ export default function TrainmentPublic() {
                   3️⃣ Uso Correto do Gerúndio<br/>
                   <span className="text-sm font-normal">Qual frase está CORRETA?</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Qual forma de falar sobre o resultado está certa para o paciente?</p>
+                <p className="text-sm text-gray-600 mb-3">Paciente pergunta: "Quando meu medicamento chega?" Como você responderia?</p>
                 <div className="space-y-3">
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_3_response"
-                      value="A) Você vai recebendo o resultado em breve."
-                      checked={formData.question_3_response === 'A) Você vai recebendo o resultado em breve.'}
+                      value="A) Você vai recebendo o medicamento em até 2 dias."
+                      checked={formData.question_3_response === 'A) Você vai recebendo o medicamento em até 2 dias.'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>A)</strong> Você vai recebendo o resultado em breve.</span>
+                    <span className="text-sm"><strong>A)</strong> Você vai recebendo o medicamento em até 2 dias.</span>
                   </label>
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_3_response"
-                      value="B) Seu resultado está sendo preparado neste momento e você receberá em breve."
-                      checked={formData.question_3_response === 'B) Seu resultado está sendo preparado neste momento e você receberá em breve.'}
+                      value="B) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias."
+                      checked={formData.question_3_response === 'B) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>B)</strong> Seu resultado está sendo preparado neste momento e você receberá em breve.</span>
+                    <span className="text-sm"><strong>B)</strong> Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.</span>
                   </label>
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_3_response"
-                      value="C) Você vai consultando o médico amanhã pela manhã."
-                      checked={formData.question_3_response === 'C) Você vai consultando o médico amanhã pela manhã.'}
+                      value="C) Você vai pegando o medicamento amanhã na farmácia."
+                      checked={formData.question_3_response === 'C) Você vai pegando o medicamento amanhã na farmácia.'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>C)</strong> Você vai consultando o médico amanhã pela manhã.</span>
+                    <span className="text-sm"><strong>C)</strong> Você vai pegando o medicamento amanhã na farmácia.</span>
                   </label>
                 </div>
-                <p className="text-xs text-gray-500 mt-3">💡 Gerúndio (-ando,-endo,-indo) = ação em progresso: "Estou analisando" ✅ | "Você vai fazendo" ❌</p>
+                <p className="text-xs text-gray-500 mt-3">💡 Gerúndio (-ando,-endo,-indo) = ação em progresso: "Estou preparando" ✅ | "Você vai fazendo" ❌</p>
               </div>
 
               {/* Pergunta 4 - ALTERNATIVA */}
@@ -274,43 +274,43 @@ export default function TrainmentPublic() {
                   4️⃣ Erro Comum: "Vou estar verificando"<br/>
                   <span className="text-sm font-normal">Qual forma de falar está CORRETA?</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Como avisar ao paciente que você vai verificar o resultado?</p>
+                <p className="text-sm text-gray-600 mb-3">Paciente: "Preciso saber se o medicamento já saiu para entrega". Como responder?</p>
                 <div className="space-y-3">
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_4_response"
-                      value="A) Vou estar verificando seu resultado em breve, combinado?"
-                      checked={formData.question_4_response === 'A) Vou estar verificando seu resultado em breve, combinado?'}
+                      value="A) Vou estar verificando o status do seu pedido em breve, combinado?"
+                      checked={formData.question_4_response === 'A) Vou estar verificando o status do seu pedido em breve, combinado?'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>A)</strong> Vou estar verificando seu resultado em breve, combinado?</span>
+                    <span className="text-sm"><strong>A)</strong> Vou estar verificando o status do seu pedido em breve, combinado?</span>
                   </label>
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_4_response"
-                      value="B) Vou verificar seu resultado agora mesmo e retorno com você em minutos."
-                      checked={formData.question_4_response === 'B) Vou verificar seu resultado agora mesmo e retorno com você em minutos.'}
+                      value="B) Vou verificar o status agora mesmo e retorno com você em 2 minutos."
+                      checked={formData.question_4_response === 'B) Vou verificar o status agora mesmo e retorno com você em 2 minutos.'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>B)</strong> Vou verificar seu resultado agora mesmo e retorno com você em minutos.</span>
+                    <span className="text-sm"><strong>B)</strong> Vou verificar o status agora mesmo e retorno com você em 2 minutos.</span>
                   </label>
                   <label className="flex items-start gap-3 p-3 border rounded cursor-pointer hover:bg-blue-50">
                     <input
                       type="radio"
                       name="question_4_response"
-                      value="C) Estou verificando seu resultado neste exato momento."
-                      checked={formData.question_4_response === 'C) Estou verificando seu resultado neste exato momento.'}
+                      value="C) Estou verificando o sistema neste exato momento para você."
+                      checked={formData.question_4_response === 'C) Estou verificando o sistema neste exato momento para você.'}
                       onChange={handleChange}
                       required
                       className="mt-1"
                     />
-                    <span className="text-sm"><strong>C)</strong> Estou verificando seu resultado neste exato momento.</span>
+                    <span className="text-sm"><strong>C)</strong> Estou verificando o sistema neste exato momento para você.</span>
                   </label>
                 </div>
                 <p className="text-xs text-gray-500 mt-3">💡 ❌ "Vou estar verificando" confunde! ✅ Use: "Vou verificar" (futuro) ou "Estou verificando" (em progresso)</p>
@@ -320,9 +320,9 @@ export default function TrainmentPublic() {
               <div>
                 <label className="block font-bold mb-2 text-gray-900">
                   5️⃣ Situação Complexa: Investigação + Empatia<br/>
-                  <span className="text-sm font-normal">Um paciente irritado diz: "Já fiz o exame na segunda e ainda não tenho resultado! Como assim?"</span>
+                  <span className="text-sm font-normal">Um paciente irritado diz: "Pedi meu medicamento no início da semana e hoje é sexta! Ainda não chegou! Precisei ontem!"</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Como você investigaria o problema enquanto acalma o paciente? Use português correto!</p>
+                <p className="text-sm text-gray-600 mb-3">Como você investigaria o problema enquanto acalma o paciente? Use português correto e sem fazer promessas impossíveis!</p>
                 <Textarea
                   name="question_5_response"
                   value={formData.question_5_response}
@@ -337,10 +337,10 @@ export default function TrainmentPublic() {
               {/* Pergunta 6 */}
               <div>
                 <label className="block font-bold mb-2 text-gray-900">
-                  6️⃣ Aplicação Prática dos 3 Pilares no Atendimento ao Paciente<br/>
-                  <span className="text-sm font-normal">Descreva uma situação REAL de atendimento ao paciente onde você usaria Clareza, Empatia e Eficiência juntos.</span>
+                  6️⃣ Aplicação Prática dos 3 Pilares no Atendimento<br/>
+                  <span className="text-sm font-normal">Descreva uma situação REAL do seu dia a dia onde você usaria Clareza, Empatia e Eficiência juntos.</span>
                 </label>
-                <p className="text-sm text-gray-600 mb-3">Seja prático! Mostre como os pilares funcionam na prática. Atente-se ao português correto!</p>
+                <p className="text-sm text-gray-600 mb-3">Pode ser sobre: medicamento fora de estoque, pedido atrasado, dúvida sobre posologia, etc. Use português correto e mostre como os pilares funcionam na prática!</p>
                 <Textarea
                   name="question_6_response"
                   value={formData.question_6_response}
