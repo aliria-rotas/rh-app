@@ -357,7 +357,8 @@ export default function PlanoTreinamento() {
             </div>
           )}
         </div>
-        </>
+      )}
+      </>
       )}
 
       {activeTab === 'respostas' && <TrainningResponses />}
