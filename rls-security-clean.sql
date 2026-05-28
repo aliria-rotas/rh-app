@@ -1,0 +1,21 @@
+ALTER TABLE rh_employees ENABLE ROW LEVEL SECURITY;
+ALTER TABLE rh_benefits_config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE rh_job_openings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE rh_interview_questions ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can read their own employee data" ON rh_employees FOR SELECT USING (auth.uid()::text = id OR auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can update employee data" ON rh_employees FOR UPDATE USING (auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can insert employees" ON rh_employees FOR INSERT WITH CHECK (auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can delete employees" ON rh_employees FOR DELETE USING (auth.jwt() ->> 'role' = 'admin');
+
+CREATE POLICY "Only admin can read benefits config" ON rh_benefits_config FOR SELECT USING (auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can update benefits config" ON rh_benefits_config FOR UPDATE USING (auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can insert benefits config" ON rh_benefits_config FOR INSERT WITH CHECK (auth.jwt() ->> 'role' = 'admin');
+
+CREATE POLICY "Anyone can read open job openings" ON rh_job_openings FOR SELECT USING (status = 'open' OR auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can update job openings" ON rh_job_openings FOR UPDATE USING (auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can insert job openings" ON rh_job_openings FOR INSERT WITH CHECK (auth.jwt() ->> 'role' = 'admin');
+
+CREATE POLICY "Authenticated users can read interview questions" ON rh_interview_questions FOR SELECT USING (auth.jwt() ->> 'sub' IS NOT NULL);
+CREATE POLICY "Only admin can update interview questions" ON rh_interview_questions FOR UPDATE USING (auth.jwt() ->> 'role' = 'admin');
+CREATE POLICY "Only admin can insert interview questions" ON rh_interview_questions FOR INSERT WITH CHECK (auth.jwt() ->> 'role' = 'admin');
