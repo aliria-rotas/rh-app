@@ -191,6 +191,7 @@ export interface TrainingAction {
   participants_count: number
   status: TrainingStatus
   scheduled_date: string
+  has_public_form?: boolean
   created_at: string
 }
 

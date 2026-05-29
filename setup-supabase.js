@@ -8,11 +8,12 @@
  * Get the Service Role Key from: https://app.supabase.com -> Settings -> API -> Service Role Key
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Check for Node fetch support
-const fetch = require('node-fetch') || global.fetch;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function executeSql(projectUrl, serviceRoleKey, sql) {
   try {

@@ -6,15 +6,25 @@ import { Download, Mail, MessageSquare, Calendar, AlertCircle } from 'lucide-rea
 
 interface Response {
   id: string
+  training_id?: string
+  training_title?: string
   collaborator_name: string
   collaborator_email: string
   question_1_response: string
   question_2_response: string
   question_3_response: string
+  question_4_response?: string
+  question_5_response?: string
+  question_6_response?: string
   completed_at: string
 }
 
-export function TrainningResponses() {
+interface TrainningResponsesProps {
+  trainingId?: string
+  trainingTitle?: string
+}
+
+export function TrainningResponses({ trainingId, trainingTitle }: TrainningResponsesProps = {}) {
   const [responses, setResponses] = useState<Response[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -22,14 +32,17 @@ export function TrainningResponses() {
 
   useEffect(() => {
     loadResponses()
-  }, [])
+  }, [trainingId])
 
   async function loadResponses() {
     try {
       setLoading(true)
+      // Use training ID if provided, otherwise use default
+      const finalTrainingId = trainingId || 'chatbot_empatico_001'
+
       // Usar RPC function que contorna o RLS
       const { data, error: fetchError } = await supabase.rpc('get_training_responses', {
-        p_training_id: 'chatbot_empatico_001'
+        p_training_id: finalTrainingId
       })
 
       if (fetchError) throw fetchError
@@ -97,7 +110,7 @@ export function TrainningResponses() {
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">📋 Respostas do Treinamento</h2>
-          <p className="text-gray-600 text-sm mt-1">Atendimento Empático em Chatbot</p>
+          <p className="text-gray-600 text-sm mt-1">{trainingTitle || 'Atendimento Empático em Chatbot'}</p>
         </div>
         <div className="flex gap-2">
           <Button
@@ -127,7 +140,9 @@ export function TrainningResponses() {
             </p>
             <Button
               onClick={() => {
-                const link = `${window.location.origin}/treinamento-publico`
+                const link = trainingId
+                  ? `${window.location.origin}/treinamento-publico?id=${trainingId}`
+                  : `${window.location.origin}/treinamento-publico`
                 navigator.clipboard.writeText(link)
               }}
               className="bg-blue-600 hover:bg-blue-700"

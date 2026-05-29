@@ -308,8 +308,12 @@ export default function Recrutamento() {
             <div className="flex items-center gap-3">
               <button onClick={() => setSelectedJob(null)} className="text-sm text-blue-600 hover:underline">← Vagas</button>
               <span className="text-slate-400">/</span>
-              <h2 className="font-semibold text-slate-800">{selectedJob.title}</h2>
-              <StatusBadge status={selectedJob.status} />
+              {selectedJob && (
+                <>
+                  <h2 className="font-semibold text-slate-800">{selectedJob.title}</h2>
+                  <StatusBadge status={selectedJob.status} />
+                </>
+              )}
             </div>
           </div>
 

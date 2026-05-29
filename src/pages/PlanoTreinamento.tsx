@@ -7,7 +7,7 @@ import { Modal } from '@/components/ui/Modal'
 import { dbTrainings } from '@/lib/db'
 import { TrainingAction, TrainingStatus, TrainingModality } from '@/types'
 import { formatDate, formatCurrency } from '@/lib/utils'
-import { Plus, Pencil, Trash2, BookOpen, Clock, DollarSign, Users, MessageSquare } from 'lucide-react'
+import { Plus, Pencil, Trash2, BookOpen, Clock, DollarSign, Users, MessageSquare, Link as LinkIcon } from 'lucide-react'
 import { TrainningResponses } from '@/components/TrainningResponses'
 
 const STATUS_OPTS = [
@@ -50,6 +50,7 @@ const EMPTY_FORM = {
   participants_count: 0,
   status: 'planejado' as TrainingStatus,
   scheduled_date: '',
+  has_public_form: false,
 }
 
 export default function PlanoTreinamento() {
@@ -83,6 +84,7 @@ export default function PlanoTreinamento() {
       cost_per_person: t.cost_per_person,
       participants_count: t.participants_count,
       status: t.status, scheduled_date: t.scheduled_date,
+      has_public_form: t.has_public_form ?? false,
     })
     setModal(true)
   }
@@ -281,6 +283,12 @@ export default function PlanoTreinamento() {
                     )}
                   </div>
                   <div className="flex gap-1 flex-shrink-0">
+                    {t.has_public_form && (
+                      <Button variant="ghost" size="sm" title="Abrir formulário público"
+                        onClick={() => window.open(`/treinamento-publico?id=${t.id}`, '_blank')}>
+                        <LinkIcon size={14} className="text-blue-600" />
+                      </Button>
+                    )}
                     <Button variant="ghost" size="sm" onClick={() => openEdit(t)}>
                       <Pencil size={14} />
                     </Button>
@@ -340,6 +348,12 @@ export default function PlanoTreinamento() {
                     )}
                   </div>
                   <div className="flex gap-1 flex-shrink-0">
+                    {t.has_public_form && (
+                      <Button variant="ghost" size="sm" title="Abrir formulário público"
+                        onClick={() => window.open(`/treinamento-publico?id=${t.id}`, '_blank')}>
+                        <LinkIcon size={14} className="text-blue-600" />
+                      </Button>
+                    )}
                     <Button variant="ghost" size="sm" onClick={() => openEdit(t)}>
                       <Pencil size={14} />
                     </Button>
@@ -437,6 +451,32 @@ export default function PlanoTreinamento() {
             value={form.scheduled_date}
             onChange={e => setForm(f => ({ ...f, scheduled_date: e.target.value }))}
           />
+
+          {/* Formulário Público */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={form.has_public_form ?? false}
+                onChange={e => setForm(f => ({ ...f, has_public_form: e.target.checked }))}
+                className="w-4 h-4 rounded border-gray-300"
+              />
+              <div>
+                <p className="font-medium text-slate-800">Habilitar formulário público</p>
+                <p className="text-xs text-slate-600 mt-0.5">
+                  Colaboradores podem acessar o formulário de respostas sem fazer login
+                </p>
+              </div>
+            </label>
+            {form.has_public_form && (
+              <div className="mt-3 p-3 bg-white rounded border border-blue-200 text-sm text-slate-700">
+                <p className="font-medium mb-1">Link público:</p>
+                <code className="bg-slate-100 px-2 py-1 rounded text-xs break-all">
+                  {window.location.origin}/treinamento-publico?id={editing?.id || 'novo'}
+                </code>
+              </div>
+            )}
+          </div>
 
           {/* Cargos alvo */}
           <div>

@@ -1,13 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Input, Textarea } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { supabase } from '@/lib/supabase'
+import { dbTrainings } from '@/lib/db'
 import { CheckCircle } from 'lucide-react'
+import type { TrainingAction } from '@/types'
 
 export default function TrainmentPublic() {
+  const [searchParams] = useSearchParams()
+  const trainingId = searchParams.get('id')
+
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [training, setTraining] = useState<TrainingAction | null>(null)
+  const [trainingLoading, setTrainingLoading] = useState(true)
   const [formData, setFormData] = useState({
     collaborator_name: '',
     collaborator_email: '',
@@ -19,6 +27,18 @@ export default function TrainmentPublic() {
     question_6_response: '',
   })
 
+  useEffect(() => {
+    async function loadTraining() {
+      if (trainingId) {
+        const trainings = await dbTrainings.list()
+        const found = trainings.find(t => t.id === trainingId)
+        setTraining(found || null)
+      }
+      setTrainingLoading(false)
+    }
+    loadTraining()
+  }, [trainingId])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
@@ -27,10 +47,14 @@ export default function TrainmentPublic() {
     e.preventDefault()
     setLoading(true)
 
+    // Use training data if available, otherwise use defaults
+    const finalTrainingId = training?.id || 'chatbot_empatico_001'
+    const finalTrainingTitle = training?.title || 'Atendimento Empático em Chatbot'
+
     try {
       const { data, error } = await supabase.rpc('insert_training_response', {
-        p_training_id: 'chatbot_empatico_001',
-        p_training_title: 'Atendimento Empático em Chatbot',
+        p_training_id: finalTrainingId,
+        p_training_title: finalTrainingTitle,
         p_collaborator_name: formData.collaborator_name,
         p_collaborator_email: formData.collaborator_email,
         p_question_1_response: formData.question_1_response,
@@ -68,13 +92,27 @@ export default function TrainmentPublic() {
     )
   }
 
+  if (trainingLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Carregando treinamento...</p>
+        </div>
+      </div>
+    )
+  }
+
+  const trainingTitle = training?.title || 'Atendimento Empático em Chatbot'
+  const durationHours = training?.duration_hours || 2
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-2 text-gray-900">
-          📱 Atendimento Empático em Chatbot
+          📱 {trainingTitle}
         </h1>
-        <p className="text-center text-gray-600 mb-8">Duração: 2 horas | Complete o treinamento e responda as perguntas</p>
+        <p className="text-center text-gray-600 mb-8">Duração: {durationHours} horas | Complete o treinamento e responda as perguntas</p>
 
         {/* RESUMO DO TREINAMENTO */}
         <Card className="mb-8 border-2 border-blue-300">
