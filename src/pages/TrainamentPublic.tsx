@@ -471,7 +471,7 @@ export default function TrainmentPublic() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Carregando treinamento...</p>
         </div>
       </div>
@@ -485,10 +485,11 @@ export default function TrainmentPublic() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 flex items-center justify-center">
       <div className="w-full max-w-2xl">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-center mb-2 text-gray-900">📱 {trainingTitle}</h1>
+          <h1 className="text-3xl font-bold text-center mb-1 text-gray-900">📱 {trainingTitle}</h1>
+          <p className="text-center text-sm text-orange-600 font-semibold mb-4">🎓 Treinamento de Atendimento Empático - Duração: ~15 minutos</p>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-blue-600 h-2 rounded-full transition-all"
+              className="bg-orange-500 h-2 rounded-full transition-all"
               style={{ width: `${((currentStep + 1) / allSlides.length) * 100}%` }}
             ></div>
           </div>
@@ -545,7 +546,7 @@ export default function TrainmentPublic() {
                         onClick={() => handleSelectAnswer(slide.questionNum!, option)}
                         className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                           isSelected
-                            ? 'border-blue-600 bg-blue-50'
+                            ? 'border-orange-500 bg-orange-50'
                             : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                         }`}
                       >
@@ -663,7 +664,7 @@ export default function TrainmentPublic() {
                 <Button
                   onClick={handleNext}
                   disabled={currentStep === allSlides.length - 1}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  className="bg-orange-500 hover:bg-orange-600 text-white"
                 >
                   Próximo
                   <ChevronRight size={18} className="ml-2" />
