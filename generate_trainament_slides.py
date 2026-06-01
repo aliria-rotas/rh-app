@@ -1,4 +1,10 @@
-import { useState, useEffect } from 'react'
+#!/usr/bin/env python3
+"""
+Gera TrainamentPublic.tsx com estrutura de SLIDES PROGRESSIVOS
+Cada pergunta MC tem 3 slides: Pergunta → Feedback → Explicação
+"""
+
+TEMPLATE = '''import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Input, Textarea } from '@/components/ui/Input'
@@ -676,3 +682,23 @@ export default function TrainmentPublic() {
     </div>
   )
 }
+'''
+
+import os
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+
+output_path = os.path.join(os.path.dirname(__file__), 'src', 'pages', 'TrainamentPublic.tsx')
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
+with open(output_path, 'w', encoding='utf-8') as f:
+    f.write(TEMPLATE)
+
+print("✅ Arquivo TrainamentPublic.tsx com SLIDES gerado com sucesso!")
+print(f"Linhas: {len(TEMPLATE.splitlines())}")
+print("\nEstrutura de slides:")
+print("1️⃣ Dados pessoais")
+print("2️⃣ Pergunta MC 1 → Feedback 1 → Explicação 1")
+print("3️⃣ Pergunta MC 2 → Feedback 2 → Explicação 2")
+print("... (7 perguntas MC totais)")
+print("4️⃣ Perguntas abertas (1 por slide)")
+print("5️⃣ Slide de envio")
