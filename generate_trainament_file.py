@@ -1,4 +1,10 @@
-import { useState, useEffect } from 'react'
+#!/usr/bin/env python3
+"""
+Script para gerar TrainamentPublic.tsx com todos os 12 slides e 14 perguntas.
+Estrutura: Pergunta + Feedback + Slides Relacionados
+"""
+
+TEMPLATE = '''import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Input, Textarea } from '@/components/ui/Input'
@@ -242,7 +248,7 @@ export default function TrainmentPublic() {
     setFormData({ ...formData, [name]: value })
 
     // Verificar se é uma pergunta de múltipla escolha e fornecer feedback imediato
-    const questionMatch = name.match(/question_(\d+)_response/)
+    const questionMatch = name.match(/question_(\\d+)_response/)
     if (questionMatch) {
       const questionNum = parseInt(questionMatch[1])
       // Verificar se é uma pergunta de múltipla escolha
@@ -696,3 +702,22 @@ export default function TrainmentPublic() {
     </div>
   )
 }
+'''
+
+# Escrever arquivo
+import os
+output_path = os.path.join(os.path.dirname(__file__), 'src', 'pages', 'TrainamentPublic.tsx')
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
+with open(output_path, 'w', encoding='utf-8') as f:
+    f.write(TEMPLATE)
+
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+print("✅ Arquivo TrainamentPublic.tsx gerado com sucesso!")
+print(f"Linhas: {len(TEMPLATE.splitlines())}")
+print("Incluído:")
+print("- 12 slides completos")
+print("- 7 perguntas MC com mapeamento para slides")
+print("- 7 perguntas abertas")
+print("- Feedback imediato")
+print("- Estrutura pergunta + feedback + slides")
