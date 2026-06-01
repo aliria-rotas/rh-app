@@ -156,19 +156,6 @@ export default function Login() {
               {loading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
-
-          {/* Info Box */}
-          <div className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
-            <p className="text-xs text-orange-800 mb-2">
-              <strong>Para testar:</strong>
-            </p>
-            <p className="text-xs text-orange-700 mb-1">
-              Email: <code className="bg-orange-100 px-1 rounded">rh@aliria.com</code>
-            </p>
-            <p className="text-xs text-orange-700">
-              Senha: <code className="bg-orange-100 px-1 rounded">Teste@123456</code>
-            </p>
-          </div>
         </div>
 
         {/* Footer */}
