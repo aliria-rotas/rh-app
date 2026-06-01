@@ -76,11 +76,11 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-600 rounded-full mb-4">
             <LogIn className="text-white" size={32} />
           </div>
           <h1 className="text-3xl font-bold text-gray-900">Aliria RH</h1>
@@ -125,7 +125,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu@email.com"
                 disabled={loading}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition disabled:bg-gray-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition disabled:bg-gray-50 disabled:cursor-not-allowed"
                 autoComplete="email"
               />
             </div>
@@ -142,7 +142,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 disabled={loading}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition disabled:bg-gray-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition disabled:bg-gray-50 disabled:cursor-not-allowed"
                 autoComplete="current-password"
               />
             </div>
@@ -151,22 +151,22 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading || validationErrors.length > 0}
-              className="w-full py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed mt-6"
+              className="w-full py-2 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed mt-6"
             >
               {loading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
 
           {/* Info Box */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-xs text-blue-800 mb-2">
+          <div className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+            <p className="text-xs text-orange-800 mb-2">
               <strong>Para testar:</strong>
             </p>
-            <p className="text-xs text-blue-700 mb-1">
-              Email: <code className="bg-blue-100 px-1 rounded">rh@aliria.com</code>
+            <p className="text-xs text-orange-700 mb-1">
+              Email: <code className="bg-orange-100 px-1 rounded">rh@aliria.com</code>
             </p>
-            <p className="text-xs text-blue-700">
-              Senha: <code className="bg-blue-100 px-1 rounded">Teste@123456</code>
+            <p className="text-xs text-orange-700">
+              Senha: <code className="bg-orange-100 px-1 rounded">Teste@123456</code>
             </p>
           </div>
         </div>
