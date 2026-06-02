@@ -36,11 +36,11 @@ const CORRECT_ANSWERS: {[key: number]: string} = {
 }
 
 const QUESTION_SLIDE_MAP: {[key: number]: number[]} = {
-  2: [3, 4, 7],
-  3: [7],
+  2: [3, 4, 13],
+  3: [14],
   4: [7],
   7: [5],
-  9: [7, 3],
+  9: [3],
   11: [9, 2, 6],
   13: [11]
 }
@@ -219,21 +219,6 @@ const SLIDES_EDUCATIONAL = [
         <div><strong>⚡ Sem Gírias</strong> - Manter profissionalismo</div>
         <div><strong>📋 Estrutura</strong> - Parágrafos curtos e bem organizados</div>
         <div><strong>✅ Sem Erros</strong> - Revisar antes de enviar</div>
-        <div className="mt-4 pt-4 border-t border-white/20">
-          <strong>🔑 MAS vs MAIS</strong>
-          <div className="text-sm mt-2">
-            • <strong>MAS</strong> = contraste/oposição (ex: "fora de estoque, <u>mas</u> temos alternativas")
-            <br/>• <strong>MAIS</strong> = adição/quantidade (ex: "preciso de <u>mais</u> informações")
-          </div>
-        </div>
-        <div className="mt-4 pt-4 border-t border-white/20">
-          <strong>⚠️ GERUNDISMO (Evitar!)</strong>
-          <div className="text-sm mt-2">
-            Uso desnecessário do gerúndio para expressar uma ação pontual.
-            <br/>❌ <u>Evite:</u> "Vou estar verificando seu cadastro"
-            <br/>✅ <u>Use:</u> "Vou verificar seu cadastro" ou "Verificarei seu cadastro"
-          </div>
-        </div>
       </div>
     ),
   },
@@ -299,6 +284,33 @@ const SLIDES_EDUCATIONAL = [
         <div><strong>❌ Ignorar Emoções</strong> - Reconheça sentimentos</div>
         <div><strong>❌ Respostas Genéricas</strong> - Personalize!</div>
         <div><strong>❌ Não Transferir</strong> - Saiba seus limites</div>
+      </div>
+    ),
+  },
+  {
+    id: 13,
+    title: '🔑 MAS vs MAIS',
+    color: 'from-orange-500 to-orange-600',
+    content: (
+      <div className="space-y-3">
+        <div><strong>MAS</strong> = contraste/oposição</div>
+        <div className="text-sm italic">Ex: "Fora de estoque, <u>mas</u> temos alternativas"</div>
+        <div className="mt-3"><strong>MAIS</strong> = adição/quantidade</div>
+        <div className="text-sm italic">Ex: "Preciso de <u>mais</u> informações"</div>
+      </div>
+    ),
+  },
+  {
+    id: 14,
+    title: '⚠️ GERUNDISMO (Evitar!)',
+    color: 'from-orange-500 to-orange-600',
+    content: (
+      <div className="space-y-3">
+        <div>Uso desnecessário do gerúndio para ação pontual.</div>
+        <div className="mt-3"><strong>❌ Evite:</strong></div>
+        <div className="text-sm italic">"Vou estar verificando seu cadastro"</div>
+        <div className="mt-3"><strong>✅ Use:</strong></div>
+        <div className="text-sm italic">"Vou verificar seu cadastro"<br/>ou "Verificarei seu cadastro"</div>
       </div>
     ),
   },
