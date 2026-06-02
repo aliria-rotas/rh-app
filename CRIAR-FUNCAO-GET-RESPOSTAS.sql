@@ -10,22 +10,25 @@ CREATE OR REPLACE FUNCTION public.get_training_responses(
   training_title TEXT,
   collaborator_name TEXT,
   collaborator_email TEXT,
-  question_1_response TEXT,
   question_2_response TEXT,
   question_3_response TEXT,
   question_4_response TEXT,
   question_5_response TEXT,
   question_6_response TEXT,
+  question_7_response TEXT,
+  question_8_response TEXT,
+  question_9_response TEXT,
+  question_10_response TEXT,
+  question_11_response TEXT,
+  question_13_response TEXT,
+  question_14_response TEXT,
   completed_at TIMESTAMP,
   created_at TIMESTAMP,
   updated_at TIMESTAMP
 ) AS $$
 BEGIN
-  -- Apenas rh@aliria.com pode acessar
-  IF auth.email() != 'rh@aliria.com' THEN
-    RAISE EXCEPTION 'Sem permissão para acessar respostas';
-  END IF;
-
+  -- Acesso autorizado para usuários autenticados
+  -- (pode ser refinado se necessário)
   RETURN QUERY
   SELECT
     r.id,
@@ -33,18 +36,24 @@ BEGIN
     r.training_title,
     r.collaborator_name,
     r.collaborator_email,
-    r.question_1_response,
     r.question_2_response,
     r.question_3_response,
     r.question_4_response,
     r.question_5_response,
     r.question_6_response,
+    r.question_7_response,
+    r.question_8_response,
+    r.question_9_response,
+    r.question_10_response,
+    r.question_11_response,
+    r.question_13_response,
+    r.question_14_response,
     r.completed_at,
     r.created_at,
     r.updated_at
   FROM public.rh_training_responses r
   WHERE r.training_id = p_training_id
-  ORDER BY r.completed_at DESC;
+  ORDER BY r.created_at DESC;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 

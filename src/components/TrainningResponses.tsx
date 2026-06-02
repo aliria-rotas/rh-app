@@ -2,7 +2,18 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { supabase } from '@/lib/supabase'
-import { Download, Mail, MessageSquare, Calendar, AlertCircle } from 'lucide-react'
+import { Download, Mail, MessageSquare, Calendar, AlertCircle, CheckCircle, XCircle } from 'lucide-react'
+
+// Respostas corretas para cada pergunta
+const CORRECT_ANSWERS: {[key: number]: string} = {
+  2: 'A) O medicamento não está disponível, mais temos outros que você pode usar.',
+  3: 'A) Vou estar consultando seu histórico e já retorno com a informação.',
+  4: 'A) Vou estar verificando o status e retorno para você.',
+  7: 'B) Clareza e objetividade',
+  9: 'B) Favor enviar o documento para análise.',
+  11: 'B) Demonstrar compreensão e buscar uma solução',
+  13: 'B) Em toda conversa',
+}
 
 interface Response {
   id: string
@@ -231,49 +242,44 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
                       {/* Perguntas Múltipla Escolha */}
                       <div className="mb-6 pb-6 border-b border-gray-300">
                         <h4 className="font-bold text-base text-gray-900 mb-4">📋 Múltipla Escolha</h4>
-                        <div className="space-y-3">
-                          {response.question_2_response && (
-                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                              <p className="text-xs font-bold text-blue-900 mb-1">Q2: MAIS vs MAS</p>
-                              <p className="text-sm text-gray-700">{response.question_2_response}</p>
-                            </div>
-                          )}
-                          {response.question_3_response && (
-                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                              <p className="text-xs font-bold text-blue-900 mb-1">Q3: Gerundismo</p>
-                              <p className="text-sm text-gray-700">{response.question_3_response}</p>
-                            </div>
-                          )}
-                          {response.question_4_response && (
-                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                              <p className="text-xs font-bold text-blue-900 mb-1">Q4: Estar vs Ir</p>
-                              <p className="text-sm text-gray-700">{response.question_4_response}</p>
-                            </div>
-                          )}
-                          {response.question_7_response && (
-                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                              <p className="text-xs font-bold text-blue-900 mb-1">Q7: Chat Características</p>
-                              <p className="text-sm text-gray-700">{response.question_7_response}</p>
-                            </div>
-                          )}
-                          {response.question_9_response && (
-                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                              <p className="text-xs font-bold text-blue-900 mb-1">Q9: Comunicação Profissional</p>
-                              <p className="text-sm text-gray-700">{response.question_9_response}</p>
-                            </div>
-                          )}
-                          {response.question_11_response && (
-                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                              <p className="text-xs font-bold text-blue-900 mb-1">Q11: Lidar com Reclamações</p>
-                              <p className="text-sm text-gray-700">{response.question_11_response}</p>
-                            </div>
-                          )}
-                          {response.question_13_response && (
-                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                              <p className="text-xs font-bold text-blue-900 mb-1">Q13: Transferir para Humano</p>
-                              <p className="text-sm text-gray-700">{response.question_13_response}</p>
-                            </div>
-                          )}
+                        <div className="space-y-4">
+                          {[
+                            { q: 2, title: 'Q2: MAIS vs MAS', resp: response.question_2_response },
+                            { q: 3, title: 'Q3: Gerundismo', resp: response.question_3_response },
+                            { q: 4, title: 'Q4: Estar vs Ir', resp: response.question_4_response },
+                            { q: 7, title: 'Q7: Chat Características', resp: response.question_7_response },
+                            { q: 9, title: 'Q9: Comunicação Profissional', resp: response.question_9_response },
+                            { q: 11, title: 'Q11: Lidar com Reclamações', resp: response.question_11_response },
+                            { q: 13, title: 'Q13: Transferir para Humano', resp: response.question_13_response },
+                          ].map(({ q, title, resp }) => {
+                            const isCorrect = resp === CORRECT_ANSWERS[q]
+                            return resp ? (
+                              <div key={q} className={`p-4 rounded-lg border-2 ${isCorrect ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
+                                <div className="flex items-start gap-3">
+                                  {isCorrect ? (
+                                    <CheckCircle className="text-green-600 flex-shrink-0 mt-0.5" size={20} />
+                                  ) : (
+                                    <XCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
+                                  )}
+                                  <div className="flex-1">
+                                    <p className="text-xs font-bold mb-3">{title}</p>
+                                    <div className="space-y-2 text-sm">
+                                      <div>
+                                        <p className="font-semibold text-gray-900">Resposta selecionada:</p>
+                                        <p className={`text-gray-700 ${isCorrect ? 'text-green-700 font-semibold' : ''}`}>{resp}</p>
+                                      </div>
+                                      {!isCorrect && (
+                                        <div className="border-t pt-2">
+                                          <p className="font-semibold text-gray-900">Resposta correta:</p>
+                                          <p className="text-green-700 font-semibold">{CORRECT_ANSWERS[q]}</p>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ) : null
+                          })}
                         </div>
                       </div>
 
