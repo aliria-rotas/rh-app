@@ -1,6 +1,7 @@
 import { Building2, Users, Award, Wind, UserSearch, UserX, BarChart3, Megaphone, BookOpen, DollarSign, TrendingUp, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/Card'
+import { useInterviewReminders } from '@/hooks/useInterviewReminders'
 
 const modules = [
   { label: 'Identidade Organizacional', icon: Building2, to: '/identidade', color: 'bg-indigo-50 text-indigo-600', desc: 'Missão, visão, valores e cultura' },
@@ -17,6 +18,9 @@ const modules = [
 ]
 
 export default function Dashboard() {
+  // Verificar entrevistas a cada minuto e disparar alertas
+  useInterviewReminders()
+
   return (
     <div className="space-y-8">
       {/* Hero */}

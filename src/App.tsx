@@ -21,6 +21,7 @@ import Colaboradores from '@/pages/Colaboradores'
 import Beneficios from '@/pages/Beneficios'
 import Relatorios from '@/pages/Relatorios'
 import TrainamentPublic from '@/pages/TrainamentPublic'
+import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/treinamento-publico" element={<TrainamentPublic />} />
+          <Route path="/treinamentos-publicos" element={<TreinamentosPublicos />} />
           <Route
             element={
               <ProtectedRoute>

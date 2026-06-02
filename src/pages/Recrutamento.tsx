@@ -8,6 +8,8 @@ import { dbJobOpenings, dbCandidates, dbInterviewQuestions } from '@/lib/db'
 import { JobOpening, Candidate, JobStatus, CandidateStage } from '@/types'
 import { formatDate, STATUS_LABELS } from '@/lib/utils'
 import { Plus, Pencil, Trash2, UserSearch, Users, ChevronRight, X, Star, HelpCircle, Trash } from 'lucide-react'
+import * as pdfjsLib from 'pdfjs-dist'
+import workerSrc from 'pdfjs-dist/build/pdf.worker.mjs?url'
 
 const JOB_STATUS_OPTS = [
   { value: 'aberta', label: 'Aberta' },
@@ -54,7 +56,7 @@ export default function Recrutamento() {
   const [editingCand, setEditingCand] = useState<Candidate | null>(null)
   const [editingQuestion, setEditingQuestion] = useState<any | null>(null)
   const [jobForm, setJobForm] = useState({ title: '', department: '', description: '', status: 'aberta' as JobStatus, opening_date: '', closing_date: '' })
-  const [candForm, setCandForm] = useState({ name: '', email: '', phone: '', linkedin: '', notes: '', stage: 'inscrito' as CandidateStage })
+  const [candForm, setCandForm] = useState({ name: '', email: '', phone: '', linkedin: '', notes: '', stage: 'inscrito' as CandidateStage, interview_date: '', interview_time: '' })
   const [questionForm, setQuestionForm] = useState({ category: 'experiencia_passada', question: '', type: 'aberta', order_number: 0 })
   const [inlineForm, setInlineForm] = useState({ category: '', question: '', type: '' })
 
@@ -102,6 +104,7 @@ export default function Recrutamento() {
       const jobUpdated = await dbJobOpenings.update(selectedJob.id, { candidates_count: selectedJob.candidates_count + 1 })
       setJobs(prev => prev.map(j => j.id === selectedJob.id ? jobUpdated : j))
     }
+    setCandForm({ name: '', email: '', phone: '', linkedin: '', notes: '', stage: 'inscrito', interview_date: '', interview_time: '' })
     setCandModal(false)
   }
 
@@ -124,21 +127,60 @@ export default function Recrutamento() {
     if (!file) return
 
     try {
-      const text = await file.text()
+      // Ler o arquivo como ArrayBuffer
+      const arrayBuffer = await file.arrayBuffer()
+      console.log(`Processando PDF: ${file.name} (${(arrayBuffer.byteLength / 1024).toFixed(2)} KB)`)
 
-      // Extração simples de informações do PDF
-      // Procura por padrões comuns
-      const nameMatch = text.match(/^([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)/m)
-      const emailMatch = text.match(/([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i)
-      const phoneMatch = text.match(/(?:\+55|55)?[\s\-]?(?:\(?\d{2}\)?[\s\-]?)?(?:9\d{4}|[2-9]\d{3})[\s\-]?\d{4,5}[\s\-]?\d{4}/)
-      const linkedinMatch = text.match(/(?:linkedin\.com\/in\/[\w-]+|linkedin\.com\/profile\/[\w\d-]+)/i)
+      // Configurar o worker para pdfjs usando o arquivo local
+      pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc
+
+      // Carregar o PDF com timeout
+      const loadingPromise = pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Timeout ao processar PDF')), 10000)
+      )
+
+      const pdf = await Promise.race([loadingPromise, timeoutPromise]) as any
+
+      console.log(`PDF carregado com ${pdf.numPages} páginas`)
+
+      // Extrair texto de todas as páginas (até 5 páginas)
+      let fullText = ''
+      const maxPages = Math.min(pdf.numPages, 5)
+
+      for (let i = 1; i <= maxPages; i++) {
+        try {
+          const page = await pdf.getPage(i)
+          const textContent = await page.getTextContent()
+          const pageText = textContent.items.map((item: any) => item.str || '').join(' ')
+          fullText += pageText + ' '
+          console.log(`Página ${i} processada: ${pageText.length} caracteres`)
+        } catch (pageError) {
+          console.warn(`Erro ao processar página ${i}:`, pageError)
+          continue
+        }
+      }
+
+      console.log(`Texto total extraído: ${fullText.length} caracteres`)
+
+      // Extração de informações do PDF com padrões mais flexíveis
+      // Nome: letras maiúsculas no início de palavras
+      const nameMatch = fullText.match(/([A-Z][a-zàáâãäåèéêëìíîïðòóôõöùúûüýÿçñ]+(?:\s+[A-Z][a-zàáâãäåèéêëìíîïðòóôõöùúûüýÿçñ]+){0,3})/i)
+      // Email: padrão de email
+      const emailMatch = fullText.match(/([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i)
+      // Telefone: celular ou fixo brasileiro
+      const phoneMatch = fullText.match(/(?:\+?55)?[\s\-]?(?:\(?\d{2}\)?[\s\-]?)?(?:9\d{4}|[2-9]\d{3})[\s\-]?\d{4}[\s\-]?\d{4}/)
+      // LinkedIn: URL do LinkedIn
+      const linkedinMatch = fullText.match(/(?:linkedin\.com\/in\/[\w-]+|linkedin\.com\/profile\/[\w\d-]+)/i)
 
       const extractedData = {
-        name: nameMatch?.[0]?.trim() || '',
+        name: nameMatch?.[1]?.trim() || '',
         email: emailMatch?.[0]?.toLowerCase() || '',
         phone: phoneMatch?.[0]?.replace(/\D/g, '').slice(-11) || '',
         linkedin: linkedinMatch?.[0] || ''
       }
+
+      console.log('Dados extraídos:', extractedData)
 
       // Atualiza o formulário com dados extraídos
       setCandForm(f => ({
@@ -150,12 +192,15 @@ export default function Recrutamento() {
       }))
 
       // Mostra mensagem de sucesso
-      if (extractedData.name) {
-        alert(`✅ Currículo processado! Encontradas informações: ${extractedData.name}${extractedData.email ? ', ' + extractedData.email : ''}`)
+      if (extractedData.name && extractedData.email) {
+        alert(`✅ Currículo processado! Encontradas informações: ${extractedData.name}, ${extractedData.email}`)
+      } else if (extractedData.name) {
+        alert(`✅ Currículo processado! Encontradas informações: ${extractedData.name}`)
       } else {
         alert('⚠️ Currículo enviado, mas não foi possível extrair informações automaticamente. Por favor, preencha os dados manualmente.')
       }
     } catch (error) {
+      console.error('Erro ao processar PDF:', error)
       alert('❌ Erro ao processar o currículo. Certifique-se de que é um arquivo PDF válido.')
     }
   }
@@ -269,7 +314,15 @@ export default function Recrutamento() {
             </CardContent></Card>
           ) : (
             <div className="grid gap-4">
-              {jobs.map(j => (
+              {jobs
+                .sort((a, b) => {
+                  // Vagas abertas primeiro
+                  if (a.status === 'aberta' && b.status !== 'aberta') return -1
+                  if (a.status !== 'aberta' && b.status === 'aberta') return 1
+                  // Se ambas têm o mesmo status, ordena por data de criação (mais recentes primeiro)
+                  return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+                })
+                .map(j => (
                 <Card key={j.id} onClick={() => setSelectedJob(j)} className="cursor-pointer hover:border-blue-300">
                   <CardContent className="py-4">
                     <div className="flex items-center justify-between">
@@ -344,7 +397,7 @@ export default function Recrutamento() {
           {selectedJobTab === 'candidatos' ? (
             <>
               <div className="flex justify-end">
-                <Button onClick={() => { setEditingCand(null); setCandForm({ name: '', email: '', phone: '', linkedin: '', notes: '', stage: 'inscrito' }); setCandModal(true) }}>
+                <Button onClick={() => { setEditingCand(null); setCandForm({ name: '', email: '', phone: '', linkedin: '', notes: '', stage: 'inscrito', interview_date: '', interview_time: '' }); setCandModal(true) }}>
                   <Plus size={16} /> Adicionar candidato
                 </Button>
               </div>
@@ -377,9 +430,14 @@ export default function Recrutamento() {
                               options={STAGE_OPTS}
                               className="text-xs py-1 h-7"
                             />
-                            <button onClick={() => removeCand(c.id)} className="text-slate-300 hover:text-red-500 ml-1">
-                              <X size={12} />
-                            </button>
+                            <div className="flex gap-1 ml-1">
+                              <button onClick={() => { setEditingCand(c); setCandForm({ name: c.name, email: c.email, phone: c.phone, linkedin: c.linkedin, notes: c.notes, stage: c.stage, interview_date: c.interview_date || '', interview_time: c.interview_time || '' }); setCandModal(true) }} className="text-slate-400 hover:text-blue-500">
+                                <Pencil size={12} />
+                              </button>
+                              <button onClick={() => removeCand(c.id)} className="text-slate-300 hover:text-red-500">
+                                <X size={12} />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -521,6 +579,10 @@ export default function Recrutamento() {
           </div>
           <Input label="LinkedIn" value={candForm.linkedin} onChange={e => setCandForm(f => ({ ...f, linkedin: e.target.value }))} placeholder="linkedin.com/in/..." />
           <Select label="Etapa" value={candForm.stage} onChange={v => setCandForm(f => ({ ...f, stage: v as CandidateStage }))} options={STAGE_OPTS} />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Data da Entrevista" type="date" value={candForm.interview_date} onChange={e => setCandForm(f => ({ ...f, interview_date: e.target.value }))} />
+            <Input label="Horário da Entrevista" type="time" value={candForm.interview_time} onChange={e => setCandForm(f => ({ ...f, interview_time: e.target.value }))} />
+          </div>
           <Textarea label="Observações" value={candForm.notes} onChange={e => setCandForm(f => ({ ...f, notes: e.target.value }))} rows={2} />
           <div className="flex justify-end gap-2 pt-2">
             <Button variant="secondary" onClick={() => setCandModal(false)}>Cancelar</Button>

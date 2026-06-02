@@ -226,6 +226,29 @@ export default function PlanoTreinamento() {
         </CardContent></Card>
       </div>
 
+      {/* TREINAMENTO PÚBLICO EM DESTAQUE */}
+      <Card className="bg-gradient-to-r from-orange-50 to-orange-100 border-2 border-orange-300 mb-6">
+        <CardContent className="py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="bg-orange-500 text-white rounded-lg p-3">
+                <MessageSquare size={24} />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-orange-900">📱 Atendimento Empático em Chatbot</h3>
+                <p className="text-sm text-orange-800 mt-1">Treinamento interativo com slides e questionário para toda a equipe</p>
+              </div>
+            </div>
+            <Button
+              onClick={() => window.open(`http://localhost:5176/treinamento-publico`, '_blank')}
+              className="bg-orange-600 hover:bg-orange-700 text-white font-semibold whitespace-nowrap"
+            >
+              <LinkIcon size={16} /> Acessar Treinamento
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
       {filtered.length === 0 ? (
         <Card><CardContent className="py-16 text-center">
           <BookOpen size={40} className="text-slate-300 mx-auto mb-3" />

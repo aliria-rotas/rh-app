@@ -10,4 +10,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    port: 5176,
+    strictPort: true,
+    host: '0.0.0.0',
+  },
 })

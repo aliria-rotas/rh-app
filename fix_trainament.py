@@ -1,4 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+
+code = '''import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Input, Textarea } from '@/components/ui/Input'
@@ -682,3 +688,11 @@ export default function TrainmentPublic() {
     </div>
   )
 }
+'''
+
+with open(r'C:\\Klissia - RH\\rh-app\\src\\pages\\TrainamentPublic.tsx', 'w', encoding='utf-8') as f:
+    f.write(code)
+
+print("✅ Arquivo TrainamentPublic.tsx atualizado com sucesso!")
+print("✅ Constantes movidas para fora do componente")
+print("✅ handleSelectAnswer otimizado com prev")

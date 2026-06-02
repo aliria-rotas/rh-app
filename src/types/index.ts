@@ -99,6 +99,8 @@ export interface Candidate {
   stage: CandidateStage
   competency_scores: Record<string, number>
   notes: string
+  interview_date?: string
+  interview_time?: string
   created_at: string
 }
 
