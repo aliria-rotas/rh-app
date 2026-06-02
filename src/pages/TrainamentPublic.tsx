@@ -65,8 +65,8 @@ const QUESTIONS_DATA = {
     situation: '',
     options: [
       'A) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.',
-      'B) Você está recebendo em breve aquele medicamento que solicitou.',
-      'C) Seu pedido está sendo preparando e você vai a receber em 2 dias.'
+      'B) Seu pedido vai ser preparando e você recebe em breve.',
+      'C) Estamos preparando seu pedido agora e você receberá em até 2 dias.'
     ],
     hint: ''
   },
