@@ -103,7 +103,14 @@ export default function Recrutamento() {
   }
 
   async function saveCandidate() {
-    if (!candForm.name.trim() || !selectedJob) return
+    if (!candForm.name.trim()) {
+      alert('Por favor, preenchao nome do candidato')
+      return
+    }
+    if (!selectedJob) {
+      alert('Selecione uma vaga primeiro antes de adicionar um candidato')
+      return
+    }
     if (editingCand) {
       const updated = await dbCandidates.update(editingCand.id, candForm)
       setCandidates(prev => prev.map(c => c.id === editingCand.id ? updated : c))
