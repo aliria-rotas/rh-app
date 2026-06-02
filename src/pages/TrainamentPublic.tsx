@@ -538,10 +538,24 @@ export default function TrainmentPublic() {
   }
 
   const handleSelectAnswer = (qNum: number, option: string) => {
-    setFormData(prev => ({ ...prev, [`question_${qNum}_response`]: option }))
+    // Apenas permite alterar se ainda não respondeu
+    const currentResponse = formData[`question_${qNum}_response` as keyof typeof formData]
+    if (!currentResponse) {
+      setFormData(prev => ({ ...prev, [`question_${qNum}_response`]: option }))
+    }
   }
 
   const handleNext = () => {
+    const slide = allSlides[currentStep]
+
+    // Validar dados pessoais obrigatórios
+    if (slide.type === 'question' && slide.questionNum === 0) {
+      if (!formData.collaborator_name.trim() || !formData.collaborator_email.trim()) {
+        alert('⚠️ Por favor, preencha seu nome e email para continuar.')
+        return
+      }
+    }
+
     if (currentStep < allSlides.length - 1) {
       setCurrentStep(currentStep + 1)
     }
@@ -644,22 +658,34 @@ export default function TrainmentPublic() {
               <div className="space-y-6">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">👤 {slide.questionTitle}</h2>
+                  <p className="text-sm text-gray-600 mb-4">Os dados abaixo são <strong>obrigatórios</strong> para iniciar o treinamento.</p>
                 </div>
-                <Input
-                  name="collaborator_name"
-                  value={formData.collaborator_name}
-                  onChange={handleChange}
-                  placeholder="Nome completo"
-                  className="w-full"
-                />
-                <Input
-                  name="collaborator_email"
-                  type="email"
-                  value={formData.collaborator_email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  className="w-full"
-                />
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Nome Completo *</label>
+                  <Input
+                    name="collaborator_name"
+                    value={formData.collaborator_name}
+                    onChange={handleChange}
+                    placeholder="Digite seu nome completo"
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+                  <Input
+                    name="collaborator_email"
+                    type="email"
+                    value={formData.collaborator_email}
+                    onChange={handleChange}
+                    placeholder="Digite seu email"
+                    className="w-full"
+                  />
+                </div>
+                {(!formData.collaborator_name.trim() || !formData.collaborator_email.trim()) && (
+                  <div className="p-3 bg-yellow-50 border border-yellow-300 rounded-lg">
+                    <p className="text-sm text-yellow-800">⚠️ Preencha todos os campos para continuar.</p>
+                  </div>
+                )}
               </div>
             )}
 
@@ -678,14 +704,18 @@ export default function TrainmentPublic() {
                 <div className="space-y-3">
                   {slide.options.map((option) => {
                     const isSelected = formData[`question_${slide.questionNum}_response` as keyof typeof formData] === option
+                    const isAnswered = !!formData[`question_${slide.questionNum}_response` as keyof typeof formData]
                     return (
                       <button
                         key={option}
                         onClick={() => handleSelectAnswer(slide.questionNum!, option)}
+                        disabled={isAnswered && !isSelected}
                         className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                           isSelected
                             ? 'border-orange-500 bg-orange-50'
-                            : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                            : isAnswered
+                            ? 'border-gray-300 bg-gray-100 cursor-not-allowed opacity-60'
+                            : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 cursor-pointer'
                         }`}
                       >
                         {option}
@@ -694,6 +724,11 @@ export default function TrainmentPublic() {
                   })}
                 </div>
                 {slide.hint && <p className="text-xs text-gray-500 text-center">{slide.hint}</p>}
+                {formData[`question_${slide.questionNum}_response` as keyof typeof formData] && (
+                  <div className="p-3 bg-blue-50 border border-blue-300 rounded-lg">
+                    <p className="text-sm text-blue-800">🔒 Sua resposta foi registrada e não pode ser alterada.</p>
+                  </div>
+                )}
               </div>
             )}
 
@@ -804,7 +839,10 @@ export default function TrainmentPublic() {
               {slide.type !== 'submit' && (
                 <Button
                   onClick={handleNext}
-                  disabled={currentStep === allSlides.length - 1}
+                  disabled={
+                    currentStep === allSlides.length - 1 ||
+                    (slide.type === 'question' && slide.questionNum === 0 && (!formData.collaborator_name.trim() || !formData.collaborator_email.trim()))
+                  }
                   className="bg-orange-500 hover:bg-orange-600 text-white ml-auto"
                 >
                   Próximo
