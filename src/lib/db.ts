@@ -676,6 +676,39 @@ export const dbBenefitsValidation = {
   },
 }
 
+// ─── Configuração de Benefícios ────────────────────────────────────────────────
+export const dbBenefitsCosts = {
+  async loadCosts(): Promise<Record<string, number>> {
+    const { data, error } = await supabase
+      .from('rh_benefits_config')
+      .select('benefit_key, cost')
+
+    if (error || !data) {
+      return {
+        health_plan: 0,
+        dental_plan: 0,
+        meal_voucher: 37,
+        transport_voucher: 0,
+        life_insurance: 0,
+      }
+    }
+
+    const costs: Record<string, number> = {
+      health_plan: 0,
+      dental_plan: 0,
+      meal_voucher: 37,
+      transport_voucher: 0,
+      life_insurance: 0,
+    }
+
+    data.forEach(row => {
+      costs[row.benefit_key] = row.cost
+    })
+
+    return costs
+  },
+}
+
 // ─── KPIs — leituras agregadas ──────────────────────────────────────────────────
 export const dbKpis = {
   async fetchAll() {

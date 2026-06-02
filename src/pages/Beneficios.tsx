@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/Card'
-import { dbEmployees, dbBenefitsValidation } from '@/lib/db'
+import { dbEmployees, dbBenefitsValidation, dbBenefitsCosts } from '@/lib/db'
 import type { Employee, DependentRelationship } from '@/types'
 import { formatCurrency } from '@/lib/utils'
 import { Pencil, ChevronDown, ChevronRight, Users, DollarSign, ShieldCheck, AlertTriangle, X, Calculator, ChevronLeft, Cake, Lock, Check } from 'lucide-react'
@@ -191,7 +191,10 @@ export default function Beneficios() {
   })
 
   useEffect(() => {
-    dbEmployees.list().then(data => { setEmployees(data.filter(e => e.status !== 'inativo')); setLoading(false) })
+    Promise.all([
+      dbEmployees.list().then(data => setEmployees(data.filter(e => e.status !== 'inativo'))),
+      dbBenefitsCosts.loadCosts().then(costs => setCosts(costs))
+    ]).finally(() => setLoading(false))
   }, [])
 
   // Detect route and set active tab
