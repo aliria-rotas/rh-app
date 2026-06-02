@@ -3,12 +3,6 @@
   publish = "dist"
 
 [[redirects]]
-  from = "/rh-app/assets/*"
-  to = "/rh-app/assets/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/rh-app/*"
-  to = "/rh-app/index.html"
+  from = "/*"
+  to = "/index.html"
   status = 200
