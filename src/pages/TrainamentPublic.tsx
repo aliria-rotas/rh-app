@@ -26,7 +26,7 @@ interface Slide {
 
 // ✅ CONSTANTES FORA DO COMPONENTE - evita redeclaração em cada render
 const CORRECT_ANSWERS: {[key: number]: string} = {
-  2: 'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
+  2: 'A) O medicamento não está disponível, mais temos outros que você pode usar.',
   3: 'B) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.',
   4: 'B) Vou verificar o status agora mesmo e retorno com você em 2 minutos.',
   7: 'B) Clareza e objetividade',
@@ -50,14 +50,14 @@ const MC_QUESTIONS_ORDER = [2, 3, 4, 7, 9, 11, 13]
 const QUESTIONS_DATA = {
   2: {
     title: '2️⃣ Erros de Português: MAIS vs MAS',
-    desc: 'Qual é a forma CORRETA de responder ao paciente?',
+    desc: 'Qual é a forma INCORRETA de responder ao paciente?',
     situation: 'Paciente ligou pedindo um medicamento que está temporariamente fora de estoque.',
     options: [
-      'A) O medicamento está fora de estoque mas temos alternativas que funcionam igualmente bem!',
+      'A) O medicamento não está disponível, mais temos outros que você pode usar.',
       'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
-      'C) O medicamento não está disponível, mais temos outros que você pode usar.'
+      'C) O medicamento está fora de estoque mas temos alternativas que funcionam igualmente bem!'
     ],
-    hint: '💡 MAS = contraste/oposição | MAIS = adição/quantidade'
+    hint: '💡 Dica: MAS = contraste/oposição | MAIS = adição/quantidade'
   },
   3: {
     title: '3️⃣ Conjugação de Verbos: Gerúndio vs Infinitivo',
