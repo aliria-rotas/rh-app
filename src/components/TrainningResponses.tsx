@@ -44,13 +44,12 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
   async function loadResponses() {
     try {
       setLoading(true)
-      // Use training ID if provided, otherwise use default
-      const finalTrainingId = trainingId || 'chatbot_empatico_001'
 
-      // Usar RPC function que contorna o RLS
-      const { data, error: fetchError } = await supabase.rpc('get_training_responses', {
-        p_training_id: finalTrainingId
-      })
+      // Ler direto da tabela (sem RPC que pode ter erro)
+      const { data, error: fetchError } = await supabase
+        .from('rh_training_responses')
+        .select('*')
+        .order('created_at', { ascending: false })
 
       if (fetchError) throw fetchError
       setResponses(data || [])
@@ -156,9 +155,7 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
             </p>
             <Button
               onClick={() => {
-                const link = trainingId
-                  ? `${window.location.origin}/treinamento-publico?id=${trainingId}`
-                  : `${window.location.origin}/treinamento-publico`
+                const link = `https://aliria-rotas.github.io/rh-app/treinamento-publico?id=chatbot_empatico_001`
                 navigator.clipboard.writeText(link)
               }}
               className="bg-blue-600 hover:bg-blue-700"
@@ -169,31 +166,40 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
         </Card>
       ) : (
         <>
-          <Card className="border-blue-200 bg-blue-50">
-            <CardContent className="py-4">
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <p className="text-3xl font-bold text-blue-600">{responses.length}</p>
-                  <p className="text-sm text-blue-700">Respostas recebidas</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-green-600">
-                    {responses.length}
-                  </p>
-                  <p className="text-sm text-green-700">Completos (100%)</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-orange-600">
-                    {Math.round((responses.length / (responses.length + 0)) * 100) || 0}%
-                  </p>
-                  <p className="text-sm text-orange-700">Taxa de conclusão</p>
-                </div>
+          {Object.entries(
+            responses.reduce((acc: Record<string, Response[]>, resp) => {
+              const trainId = resp.training_id || 'chatbot_empatico_001'
+              if (!acc[trainId]) acc[trainId] = []
+              acc[trainId].push(resp)
+              return acc
+            }, {})
+          ).map(([trainId, trainResponses]) => (
+            <div key={trainId} className="space-y-4">
+              <div className="border-b-2 border-orange-300 pb-3">
+                <h3 className="text-xl font-bold text-gray-900">📚 Treinamento: {trainResponses[0]?.training_title || trainId}</h3>
               </div>
-            </CardContent>
-          </Card>
 
-          <div className="space-y-3">
-            {responses.map(response => (
+              <Card className="border-blue-200 bg-blue-50">
+                <CardContent className="py-4">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <p className="text-3xl font-bold text-blue-600">{trainResponses.length}</p>
+                      <p className="text-sm text-blue-700">Respostas recebidas</p>
+                    </div>
+                    <div>
+                      <p className="text-3xl font-bold text-green-600">{trainResponses.length}</p>
+                      <p className="text-sm text-green-700">Completos (100%)</p>
+                    </div>
+                    <div>
+                      <p className="text-3xl font-bold text-orange-600">100%</p>
+                      <p className="text-sm text-orange-700">Taxa de conclusão</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="space-y-3">
+                {trainResponses.map(response => (
               <Card
                 key={response.id}
                 className="cursor-pointer hover:shadow-lg transition-shadow border-gray-200"
@@ -325,8 +331,10 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
                   )}
                 </CardContent>
               </Card>
-            ))}
-          </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </>
       )}
     </div>
