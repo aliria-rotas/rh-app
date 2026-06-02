@@ -104,12 +104,21 @@ export default function Recrutamento() {
 
   async function saveCandidate() {
     if (!candForm.name.trim() || !selectedJob) return
+
+    // Remove empty optional date/time fields
+    const { interview_date, interview_time, ...restForm } = candForm
+    const cleanForm = {
+      ...restForm,
+      ...(interview_date.trim() && { interview_date }),
+      ...(interview_time.trim() && { interview_time }),
+    }
+
     if (editingCand) {
-      const updated = await dbCandidates.update(editingCand.id, candForm)
+      const updated = await dbCandidates.update(editingCand.id, cleanForm)
       setCandidates(prev => prev.map(c => c.id === editingCand.id ? updated : c))
     } else {
       const created = await dbCandidates.create({
-        ...candForm, job_opening_id: selectedJob.id,
+        ...cleanForm, job_opening_id: selectedJob.id,
         resume_url: '', competency_scores: {},
       })
       setCandidates(prev => [...prev, created])
