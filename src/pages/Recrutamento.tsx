@@ -201,7 +201,7 @@ export default function Recrutamento() {
       }
     } catch (error) {
       console.error('Erro ao processar PDF:', error)
-      alert('❌ Erro ao processar o currículo. Certifique-se de que é um arquivo PDF válido.')
+      alert('⚠️ Erro ao processar o currículo. Você pode adicionar a candidata mesmo sem o PDF - preencha os dados manualmente.')
     }
   }
 
