@@ -10,13 +10,20 @@ interface Response {
   training_title?: string
   collaborator_name: string
   collaborator_email: string
-  question_1_response: string
-  question_2_response: string
-  question_3_response: string
+  question_2_response?: string
+  question_3_response?: string
   question_4_response?: string
   question_5_response?: string
   question_6_response?: string
-  completed_at: string
+  question_7_response?: string
+  question_8_response?: string
+  question_9_response?: string
+  question_10_response?: string
+  question_11_response?: string
+  question_13_response?: string
+  question_14_response?: string
+  created_at: string
+  completed_at?: string
 }
 
 interface TrainningResponsesProps {
@@ -58,14 +65,23 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
   function exportToCSV() {
     if (responses.length === 0) return
 
-    const headers = ['Nome', 'Email', 'Data', 'Pergunta 1', 'Pergunta 2', 'Pergunta 3']
+    const headers = ['Nome', 'Email', 'Data', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10', 'Q11', 'Q13', 'Q14']
     const rows = responses.map(r => [
       r.collaborator_name,
       r.collaborator_email,
-      new Date(r.completed_at).toLocaleDateString('pt-BR'),
-      `"${r.question_1_response}"`,
-      `"${r.question_2_response}"`,
-      `"${r.question_3_response}"`,
+      new Date(r.created_at || r.completed_at || '').toLocaleDateString('pt-BR'),
+      `"${r.question_2_response || ''}"`,
+      `"${r.question_3_response || ''}"`,
+      `"${r.question_4_response || ''}"`,
+      `"${r.question_5_response || ''}"`,
+      `"${r.question_6_response || ''}"`,
+      `"${r.question_7_response || ''}"`,
+      `"${r.question_8_response || ''}"`,
+      `"${r.question_9_response || ''}"`,
+      `"${r.question_10_response || ''}"`,
+      `"${r.question_11_response || ''}"`,
+      `"${r.question_13_response || ''}"`,
+      `"${r.question_14_response || ''}"`,
     ])
 
     let csv = [headers, ...rows].map(row => row.join(',')).join('\n')
@@ -205,40 +221,90 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
                   </div>
 
                   {expandedId === response.id && (
-                    <div className="mt-6 pt-6 border-t border-gray-200 space-y-6">
-                      {/* Pergunta 1 */}
-                      <div>
-                        <h4 className="font-bold text-sm text-gray-900 mb-2">
-                          1️⃣ Reescreva: "Sistema indisponível"
-                        </h4>
-                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                          <p className="text-sm text-gray-700 whitespace-pre-wrap">
-                            {response.question_1_response}
-                          </p>
+                    <div className="mt-6 pt-6 border-t border-gray-200 space-y-4">
+                      {/* Perguntas Múltipla Escolha */}
+                      <div className="mb-6 pb-6 border-b border-gray-300">
+                        <h4 className="font-bold text-base text-gray-900 mb-4">📋 Múltipla Escolha</h4>
+                        <div className="space-y-3">
+                          {response.question_2_response && (
+                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                              <p className="text-xs font-bold text-blue-900 mb-1">Q2: MAIS vs MAS</p>
+                              <p className="text-sm text-gray-700">{response.question_2_response}</p>
+                            </div>
+                          )}
+                          {response.question_3_response && (
+                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                              <p className="text-xs font-bold text-blue-900 mb-1">Q3: Gerundismo</p>
+                              <p className="text-sm text-gray-700">{response.question_3_response}</p>
+                            </div>
+                          )}
+                          {response.question_4_response && (
+                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                              <p className="text-xs font-bold text-blue-900 mb-1">Q4: Estar vs Ir</p>
+                              <p className="text-sm text-gray-700">{response.question_4_response}</p>
+                            </div>
+                          )}
+                          {response.question_7_response && (
+                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                              <p className="text-xs font-bold text-blue-900 mb-1">Q7: Chat Características</p>
+                              <p className="text-sm text-gray-700">{response.question_7_response}</p>
+                            </div>
+                          )}
+                          {response.question_9_response && (
+                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                              <p className="text-xs font-bold text-blue-900 mb-1">Q9: Comunicação Profissional</p>
+                              <p className="text-sm text-gray-700">{response.question_9_response}</p>
+                            </div>
+                          )}
+                          {response.question_11_response && (
+                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                              <p className="text-xs font-bold text-blue-900 mb-1">Q11: Lidar com Reclamações</p>
+                              <p className="text-sm text-gray-700">{response.question_11_response}</p>
+                            </div>
+                          )}
+                          {response.question_13_response && (
+                            <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                              <p className="text-xs font-bold text-blue-900 mb-1">Q13: Transferir para Humano</p>
+                              <p className="text-sm text-gray-700">{response.question_13_response}</p>
+                            </div>
+                          )}
                         </div>
                       </div>
 
-                      {/* Pergunta 2 */}
-                      <div>
-                        <h4 className="font-bold text-sm text-gray-900 mb-2">
-                          2️⃣ Reescreva: "Documento inválido, tente novamente"
-                        </h4>
-                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                          <p className="text-sm text-gray-700 whitespace-pre-wrap">
-                            {response.question_2_response}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Pergunta 3 */}
-                      <div>
-                        <h4 className="font-bold text-sm text-gray-900 mb-2">
-                          3️⃣ Reescreva: "Pedido não encontrado"
-                        </h4>
-                        <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                          <p className="text-sm text-gray-700 whitespace-pre-wrap">
-                            {response.question_3_response}
-                          </p>
+                      {/* Perguntas Abertas */}
+                      <div className="mb-6">
+                        <h4 className="font-bold text-base text-gray-900 mb-4">📝 Respostas Abertas</h4>
+                        <div className="space-y-3">
+                          {response.question_5_response && (
+                            <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                              <p className="text-xs font-bold text-green-900 mb-1">Q5: Investigação + Empatia</p>
+                              <p className="text-sm text-gray-700 whitespace-pre-wrap">{response.question_5_response}</p>
+                            </div>
+                          )}
+                          {response.question_6_response && (
+                            <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                              <p className="text-xs font-bold text-green-900 mb-1">Q6: Chamar Cliente</p>
+                              <p className="text-sm text-gray-700 whitespace-pre-wrap">{response.question_6_response}</p>
+                            </div>
+                          )}
+                          {response.question_8_response && (
+                            <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                              <p className="text-xs font-bold text-green-900 mb-1">Q8: Reescrever Cordialmente</p>
+                              <p className="text-sm text-gray-700 whitespace-pre-wrap">{response.question_8_response}</p>
+                            </div>
+                          )}
+                          {response.question_10_response && (
+                            <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                              <p className="text-xs font-bold text-green-900 mb-1">Q10: Pergunta Clarificadora</p>
+                              <p className="text-sm text-gray-700 whitespace-pre-wrap">{response.question_10_response}</p>
+                            </div>
+                          )}
+                          {response.question_14_response && (
+                            <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                              <p className="text-xs font-bold text-green-900 mb-1">Q14: Erro de Comunicação</p>
+                              <p className="text-sm text-gray-700 whitespace-pre-wrap">{response.question_14_response}</p>
+                            </div>
+                          )}
                         </div>
                       </div>
 
