@@ -32,7 +32,7 @@ const CORRECT_ANSWERS: {[key: number]: string} = {
   7: 'B) Clareza e objetividade',
   9: 'B) Favor enviar o documento para análise.',
   11: 'B) Demonstrar compreensão e buscar uma solução',
-  13: 'A) Quando o chatbot não consegue resolver a demanda após tentativas adequadas',
+  13: 'B) Em toda conversa',
 }
 
 const QUESTION_SLIDE_MAP: {[key: number]: number[]} = {
