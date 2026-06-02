@@ -440,7 +440,6 @@ export default function TrainmentPublic() {
   const [formData, setFormData] = useState({
     collaborator_name: '',
     collaborator_email: '',
-    question_1_response: '',
     question_2_response: '',
     question_3_response: '',
     question_4_response: '',
@@ -494,7 +493,6 @@ export default function TrainmentPublic() {
 
     // Perguntas abertas
     const openEndedQuestionData = [
-      { num: 1, title: '1️⃣ Reconhecimento de Emoções do Interessado', desc: 'Um cliente (paciente/órgão) envia: "Pedi meu medicamento há 3 dias e ainda não chegou! Preciso urgente para tomar hoje! Estou desesperado!"', question: 'Como você responderia reconhecendo a urgência e o desespero dele de forma empática?' },
       { num: 5, title: '5️⃣ Situação Complexa: Investigação + Empatia', desc: 'Um cliente irritado (paciente/órgão) diz: "Pedi meu medicamento no início da semana e hoje é sexta! Ainda não chegou! Precisei ontem!"', question: 'Como você investigaria o problema enquanto acalma o cliente?' },
       { num: 6, title: '6️⃣ Maneiras Empáticas de Chamar o Cliente', desc: 'Como você se dirigiria ao cliente (paciente/órgão) de forma acolhedora e profissional?', question: 'Descreva como você trataria o cliente em diferentes contextos.' },
       { num: 8, title: '8️⃣ Reescreva de forma mais cordial', desc: '"Você preencheu os dados errados."', question: 'Como você tornaria essa mensagem mais empática?' },
@@ -580,7 +578,6 @@ export default function TrainmentPublic() {
         p_training_title: finalTrainingTitle,
         p_collaborator_name: formData.collaborator_name,
         p_collaborator_email: formData.collaborator_email,
-        p_question_1_response: formData.question_1_response,
         p_question_2_response: formData.question_2_response,
         p_question_3_response: formData.question_3_response,
         p_question_4_response: formData.question_4_response,
@@ -591,7 +588,6 @@ export default function TrainmentPublic() {
         p_question_9_response: formData.question_9_response,
         p_question_10_response: formData.question_10_response,
         p_question_11_response: formData.question_11_response,
-        p_question_12_response: formData.question_12_response,
         p_question_13_response: formData.question_13_response,
         p_question_14_response: formData.question_14_response,
       })
