@@ -14,6 +14,14 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('pdfjs-dist')) return 'pdf-worker'
+          if (id.includes('node_modules') && (id.includes('react') || id.includes('router'))) return 'vendor'
+        },
+      },
+    },
   },
   server: {
     port: 5176,
