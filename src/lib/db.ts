@@ -683,17 +683,7 @@ export const dbBenefitsCosts = {
       .from('rh_benefits_config')
       .select('benefit_key, cost')
 
-    if (error || !data) {
-      return {
-        health_plan: 0,
-        dental_plan: 0,
-        meal_voucher: 37,
-        transport_voucher: 0,
-        life_insurance: 0,
-      }
-    }
-
-    const costs: Record<string, number> = {
+    const defaultCosts = {
       health_plan: 0,
       dental_plan: 0,
       meal_voucher: 37,
@@ -701,8 +691,20 @@ export const dbBenefitsCosts = {
       life_insurance: 0,
     }
 
-    data.forEach(row => {
-      costs[row.benefit_key] = row.cost
+    if (error) {
+      return defaultCosts
+    }
+
+    if (!data || data.length === 0) {
+      return defaultCosts
+    }
+
+    const costs: Record<string, number> = { ...defaultCosts }
+
+    data.forEach((row: any) => {
+      if (row.benefit_key && row.cost !== null && row.cost !== undefined) {
+        costs[row.benefit_key] = typeof row.cost === 'string' ? parseFloat(row.cost) : row.cost
+      }
     })
 
     return costs
