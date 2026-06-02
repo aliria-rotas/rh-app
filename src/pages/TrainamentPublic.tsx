@@ -171,9 +171,22 @@ const SLIDES_EDUCATIONAL = [
     title: '✨ Palavras-Chave',
     color: 'from-orange-500 to-orange-600',
     content: (
-      <div className="text-center">
-        <p className="text-sm">Por favor • Obrigado • Desculpa • Entendo • Claro • Sem problema • Com prazer • Fico feliz em ajudar</p>
-        <p className="text-xs mt-4">Usar essas palavras demonstra respeito e cria conexão com o paciente</p>
+      <div className="space-y-4">
+        <p className="text-sm font-semibold">Palavras que constroem relações:</p>
+
+        <div className="space-y-2">
+          <div><strong>👋 Cordialidade</strong></div>
+          <div className="text-sm">• Por favor • Obrigado • Desculpa • Com prazer</div>
+          <div className="text-xs italic mt-1">Exemplo: "Por favor, posso verificar seu cadastro?"</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>✅ Compreensão</strong></div>
+          <div className="text-sm">• Entendo • Claro • Sem problema • Fico feliz em ajudar</div>
+          <div className="text-xs italic mt-1">Exemplo: "Entendo sua dúvida. Fico feliz em esclarecer!"</div>
+        </div>
+
+        <p className="text-xs mt-3 border-t pt-2">Usar essas palavras demonstra respeito genuíno e cria conexão real com o paciente/cliente.</p>
       </div>
     ),
   },
@@ -183,10 +196,29 @@ const SLIDES_EDUCATIONAL = [
     color: 'from-orange-500 to-orange-600',
     content: (
       <div className="space-y-3">
-        <div><strong>📌 Ponto (.)</strong> - Afirmações objetivas</div>
-        <div><strong>🔥 Exclamação (!)</strong> - Entusiasmo, apoio</div>
-        <div><strong>❓ Interrogação (?)</strong> - Perguntas abertas</div>
-        <div><strong>✖️ Reticências (...)</strong> - Pausa, reflexão</div>
+        <p className="text-sm font-semibold">Cada pontuação comunica um tom:</p>
+
+        <div className="space-y-2">
+          <div><strong>📌 Ponto (.)</strong> - Afirmações objetivas</div>
+          <div className="text-xs italic">Ex: "Verifiquei seu cadastro."</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>🔥 Exclamação (!)</strong> - Entusiasmo e apoio</div>
+          <div className="text-xs italic">Ex: "Fico feliz em ajudar!"</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>❓ Interrogação (?)</strong> - Perguntas abertas</div>
+          <div className="text-xs italic">Ex: "Como posso auxiliá-lo?"</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>✖️ Reticências (...)</strong> - Pausa e reflexão</div>
+          <div className="text-xs italic">Ex: "Entendo... deixa eu verificar para você."</div>
+        </div>
+
+        <p className="text-xs mt-3 border-t pt-2">Use pontuação com propósito para comunicar tom adequado ao contexto.</p>
       </div>
     ),
   },
@@ -196,10 +228,26 @@ const SLIDES_EDUCATIONAL = [
     color: 'from-orange-500 to-orange-600',
     content: (
       <div className="space-y-3">
-        <div><strong>📞 Diferenças do Telefone</strong><br/>Chat é escrito e assíncrono</div>
-        <div><strong>🎯 Clareza</strong><br/>Mensagens diretas e estruturadas</div>
-        <div><strong>✍️ Linguagem Escrita</strong><br/>Importância de ortografia e gramática</div>
-        <div><strong>👥 Adaptação</strong><br/>Ajustar tom conforme o cliente</div>
+        <p className="text-sm font-semibold">O chat é diferente do telefone:</p>
+
+        <div className="space-y-2">
+          <div><strong>📞 Diferenças Fundamentais</strong></div>
+          <div className="text-xs">• Chat é <strong>escrito</strong> (não oral)</div>
+          <div className="text-xs">• Chat é <strong>assíncrono</strong> (respostas não imediatas)</div>
+          <div className="text-xs italic mt-1">Exemplo: "Em telefone, tom de voz ajuda. No chat, só tem o texto!"</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>🎯 Clareza Redobrada</strong></div>
+          <div className="text-xs">Mensagens curtas, diretas e bem estruturadas</div>
+          <div className="text-xs italic mt-1">✅ "Qual seu pedido?" ❌ "Então assim é que meu sistema aqui..."</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>✍️ Ortografia e Gramática</strong></div>
+          <div className="text-xs">Texto escrito requer correção impecável</div>
+          <div className="text-xs italic mt-1">Erros aparecem mais no chat. Revise antes de enviar!</div>
+        </div>
       </div>
     ),
   },
@@ -222,10 +270,29 @@ const SLIDES_EDUCATIONAL = [
     color: 'from-orange-500 to-orange-600',
     content: (
       <div className="space-y-3">
-        <div><strong>🎯 Frases Claras</strong> - Direto e objetivo</div>
-        <div><strong>⚡ Sem Gírias</strong> - Manter profissionalismo</div>
-        <div><strong>📋 Estrutura</strong> - Parágrafos curtos e bem organizados</div>
-        <div><strong>✅ Sem Erros</strong> - Revisar antes de enviar</div>
+        <p className="text-sm font-semibold">Estrutura de mensagens profissionais:</p>
+
+        <div className="space-y-2">
+          <div><strong>🎯 Clareza</strong> - Direto e objetivo</div>
+          <div className="text-xs italic">✅ "Verifiquei e seu pedido está em processamento."</div>
+          <div className="text-xs italic">❌ "Então, é que... o seu negócio lá está..."</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>⚡ Linguagem Profissional</strong> - Sem gírias ou informalismos excessivos</div>
+          <div className="text-xs italic">✅ "Como posso ajudá-lo?"</div>
+          <div className="text-xs italic">❌ "E aí, tudo bem? Bora resolver isso?"</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>📋 Organização</strong> - Parágrafos curtos e bem estruturados</div>
+          <div className="text-xs italic">✅ Uma ideia por parágrafo. Fácil de ler.</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>✅ Correção Gramatical</strong> - Revisar antes de enviar</div>
+          <div className="text-xs italic">Verificar: acentuação, pontuação, concordância.</div>
+        </div>
       </div>
     ),
   },
@@ -299,11 +366,30 @@ const SLIDES_EDUCATIONAL = [
     title: '🔑 MAS vs MAIS',
     color: 'from-orange-500 to-orange-600',
     content: (
-      <div className="space-y-3">
-        <div><strong>MAS</strong> = contraste/oposição</div>
-        <div className="text-sm italic">Ex: "Fora de estoque, <u>mas</u> temos alternativas"</div>
-        <div className="mt-3"><strong>MAIS</strong> = adição/quantidade</div>
-        <div className="text-sm italic">Ex: "Preciso de <u>mais</u> informações"</div>
+      <div className="space-y-4">
+        <p className="text-sm">Esses dois termos são frequentemente confundidos, mas têm significados muito diferentes:</p>
+
+        <div className="space-y-2">
+          <div><strong>1. MAS (Conjunção - Contraste/Oposição)</strong></div>
+          <div className="text-sm font-semibold">Significado:</div>
+          <div className="text-xs">Indica contraste, oposição ou uma ressalva.</div>
+          <div className="text-sm font-semibold mt-2">Exemplos:</div>
+          <div className="text-xs italic">• "Fora de estoque, <u>mas</u> temos alternativas."</div>
+          <div className="text-xs italic">• "Não temos essa cor, <u>mas</u> podemos encomendar."</div>
+          <div className="text-xs italic">• "O prazo é curto, <u>mas</u> conseguimos entregar."</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>2. MAIS (Advérbio/Pronome - Adição/Quantidade)</strong></div>
+          <div className="text-sm font-semibold">Significado:</div>
+          <div className="text-xs">Indica adição, quantidade maior ou intensidade.</div>
+          <div className="text-sm font-semibold mt-2">Exemplos:</div>
+          <div className="text-xs italic">• "Preciso de <u>mais</u> informações."</div>
+          <div className="text-xs italic">• "Você tem <u>mais</u> duas opções."</div>
+          <div className="text-xs italic">• "Posso <u>mais</u> te ajudar com algo?"</div>
+        </div>
+
+        <p className="text-xs mt-3 border-t pt-2"><strong>Dica:</strong> MAS (com A) = contraste. MAIS (com A I) = adição.</p>
       </div>
     ),
   },
@@ -312,12 +398,27 @@ const SLIDES_EDUCATIONAL = [
     title: '⚠️ GERUNDISMO (Evitar!)',
     color: 'from-orange-500 to-orange-600',
     content: (
-      <div className="space-y-3">
-        <div>Uso desnecessário do gerúndio para ação pontual.</div>
-        <div className="mt-3"><strong>❌ Evite:</strong></div>
-        <div className="text-sm italic">"Vou estar verificando seu cadastro"</div>
-        <div className="mt-3"><strong>✅ Use:</strong></div>
-        <div className="text-sm italic">"Vou verificar seu cadastro"<br/>ou "Verificarei seu cadastro"</div>
+      <div className="space-y-4">
+        <p className="text-sm"><strong>Gerundismo</strong> é o uso desnecessário do gerúndio (-ando, -endo, -indo) para expressar uma ação futura pontual ou concluída. É um dos erros mais comuns na escrita profissional.</p>
+
+        <div className="space-y-2">
+          <div><strong>❌ EVITE (Gerundismo):</strong></div>
+          <div className="text-xs italic">"Vou estar verificando seu cadastro"</div>
+          <div className="text-xs italic">"Vou estar entrando em contato em breve"</div>
+          <div className="text-xs italic">"Estou terminando o processo agora"</div>
+          <div className="text-xs text-red-600 mt-1">↳ Parece vago, impreciso, pouco profissional</div>
+        </div>
+
+        <div className="space-y-2">
+          <div><strong>✅ USE (Correto):</strong></div>
+          <div className="text-xs italic">"Vou verificar seu cadastro"</div>
+          <div className="text-xs italic">"Verificarei seu cadastro"</div>
+          <div className="text-xs italic">"Vou entrar em contato em breve"</div>
+          <div className="text-xs italic">"Estou terminando o processo agora" (se realmente está em progresso)</div>
+          <div className="text-xs text-green-600 mt-1">↳ Claro, direto, profissional</div>
+        </div>
+
+        <p className="text-xs mt-3 border-t pt-2"><strong>Resumo:</strong> Gerúndio é OK para ações contínuas/em progresso. Não use para ações futuras pontuais!</p>
       </div>
     ),
   },
