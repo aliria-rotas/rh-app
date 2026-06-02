@@ -33,6 +33,7 @@ const CORRECT_ANSWERS: {[key: number]: string} = {
   9: 'B) Favor enviar o documento para análise.',
   11: 'B) Demonstrar compreensão e buscar uma solução',
   13: 'B) Em toda conversa',
+  15: 'B) Exclamação (!)',
 }
 
 const QUESTION_SLIDE_MAP: {[key: number]: number[]} = {
@@ -42,10 +43,11 @@ const QUESTION_SLIDE_MAP: {[key: number]: number[]} = {
   7: [5],
   9: [3],
   11: [9, 2, 6],
-  13: [11]
+  13: [11],
+  15: [4]
 }
 
-const MC_QUESTIONS_ORDER = [2, 3, 4, 7, 9, 11, 13]
+const MC_QUESTIONS_ORDER = [2, 3, 4, 7, 9, 11, 13, 15]
 
 const QUESTIONS_DATA = {
   2: {
@@ -126,6 +128,18 @@ const QUESTIONS_DATA = {
       'B) Em toda conversa',
       'C) Nunca',
       'D) Apenas quando o cliente solicitar desconto'
+    ],
+    hint: ''
+  },
+  15: {
+    title: '1️⃣5️⃣ Qual pontuação melhor comunica ENTUSIASMO e APOIO?',
+    desc: 'Escolha a pontuação que expressa melhor os sentimentos positivos em atendimento.',
+    situation: '',
+    options: [
+      'A) Ponto (.)',
+      'B) Exclamação (!)',
+      'C) Interrogação (?)',
+      'D) Reticências (...)'
     ],
     hint: ''
   }
