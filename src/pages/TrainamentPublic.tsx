@@ -47,7 +47,6 @@ const QUESTION_SLIDE_MAP: {[key: number]: number[]} = {
   9: [3],
   10: [3, 4],
   11: [9, 2, 6],
-  12: [3, 4],
   13: [11],
   14: [3, 4]
 }
@@ -448,7 +447,6 @@ export default function TrainmentPublic() {
     question_9_response: '',
     question_10_response: '',
     question_11_response: '',
-    question_12_response: '',
     question_13_response: '',
     question_14_response: '',
   })
@@ -497,7 +495,6 @@ export default function TrainmentPublic() {
       { num: 6, title: '6️⃣ Maneiras Empáticas de Chamar o Paciente', desc: 'Como você se dirigiria ao paciente de forma acolhedora e profissional?', question: 'Descreva como você trataria o paciente em diferentes contextos.' },
       { num: 8, title: '8️⃣ Reescreva de forma mais cordial', desc: '"Você preencheu os dados errados."', question: 'Como você tornaria essa mensagem mais empática?' },
       { num: 10, title: '🔟 Pergunta Clarificadora', desc: 'Cite uma pergunta para entender melhor a necessidade do cliente', question: 'Demonstre escuta ativa sugerindo uma pergunta clarificadora útil.' },
-      { num: 12, title: '1️⃣2️⃣ Redefinir Senha', desc: 'Explique como redefinir uma senha com um passo a passo simples', question: 'Crie uma orientação clara e organizada com passos numerados.' },
       { num: 14, title: '1️⃣4️⃣ Erro de Comunicação', desc: 'Descreva um erro que pode gerar insatisfação', question: 'Exemplifique um erro comum e como evitá-lo.' }
     ]
 
