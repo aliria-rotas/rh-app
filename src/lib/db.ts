@@ -692,10 +692,12 @@ export const dbBenefitsCosts = {
     }
 
     if (error) {
+      console.error('Erro ao carregar custos:', error)
       return defaultCosts
     }
 
     if (!data || data.length === 0) {
+      console.warn('Nenhum dado retornado da rh_benefits_config')
       return defaultCosts
     }
 
@@ -707,6 +709,7 @@ export const dbBenefitsCosts = {
       }
     })
 
+    console.log('Custos carregados da Supabase:', costs)
     return costs
   },
 }
