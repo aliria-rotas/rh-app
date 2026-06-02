@@ -10,6 +10,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    minify: 'terser',
+  },
   server: {
     port: 5176,
     strictPort: true,
