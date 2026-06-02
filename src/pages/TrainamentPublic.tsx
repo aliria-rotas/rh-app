@@ -259,33 +259,43 @@ const SLIDES_EDUCATIONAL = [
   },
   {
     id: 7,
-    title: '✍️ Escrita Profissional',
+    title: '🔄 Verbo "Estar" vs "Ir"',
     color: 'from-orange-500 to-orange-600',
     content: (
-      <div className="space-y-3">
-        <p className="text-sm font-semibold">Estrutura de mensagens profissionais:</p>
+      <div className="space-y-4">
+        <p className="text-sm">Os verbos <strong>estar</strong> (estado temporário) e <strong>ir</strong> (deslocamento) assumem papéis muito diferentes. O verbo <strong>estar</strong> refere-se a uma condição momentânea, enquanto <strong>ir</strong> indica movimento ou uma ação futura iminente (o "futuro imediato").</p>
 
-        <div className="space-y-2">
-          <div><strong>🎯 Clareza</strong> - Direto e objetivo</div>
-          <div className="text-xs italic">✅ "Verifiquei e seu pedido está em processamento."</div>
-          <div className="text-xs italic">❌ "Então, é que... o seu negócio lá está..."</div>
+        <div className="space-y-3">
+          <div>
+            <div><strong>1. Verbo "Estar" (Estado / Condição)</strong></div>
+
+            <div className="text-xs mt-2">
+              <strong>Presente:</strong> Indica uma situação ou estado atual.
+            </div>
+            <div className="text-xs italic">Ex: "Eu estou trabalhando no Itaim Bibi hoje."</div>
+
+            <div className="text-xs mt-2">
+              <strong>Futuro:</strong> Indica uma probabilidade ou uma condição que se realizará.
+            </div>
+            <div className="text-xs italic">Ex: "Amanhã eu estarei (ou estarei estando na linguagem formal) livre para a reunião."</div>
+          </div>
+
+          <div className="border-t border-white/30 pt-3">
+            <div><strong>2. Verbo "Ir" (Deslocamento / Ação)</strong></div>
+
+            <div className="text-xs mt-2">
+              <strong>Presente:</strong> Embora conjugado no presente, o verbo <strong>ir</strong> é frequentemente usado para expressar uma ação que ocorrerá quase imediatamente (futuro imediato).
+            </div>
+            <div className="text-xs italic">Ex: "Eu vou ao escritório agora à tarde." (Vou me deslocar no futuro próximo)</div>
+
+            <div className="text-xs mt-2">
+              <strong>Futuro:</strong> Expressa uma ação que se realizará de forma planejada ou mais distante.
+            </div>
+            <div className="text-xs italic">Ex: "Semana que vem eu irei a Brasília."</div>
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <div><strong>⚡ Linguagem Profissional</strong> - Sem gírias ou informalismos excessivos</div>
-          <div className="text-xs italic">✅ "Como posso ajudá-lo?"</div>
-          <div className="text-xs italic">❌ "E aí, tudo bem? Bora resolver isso?"</div>
-        </div>
-
-        <div className="space-y-2">
-          <div><strong>📋 Organização</strong> - Parágrafos curtos e bem estruturados</div>
-          <div className="text-xs italic">✅ Uma ideia por parágrafo. Fácil de ler.</div>
-        </div>
-
-        <div className="space-y-2">
-          <div><strong>✅ Correção Gramatical</strong> - Revisar antes de enviar</div>
-          <div className="text-xs italic">Verificar: acentuação, pontuação, concordância.</div>
-        </div>
+        <p className="text-xs mt-3 border-t border-white/30 pt-2"><strong>Resumo:</strong> ESTAR = estado/condição momentânea | IR = movimento ou ação futura iminente</p>
       </div>
     ),
   },
