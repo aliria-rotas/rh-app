@@ -179,7 +179,7 @@ const SLIDES_EDUCATIONAL = [
           <div className="text-xs italic mt-1">Exemplo: "Entendo sua dúvida. Fico feliz em esclarecer!"</div>
         </div>
 
-        <p className="text-xs mt-3 border-t pt-2">Usar essas palavras demonstra respeito genuíno e cria conexão real com o paciente/cliente.</p>
+        <p className="text-xs mt-3 border-t pt-2">Usar essas palavras demonstra respeito genuíno e cria conexão real com o cliente (paciente/órgão/interessado).</p>
       </div>
     ),
   },
@@ -252,7 +252,7 @@ const SLIDES_EDUCATIONAL = [
       <div className="space-y-3">
         <div><strong>❤️ Empatia</strong> - Demonstrar compreensão genuína</div>
         <div><strong>👋 Saudações</strong> - "Olá", "Bom dia", "Como posso ajudá-lo?"</div>
-        <div><strong>😊 Tratamento Personalizado</strong> - Usar nome do cliente quando possível</div>
+        <div><strong>😊 Tratamento Personalizado</strong> - Usar nome do cliente (paciente/órgão) quando possível</div>
         <div><strong>🙏 Agradecimento</strong> - "Obrigado pela paciência"</div>
       </div>
     ),
@@ -494,12 +494,12 @@ export default function TrainmentPublic() {
 
     // Perguntas abertas
     const openEndedQuestionData = [
-      { num: 1, title: '1️⃣ Reconhecimento de Emoções do Paciente', desc: 'Um paciente envia: "Pedi meu medicamento há 3 dias e ainda não chegou! Preciso urgente para tomar hoje! Estou desesperado!"', question: 'Como você responderia reconhecendo a urgência e o desespero dele de forma empática?' },
-      { num: 5, title: '5️⃣ Situação Complexa: Investigação + Empatia', desc: 'Um paciente irritado diz: "Pedi meu medicamento no início da semana e hoje é sexta! Ainda não chegou! Precisei ontem!"', question: 'Como você investigaria o problema enquanto acalma o paciente?' },
-      { num: 6, title: '6️⃣ Maneiras Empáticas de Chamar o Paciente', desc: 'Como você se dirigiria ao paciente de forma acolhedora e profissional?', question: 'Descreva como você trataria o paciente em diferentes contextos.' },
+      { num: 1, title: '1️⃣ Reconhecimento de Emoções do Interessado', desc: 'Um cliente (paciente/órgão) envia: "Pedi meu medicamento há 3 dias e ainda não chegou! Preciso urgente para tomar hoje! Estou desesperado!"', question: 'Como você responderia reconhecendo a urgência e o desespero dele de forma empática?' },
+      { num: 5, title: '5️⃣ Situação Complexa: Investigação + Empatia', desc: 'Um cliente irritado (paciente/órgão) diz: "Pedi meu medicamento no início da semana e hoje é sexta! Ainda não chegou! Precisei ontem!"', question: 'Como você investigaria o problema enquanto acalma o cliente?' },
+      { num: 6, title: '6️⃣ Maneiras Empáticas de Chamar o Cliente', desc: 'Como você se dirigiria ao cliente (paciente/órgão) de forma acolhedora e profissional?', question: 'Descreva como você trataria o cliente em diferentes contextos.' },
       { num: 8, title: '8️⃣ Reescreva de forma mais cordial', desc: '"Você preencheu os dados errados."', question: 'Como você tornaria essa mensagem mais empática?' },
-      { num: 10, title: '🔟 Pergunta Clarificadora', desc: 'Cite uma pergunta para entender melhor a necessidade do cliente', question: 'Demonstre escuta ativa sugerindo uma pergunta clarificadora útil.' },
-      { num: 14, title: '1️⃣4️⃣ Erro de Comunicação', desc: 'Descreva um erro que pode gerar insatisfação', question: 'Exemplifique um erro comum e como evitá-lo.' }
+      { num: 10, title: '🔟 Pergunta Clarificadora', desc: 'Cite uma pergunta para entender melhor a necessidade do cliente (paciente/órgão)', question: 'Demonstre escuta ativa sugerindo uma pergunta clarificadora útil.' },
+      { num: 14, title: '1️⃣4️⃣ Erro de Comunicação', desc: 'Descreva um erro que pode gerar insatisfação no cliente (paciente/órgão)', question: 'Exemplifique um erro comum e como evitá-lo.' }
     ]
 
     for (const q of openEndedQuestionData) {
