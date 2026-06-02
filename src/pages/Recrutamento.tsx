@@ -11,6 +11,18 @@ import { Plus, Pencil, Trash2, UserSearch, Users, ChevronRight, X, Star, HelpCir
 import * as pdfjsLib from 'pdfjs-dist'
 import workerSrc from 'pdfjs-dist/build/pdf.worker.mjs?url'
 
+// Interview Question Type
+interface InterviewQuestion {
+  id: string
+  job_opening_id?: string
+  category: string
+  question: string
+  type: 'aberta' | 'multipla_escolha'
+  order_number: number
+  created_at?: string
+  updated_at?: string
+}
+
 const JOB_STATUS_OPTS = [
   { value: 'aberta', label: 'Aberta' },
   { value: 'em_andamento', label: 'Em andamento' },
@@ -40,13 +52,13 @@ const CATEGORIES = [
 export default function Recrutamento() {
   const [jobs, setJobs] = useState<JobOpening[]>([])
   const [candidates, setCandidates] = useState<Candidate[]>([])
-  const [questions, setQuestions] = useState<any[]>([])
+  const [questions, setQuestions] = useState<InterviewQuestion[]>([])
   const [loadingJobs, setLoadingJobs] = useState(true)
   const [loadingCands, setLoadingCands] = useState(false)
   const [loadingQuestions, setLoadingQuestions] = useState(false)
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null)
   const [activeTab, setActiveTab] = useState<'vagas' | 'candidatos' | 'perguntas'>('vagas')
-  const [jobQuestions, setJobQuestions] = useState<any[]>([])
+  const [jobQuestions, setJobQuestions] = useState<InterviewQuestion[]>([])
   const [selectedJobTab, setSelectedJobTab] = useState<'candidatos' | 'perguntas'>('candidatos')
   const [jobModal, setJobModal] = useState(false)
   const [candModal, setCandModal] = useState(false)
@@ -54,7 +66,7 @@ export default function Recrutamento() {
   const [inlineEditId, setInlineEditId] = useState<string | null>(null)
   const [editingJob, setEditingJob] = useState<JobOpening | null>(null)
   const [editingCand, setEditingCand] = useState<Candidate | null>(null)
-  const [editingQuestion, setEditingQuestion] = useState<any | null>(null)
+  const [editingQuestion, setEditingQuestion] = useState<InterviewQuestion | null>(null)
   const [jobForm, setJobForm] = useState({ title: '', department: '', description: '', status: 'aberta' as JobStatus, opening_date: '', closing_date: '' })
   const [candForm, setCandForm] = useState({ name: '', email: '', phone: '', linkedin: '', notes: '', stage: 'inscrito' as CandidateStage, interview_date: '', interview_time: '' })
   const [questionForm, setQuestionForm] = useState({ category: 'experiencia_passada', question: '', type: 'aberta', order_number: 0 })
