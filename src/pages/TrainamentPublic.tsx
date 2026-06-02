@@ -27,7 +27,7 @@ interface Slide {
 // ✅ CONSTANTES FORA DO COMPONENTE - evita redeclaração em cada render
 const CORRECT_ANSWERS: {[key: number]: string} = {
   2: 'A) O medicamento não está disponível, mais temos outros que você pode usar.',
-  3: 'C) Seu pedido está sendo preparando e você vai a receber em 2 dias.',
+  3: 'A) Vou estar consultando seu histórico e já retorno com a informação.',
   4: 'A) Vou estar verificando o status e retorno para você.',
   7: 'B) Clareza e objetividade',
   9: 'B) Favor enviar o documento para análise.',
@@ -60,13 +60,13 @@ const QUESTIONS_DATA = {
     hint: ''
   },
   3: {
-    title: '3️⃣ Conjugação de Verbos: Gerúndio vs Infinitivo',
-    desc: 'Qual frase está INCORRETAMENTE escrita?',
-    situation: '',
+    title: '3️⃣ Gerundismo: Uso Incorreto do Gerúndio',
+    desc: 'Qual frase comete o erro de GERUNDISMO?',
+    situation: 'Gerundismo é o uso desnecessário do gerúndio para expressar uma ação pontual. Ex: "vou estar verificando" em vez de "vou verificar".',
     options: [
-      'A) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.',
-      'B) Seu pedido vai ser preparando e você recebe em breve.',
-      'C) Estamos preparando seu pedido agora e você receberá em até 2 dias.'
+      'A) Vou estar consultando seu histórico e já retorno com a informação.',
+      'B) Vou consultar seu histórico agora e retorno com a informação.',
+      'C) Vou verificar seu cadastro e enviarei a resposta em breve.'
     ],
     hint: ''
   },
