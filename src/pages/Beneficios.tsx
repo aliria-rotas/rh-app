@@ -191,13 +191,13 @@ export default function Beneficios() {
   })
 
   useEffect(() => {
-    Promise.all([
-      dbEmployees.list().then(data => setEmployees(data.filter(e => e.status !== 'inativo'))),
-      dbBenefitsCosts.loadCosts().then(costs => {
-        setCosts(costs)
-        return costs
-      })
-    ]).finally(() => setLoading(false))
+    dbEmployees.list().then(data => { setEmployees(data.filter(e => e.status !== 'inativo')); setLoading(false) })
+  }, [])
+
+  useEffect(() => {
+    dbBenefitsCosts.loadCosts().then(loadedCosts => {
+      setCosts(loadedCosts)
+    })
   }, [])
 
   // Detect route and set active tab
