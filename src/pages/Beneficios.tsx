@@ -301,15 +301,11 @@ export default function Beneficios() {
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Valores Médios dos Benefícios</p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {/* Convênio Médico */}
-            {(() => {
-              return costs.health_plan > 0 ? (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg px-3 py-3">
-                  <p className="text-xs text-blue-600 font-semibold">Convênio Médico</p>
-                  <p className="text-lg font-bold text-blue-700 mt-1">{formatCurrency(costs.health_plan)}</p>
-                  <p className="text-xs text-slate-500 mt-1">custo mensal total</p>
-                </div>
-              ) : null
-            })()}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg px-3 py-3">
+              <p className="text-xs text-blue-600 font-semibold">Convênio Médico</p>
+              <p className="text-lg font-bold text-blue-700 mt-1">{costs.health_plan > 0 ? formatCurrency(costs.health_plan) : 'R$ 0,00'}</p>
+              <p className="text-xs text-slate-500 mt-1">custo mensal total</p>
+            </div>
 
             {/* Vale Transporte */}
             {(() => {
@@ -334,28 +330,18 @@ export default function Beneficios() {
             </div>
 
             {/* Convênio Odontológico */}
-            {(() => {
-              const dentalEnrolled = employees.filter(e => !!e.dental_plan && e.status === 'ativo')
-              return costs.dental_plan > 0 ? (
-                <div className="bg-teal-50 border border-teal-200 rounded-lg px-3 py-3">
-                  <p className="text-xs text-teal-600 font-semibold">Convênio Odontológico</p>
-                  <p className="text-lg font-bold text-teal-700 mt-1">{formatCurrency(costs.dental_plan)}</p>
-                  <p className="text-xs text-slate-500 mt-1">custo mensal total</p>
-                </div>
-              ) : null
-            })()}
+            <div className="bg-teal-50 border border-teal-200 rounded-lg px-3 py-3">
+              <p className="text-xs text-teal-600 font-semibold">Convênio Odontológico</p>
+              <p className="text-lg font-bold text-teal-700 mt-1">{costs.dental_plan > 0 ? formatCurrency(costs.dental_plan) : 'R$ 0,00'}</p>
+              <p className="text-xs text-slate-500 mt-1">custo mensal total</p>
+            </div>
 
             {/* Seguro de Vida */}
-            {(() => {
-              const lifeEnrolled = employees.filter(e => !!e.life_insurance && e.status === 'ativo')
-              return costs.life_insurance > 0 ? (
-                <div className="bg-purple-50 border border-purple-200 rounded-lg px-3 py-3">
-                  <p className="text-xs text-purple-600 font-semibold">Seguro de Vida</p>
-                  <p className="text-lg font-bold text-purple-700 mt-1">{formatCurrency(costs.life_insurance)}</p>
-                  <p className="text-xs text-slate-500 mt-1">custo mensal total</p>
-                </div>
-              ) : null
-            })()}
+            <div className="bg-purple-50 border border-purple-200 rounded-lg px-3 py-3">
+              <p className="text-xs text-purple-600 font-semibold">Seguro de Vida em Grupo</p>
+              <p className="text-lg font-bold text-purple-700 mt-1">{costs.life_insurance > 0 ? formatCurrency(costs.life_insurance) : 'R$ 0,00'}</p>
+              <p className="text-xs text-slate-500 mt-1">custo mensal total</p>
+            </div>
           </div>
         </CardContent>
       </Card>
