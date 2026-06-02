@@ -57,7 +57,7 @@ const QUESTIONS_DATA = {
       'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
       'C) Infelizmente esse medicamento está em falta, mas temos alternativas disponíveis.'
     ],
-    hint: '💡 Dica: MAS = contraste/oposição | MAIS = adição/quantidade'
+    hint: ''
   },
   3: {
     title: '3️⃣ Conjugação de Verbos: Gerúndio vs Infinitivo',
@@ -219,6 +219,13 @@ const SLIDES_EDUCATIONAL = [
         <div><strong>⚡ Sem Gírias</strong> - Manter profissionalismo</div>
         <div><strong>📋 Estrutura</strong> - Parágrafos curtos e bem organizados</div>
         <div><strong>✅ Sem Erros</strong> - Revisar antes de enviar</div>
+        <div className="mt-4 pt-4 border-t border-white/20">
+          <strong>🔑 MAS vs MAIS</strong>
+          <div className="text-sm mt-2">
+            • <strong>MAS</strong> = contraste/oposição (ex: "fora de estoque, <u>mas</u> temos alternativas")
+            <br/>• <strong>MAIS</strong> = adição/quantidade (ex: "preciso de <u>mais</u> informações")
+          </div>
+        </div>
       </div>
     ),
   },
