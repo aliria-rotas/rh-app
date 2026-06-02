@@ -660,6 +660,28 @@ export default function TrainmentPublic() {
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">👤 {slide.questionTitle}</h2>
                   <p className="text-sm text-gray-600 mb-4">Os dados abaixo são <strong>obrigatórios</strong> para iniciar o treinamento.</p>
                 </div>
+
+                {/* INFORMAÇÕES IMPORTANTES */}
+                <div className="space-y-3">
+                  <div className="p-4 bg-orange-50 border-l-4 border-orange-500 rounded-lg">
+                    <p className="text-sm font-semibold text-orange-900 mb-2">📋 Importante</p>
+                    <ul className="space-y-2 text-sm text-orange-800">
+                      <li className="flex items-start gap-2">
+                        <span className="text-orange-600 font-bold">✓</span>
+                        <span><strong>Dados obrigatórios:</strong> Nome e email devem ser preenchidos para iniciar.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-orange-600 font-bold">✓</span>
+                        <span><strong>Respostas imutáveis:</strong> Uma vez respondida, sua resposta <strong>não poderá ser alterada</strong>. Responda com atenção!</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-orange-600 font-bold">✓</span>
+                        <span><strong>Duração:</strong> O treinamento leva aproximadamente 15 minutos.</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Nome Completo *</label>
                   <Input
