@@ -27,8 +27,8 @@ interface Slide {
 // ✅ CONSTANTES FORA DO COMPONENTE - evita redeclaração em cada render
 const CORRECT_ANSWERS: {[key: number]: string} = {
   2: 'A) O medicamento não está disponível, mais temos outros que você pode usar.',
-  3: 'B) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.',
-  4: 'B) Vou verificar o status agora mesmo e retorno com você em 2 minutos.',
+  3: 'C) Seu pedido está sendo preparando e você vai a receber em 2 dias.',
+  4: 'A) Vou estar verificando o status e retorno para você.',
   7: 'B) Clareza e objetividade',
   9: 'B) Favor enviar o documento para análise.',
   11: 'B) Demonstrar compreensão e buscar uma solução',
@@ -61,23 +61,23 @@ const QUESTIONS_DATA = {
   },
   3: {
     title: '3️⃣ Conjugação de Verbos: Gerúndio vs Infinitivo',
-    desc: 'Qual frase está CORRETAMENTE escrita?',
+    desc: 'Qual frase está INCORRETAMENTE escrita?',
     situation: '',
     options: [
-      'A) Você vai recebendo seu pedido em breve.',
-      'B) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.',
+      'A) Seu pedido está sendo preparado neste momento e você receberá em até 2 dias.',
+      'B) Você está recebendo em breve aquele medicamento que solicitou.',
       'C) Seu pedido está sendo preparando e você vai a receber em 2 dias.'
     ],
     hint: ''
   },
   4: {
     title: '4️⃣ Verbo "Estar" vs "Ir": Presente vs Futuro',
-    desc: 'Qual resposta é mais profissional e clara?',
+    desc: 'Qual resposta é INCORRETA?',
     situation: '',
     options: [
       'A) Vou estar verificando o status e retorno para você.',
       'B) Vou verificar o status agora mesmo e retorno com você em 2 minutos.',
-      'C) Estarei retornando em 2 minutos com o status.'
+      'C) Vou te retornar em 2 minutos com o status do seu pedido.'
     ],
     hint: ''
   },
