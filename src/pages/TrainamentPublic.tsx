@@ -37,7 +37,7 @@ const CORRECT_ANSWERS: {[key: number]: string} = {
 }
 
 const QUESTION_SLIDE_MAP: {[key: number]: number[]} = {
-  2: [3, 4, 13],
+  2: [4, 13],
   3: [14],
   4: [7],
   7: [5],
