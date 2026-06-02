@@ -62,7 +62,7 @@ const QUESTIONS_DATA = {
   3: {
     title: '3️⃣ Gerundismo: Uso Incorreto do Gerúndio',
     desc: 'Qual frase comete o erro de GERUNDISMO?',
-    situation: 'Gerundismo é o uso desnecessário do gerúndio para expressar uma ação pontual. Ex: "vou estar verificando" em vez de "vou verificar".',
+    situation: '',
     options: [
       'A) Vou estar consultando seu histórico e já retorno com a informação.',
       'B) Vou consultar seu histórico agora e retorno com a informação.',
@@ -224,6 +224,14 @@ const SLIDES_EDUCATIONAL = [
           <div className="text-sm mt-2">
             • <strong>MAS</strong> = contraste/oposição (ex: "fora de estoque, <u>mas</u> temos alternativas")
             <br/>• <strong>MAIS</strong> = adição/quantidade (ex: "preciso de <u>mais</u> informações")
+          </div>
+        </div>
+        <div className="mt-4 pt-4 border-t border-white/20">
+          <strong>⚠️ GERUNDISMO (Evitar!)</strong>
+          <div className="text-sm mt-2">
+            Uso desnecessário do gerúndio para expressar uma ação pontual.
+            <br/>❌ <u>Evite:</u> "Vou estar verificando seu cadastro"
+            <br/>✅ <u>Use:</u> "Vou verificar seu cadastro" ou "Verificarei seu cadastro"
           </div>
         </div>
       </div>
