@@ -36,7 +36,6 @@ export const dbIdentity = {
       .select('*')
       .eq('id', 'singleton')
       .maybeSingle()
-    if (error) { console.error('dbIdentity.get:', error); return null }
     return data ? mapIdentity(data) : null
   },
 
@@ -66,7 +65,6 @@ export const dbCompetencies = {
       .from('rh_competencies')
       .select('*')
       .order('created_at')
-    if (error) { console.error('dbCompetencies.list:', error); return [] }
     return (data ?? []) as Competency[]
   },
 
@@ -110,7 +108,6 @@ export const dbPositions = {
       .from('rh_positions')
       .select('*')
       .order('created_at')
-    if (error) { console.error('dbPositions.list:', error); return [] }
     return (data ?? []) as Position[]
   },
 
@@ -154,7 +151,6 @@ export const dbClimateSurveys = {
       .from('rh_climate_surveys')
       .select('*')
       .order('created_at')
-    if (error) { console.error('dbClimateSurveys.list:', error); return [] }
     return (data ?? []) as ClimateSurvey[]
   },
 
@@ -198,7 +194,6 @@ export const dbJobOpenings = {
       .from('rh_job_openings')
       .select('*')
       .order('created_at')
-    if (error) { console.error('dbJobOpenings.list:', error); return [] }
     return (data ?? []) as JobOpening[]
   },
 
@@ -243,7 +238,6 @@ export const dbCandidates = {
       .select('*')
       .eq('job_opening_id', jobOpeningId)
       .order('created_at')
-    if (error) { console.error('dbCandidates.listByJob:', error); return [] }
     return (data ?? []) as Candidate[]
   },
 
@@ -281,7 +275,6 @@ export const dbOffboarding = {
       .from('rh_offboarding')
       .select('*')
       .order('created_at', { ascending: false })
-    if (error) { console.error('dbOffboarding.list:', error); return [] }
     return (data ?? []) as OffboardingProcess[]
   },
 
@@ -319,7 +312,6 @@ export const dbPerformanceCycles = {
       .from('rh_performance_cycles')
       .select('*')
       .order('created_at', { ascending: false })
-    if (error) { console.error('dbPerformanceCycles.list:', error); return [] }
     return (data ?? []) as PerformanceCycle[]
   },
 
@@ -364,7 +356,6 @@ export const dbPerformanceEvaluations = {
       .select('*')
       .eq('cycle_id', cycleId)
       .order('created_at')
-    if (error) { console.error('dbPerformanceEvaluations.listByCycle:', error); return [] }
     return (data ?? []) as PerformanceEvaluation[]
   },
 
@@ -402,7 +393,6 @@ export const dbEndomarketing = {
       .from('rh_endomarketing_campaigns')
       .select('*')
       .order('created_at', { ascending: false })
-    if (error) { console.error('dbEndomarketing.list:', error); return [] }
     return (data ?? []) as EndomarketingCampaign[]
   },
 
@@ -446,7 +436,6 @@ export const dbTrainings = {
       .from('rh_trainings')
       .select('*')
       .order('created_at')
-    if (error) { console.error('dbTrainings.list:', error); return [] }
     return (data ?? []) as TrainingAction[]
   },
 
@@ -490,7 +479,6 @@ export const dbSalaryGrades = {
       .from('rh_salary_grades')
       .select('*')
       .order('min_salary')
-    if (error) { console.error('dbSalaryGrades.list:', error); return [] }
     return (data ?? []) as SalaryGrade[]
   },
 
@@ -534,7 +522,6 @@ export const dbEmployees = {
       .from('rh_employees')
       .select('*')
       .order('full_name')
-    if (error) { console.error('dbEmployees.list:', error); return [] }
     return (data ?? []) as Employee[]
   },
 
@@ -578,7 +565,6 @@ export const dbInterviewQuestions = {
       .from('rh_interview_questions')
       .select('*')
       .order('category, order_number')
-    if (error) { console.error('dbInterviewQuestions.list:', error); return [] }
     return (data ?? []) as any[]
   },
 
@@ -588,7 +574,6 @@ export const dbInterviewQuestions = {
       .select('*')
       .eq('job_opening_id', jobOpeningId)
       .order('category, order_number')
-    if (error) { console.error('dbInterviewQuestions.listByJob:', error); return [] }
     return (data ?? []) as any[]
   },
 
@@ -598,7 +583,6 @@ export const dbInterviewQuestions = {
       .select('*')
       .eq('category', category)
       .order('order_number')
-    if (error) { console.error('dbInterviewQuestions.listByCategory:', error); return [] }
     return (data ?? []) as any[]
   },
 
@@ -642,7 +626,6 @@ export const dbBenefitsValidation = {
       .eq('month', month)
       .eq('company_cnpj', companyCnpj)
       .maybeSingle()
-    if (error) { console.error('dbBenefitsValidation.getValidation:', error); return null }
     return data as { id: string; is_validated: boolean; validated_at: string; validated_by: string; benefits_data: Record<string, unknown> } | null
   },
 
@@ -687,7 +670,6 @@ export const dbBenefitsValidation = {
     }
 
     if (result.error) {
-      console.error('dbBenefitsValidation.saveValidation:', result.error)
       return null
     }
     return result.data as { id: string; is_validated: boolean; validated_at: string; validated_by: string }

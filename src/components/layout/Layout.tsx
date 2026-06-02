@@ -32,7 +32,6 @@ export function Layout() {
       await signOut()
       navigate('/login')
     } catch (err) {
-      console.error('Erro ao fazer logout:', err)
     }
   }
 

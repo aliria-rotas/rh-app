@@ -24,7 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const { data: { session } } = await supabase.auth.getSession()
         setUser(session?.user || null)
       } catch (err) {
-        console.error('Erro ao verificar autenticação:', err)
+        // Error handling - silently fail for auth check
       } finally {
         setLoading(false)
       }

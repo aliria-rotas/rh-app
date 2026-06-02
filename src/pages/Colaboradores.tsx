@@ -373,11 +373,9 @@ export default function Colaboradores() {
       }
       setModal(false)
     } catch (err) {
-      console.error('Save error:', err)
       const errorMsg = err instanceof Error ? err.message :
                       typeof err === 'object' && err !== null && 'message' in err ? (err as any).message :
                       String(err)
-      console.error('Error details:', JSON.stringify(err, null, 2))
       alert(`Erro ao salvar: ${errorMsg}`)
     }
   }

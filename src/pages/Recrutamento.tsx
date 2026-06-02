@@ -129,7 +129,6 @@ export default function Recrutamento() {
     try {
       // Ler o arquivo como ArrayBuffer
       const arrayBuffer = await file.arrayBuffer()
-      console.log(`Processando PDF: ${file.name} (${(arrayBuffer.byteLength / 1024).toFixed(2)} KB)`)
 
       // Configurar o worker para pdfjs usando o arquivo local
       pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc
@@ -142,8 +141,6 @@ export default function Recrutamento() {
 
       const pdf = await Promise.race([loadingPromise, timeoutPromise]) as any
 
-      console.log(`PDF carregado com ${pdf.numPages} páginas`)
-
       // Extrair texto de todas as páginas (até 5 páginas)
       let fullText = ''
       const maxPages = Math.min(pdf.numPages, 5)
@@ -154,14 +151,10 @@ export default function Recrutamento() {
           const textContent = await page.getTextContent()
           const pageText = textContent.items.map((item: any) => item.str || '').join(' ')
           fullText += pageText + ' '
-          console.log(`Página ${i} processada: ${pageText.length} caracteres`)
         } catch (pageError) {
-          console.warn(`Erro ao processar página ${i}:`, pageError)
           continue
         }
       }
-
-      console.log(`Texto total extraído: ${fullText.length} caracteres`)
 
       // Extração de informações do PDF com padrões mais flexíveis
       // Nome: letras maiúsculas no início de palavras
@@ -179,8 +172,6 @@ export default function Recrutamento() {
         phone: phoneMatch?.[0]?.replace(/\D/g, '').slice(-11) || '',
         linkedin: linkedinMatch?.[0] || ''
       }
-
-      console.log('Dados extraídos:', extractedData)
 
       // Atualiza o formulário com dados extraídos
       setCandForm(f => ({
@@ -200,7 +191,6 @@ export default function Recrutamento() {
         alert('⚠️ Currículo enviado, mas não foi possível extrair informações automaticamente. Por favor, preencha os dados manualmente.')
       }
     } catch (error) {
-      console.error('Erro ao processar PDF:', error)
       alert('⚠️ Erro ao processar o currículo. Você pode adicionar a candidata mesmo sem o PDF - preencha os dados manualmente.')
     }
   }

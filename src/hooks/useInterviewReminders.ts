@@ -60,7 +60,6 @@ export function useInterviewReminders() {
               }
 
               // Alerta de fallback
-              console.warn(`⏰ ${message}`)
             }
           }
 
@@ -71,7 +70,6 @@ export function useInterviewReminders() {
           }
         }
       } catch (error) {
-        console.error('Erro ao verificar entrevistas:', error)
       }
     }
 

@@ -246,7 +246,6 @@ export default function Beneficios() {
         setMonthlyValidation(result)
       }
     } catch (error) {
-      console.error('Error validating month:', error)
     } finally {
       setIsValidating(false)
     }

@@ -17,7 +17,6 @@ export async function seedIfNeeded() {
     if ((count ?? 0) > 0) return   // Já foi populado
     await seedAll()
   } catch (error) {
-    console.error('Seed check failed:', error)
   }
 }
 
@@ -116,7 +115,6 @@ async function seedCompetencias() {
       indicators: ['Toma decisões com base em dados e evidências, não apenas em intuição','Comunica as decisões com clareza e contexto para a equipe','Assume responsabilidade pelas decisões, incluindo as que resultam em erro','Sabe quando escalar uma decisão para a Diretoria'], created_at: now() },
   ]
   const { error } = await supabase.from('rh_competencies').insert(rows)
-  if (error) console.error('seedCompetencias:', error)
 }
 
 // ─── 3. CARGOS ──────────────────────────────────────────────────────────────────
@@ -220,7 +218,6 @@ async function seedCargos() {
       salary_range_min: 150, salary_range_max: 150, created_at: now(), updated_at: now() },
   ]
   const { error } = await supabase.from('rh_positions').insert(rows)
-  if (error) console.error('seedCargos:', error)
 }
 
 // ─── 4. PESQUISA DE CLIMA ───────────────────────────────────────────────────────
@@ -271,7 +268,6 @@ async function seedClima() {
     ],
   }
   const { error } = await supabase.from('rh_climate_surveys').insert([survey])
-  if (error) console.error('seedClima:', error)
 }
 
 // ─── 5. RECRUTAMENTO ─────────────────────────────────────────────────────────────
@@ -289,7 +285,6 @@ async function seedRecrutamento() {
       opening_date: '2026-05-01', closing_date: '', candidates_count: 0, created_at: now() },
   ]
   const { error } = await supabase.from('rh_job_openings').insert(jobs)
-  if (error) console.error('seedRecrutamento:', error)
 }
 
 // ─── 6. AVALIAÇÃO DE DESEMPENHO ─────────────────────────────────────────────────
@@ -305,7 +300,6 @@ async function seedAvaliacaoDesempenho() {
     created_at: now(),
   }
   const { error } = await supabase.from('rh_performance_cycles').insert([ciclo])
-  if (error) console.error('seedAvaliacaoDesempenho:', error)
 }
 
 // ─── 7. ENDOMARKETING ────────────────────────────────────────────────────────────
@@ -337,7 +331,6 @@ async function seedEndomarketing() {
       start_date: '2026-09-20', end_date: '2026-09-20', created_at: now() },
   ]
   const { error } = await supabase.from('rh_endomarketing_campaigns').insert(campaigns)
-  if (error) console.error('seedEndomarketing:', error)
 }
 
 // ─── 8. PLANO DE TREINAMENTO ─────────────────────────────────────────────────────
@@ -390,7 +383,6 @@ async function seedTreinamento() {
       scheduled_date: '2026-10-15', created_at: now() },
   ]
   const { error } = await supabase.from('rh_trainings').insert(trainings)
-  if (error) console.error('seedTreinamento:', error)
 }
 
 // ─── 9. CARGOS E SALÁRIOS ────────────────────────────────────────────────────────
@@ -414,5 +406,4 @@ async function seedCargosSalarios() {
       min_salary: 6000, mid_salary: 6800, max_salary: 8500, created_at: now() },
   ]
   const { error } = await supabase.from('rh_salary_grades').insert(grades)
-  if (error) console.error('seedCargosSalarios:', error)
 }
