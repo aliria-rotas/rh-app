@@ -36,13 +36,20 @@ const CORRECT_ANSWERS: {[key: number]: string} = {
 }
 
 const QUESTION_SLIDE_MAP: {[key: number]: number[]} = {
+  1: [3, 4],
   2: [3, 4, 13],
   3: [14],
   4: [7],
+  5: [3, 4],
+  6: [3, 4],
   7: [5],
+  8: [3, 4],
   9: [3],
+  10: [3, 4],
   11: [9, 2, 6],
-  13: [11]
+  12: [3, 4],
+  13: [11],
+  14: [3, 4]
 }
 
 const MC_QUESTIONS_ORDER = [2, 3, 4, 7, 9, 11, 13]
