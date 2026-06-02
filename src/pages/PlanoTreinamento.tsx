@@ -166,6 +166,40 @@ export default function PlanoTreinamento() {
 
       {activeTab === 'plano' && (
         <>
+      {/* LINK DO TREINAMENTO PÚBLICO */}
+      <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 border-2 border-orange-400 mb-6">
+        <CardContent className="py-6">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-orange-500 text-white rounded-lg p-3">
+                <LinkIcon size={24} />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-orange-900">🎓 Compartilhar Treinamento Público</h3>
+                <p className="text-sm text-orange-800">Envie este link para seus colaboradores</p>
+              </div>
+            </div>
+            <div className="bg-white p-4 rounded-lg border border-orange-200 flex items-center gap-3">
+              <input
+                type="text"
+                readOnly
+                value="https://aliria-rotas.github.io/rh-app/treinamento-publico?id=chatbot_empatico_001"
+                className="flex-1 text-sm text-gray-700 bg-white border-0 outline-none"
+              />
+              <Button
+                onClick={() => {
+                  navigator.clipboard.writeText('https://aliria-rotas.github.io/rh-app/treinamento-publico?id=chatbot_empatico_001')
+                  alert('Link copiado!')
+                }}
+                className="bg-orange-600 hover:bg-orange-700 text-white whitespace-nowrap"
+              >
+                📋 Copiar Link
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
           {[['all', 'Todos'], ['planejado', 'Planejados'], ['em_andamento', 'Em andamento'], ['concluido', 'Concluídos']].map(([v, l]) => (
