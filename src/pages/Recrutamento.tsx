@@ -103,12 +103,9 @@ export default function Recrutamento() {
   }
 
   async function saveCandidate() {
-    if (!candForm.name.trim()) {
-      alert('Por favor, preenchao nome do candidato')
-      return
-    }
-    if (!selectedJob) {
-      alert('Selecione uma vaga primeiro antes de adicionar um candidato')
+    console.log('saveCandidate called:', { name: candForm.name, selectedJob: selectedJob?.title })
+    if (!candForm.name.trim() || !selectedJob) {
+      console.log('Validation failed:', { nameEmpty: !candForm.name.trim(), noJob: !selectedJob })
       return
     }
     if (editingCand) {
