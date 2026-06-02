@@ -76,8 +76,8 @@ const QUESTIONS_DATA = {
     situation: '',
     options: [
       'A) Vou estar verificando o status e retorno para você.',
-      'B) Vou verificar o status agora mesmo e retorno com você em 2 minutos.',
-      'C) Vou te retornar em 2 minutos com o status do seu pedido.'
+      'B) Vou verificar o status agora mesmo e retornarei com você em 2 minutos.',
+      'C) Verifico o status agora e retorno em 2 minutos.'
     ],
     hint: ''
   },
@@ -86,7 +86,7 @@ const QUESTIONS_DATA = {
     desc: '',
     situation: '',
     options: [
-      'A) Usar muitos emojis para deixar alegre',
+      'A) Usar muitos emojis para deixar o cliente alegre',
       'B) Clareza e objetividade',
       'C) Responder com mensagens longas e detalhadas',
       'D) Usar gíria para parecer amigável'
