@@ -209,7 +209,7 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
                         </span>
                         <span className="flex items-center gap-1">
                           <Calendar size={14} />
-                          {new Date(response.completed_at).toLocaleDateString('pt-BR')}
+                          {new Date(response.created_at || response.completed_at || '').toLocaleDateString('pt-BR')}
                         </span>
                       </div>
                     </div>
