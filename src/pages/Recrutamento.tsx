@@ -103,11 +103,7 @@ export default function Recrutamento() {
   }
 
   async function saveCandidate() {
-    console.log('saveCandidate called:', { name: candForm.name, selectedJob: selectedJob?.title })
-    if (!candForm.name.trim() || !selectedJob) {
-      console.log('Validation failed:', { nameEmpty: !candForm.name.trim(), noJob: !selectedJob })
-      return
-    }
+    if (!candForm.name.trim() || !selectedJob) return
     if (editingCand) {
       const updated = await dbCandidates.update(editingCand.id, candForm)
       setCandidates(prev => prev.map(c => c.id === editingCand.id ? updated : c))
