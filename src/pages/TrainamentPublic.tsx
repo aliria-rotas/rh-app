@@ -55,7 +55,7 @@ const QUESTIONS_DATA = {
     options: [
       'A) O medicamento não está disponível, mais temos outros que você pode usar.',
       'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
-      'C) O medicamento está fora de estoque mas temos alternativas que funcionam igualmente bem!'
+      'C) Infelizmente esse medicamento está em falta, mas temos alternativas disponíveis.'
     ],
     hint: '💡 Dica: MAS = contraste/oposição | MAIS = adição/quantidade'
   },
