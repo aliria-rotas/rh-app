@@ -153,7 +153,7 @@ export default function Beneficios() {
   const [employees, setEmployees] = useState<Employee[]>([])
   const [loading, setLoading] = useState(true)
   const [providers, setProviders] = useState<Record<BenefitKey, string>>(() => loadLS('aliria_benefit_providers', DEFAULT_PROVIDERS))
-  const [costs, setCosts]         = useState<Record<BenefitKey, number>>(() => loadLS('aliria_benefit_costs', DEFAULT_COSTS))
+  const [costs, setCosts]         = useState<Record<BenefitKey, number>>(DEFAULT_COSTS)
   const [vrConfig, setVrConfig]   = useState<{ daily_rate: number; working_days: number }>(() => loadLS('aliria_vr_config', DEFAULT_VR_CONFIG))
   const [editingProvider, setEditingProvider] = useState<BenefitKey | null>(null)
   const [providerDraft,   setProviderDraft]   = useState('')
@@ -232,7 +232,7 @@ export default function Beneficios() {
   function saveCost(key: BenefitKey) {
     const v = parseFloat(costDraft.replace(',', '.'))
     const updated = { ...costs, [key]: isNaN(v) ? 0 : v }
-    setCosts(updated); localStorage.setItem('aliria_benefit_costs', JSON.stringify(updated))
+    setCosts(updated)
     setEditingCost(null)
   }
   function saveVrConfig(newConfig: typeof vrConfig) {
