@@ -166,7 +166,7 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
             </p>
             <Button
               onClick={() => {
-                const link = `https://aliria-rotas.github.io/rh-app/treinamento-publico?id=chatbot_empatico_001`
+                const link = `${window.location.origin}/treinamento-publico?id=chatbot_empatico_001`
                 navigator.clipboard.writeText(link)
               }}
               className="bg-blue-600 hover:bg-blue-700"

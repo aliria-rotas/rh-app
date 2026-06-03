@@ -183,12 +183,12 @@ export default function PlanoTreinamento() {
               <input
                 type="text"
                 readOnly
-                value="https://aliria-rotas.github.io/rh-app/treinamento-publico?id=chatbot_empatico_001"
+                value={`${window.location.origin}/treinamento-publico?id=chatbot_empatico_001`}
                 className="flex-1 text-sm text-gray-700 bg-white border-0 outline-none"
               />
               <Button
                 onClick={() => {
-                  navigator.clipboard.writeText('https://aliria-rotas.github.io/rh-app/treinamento-publico?id=chatbot_empatico_001')
+                  navigator.clipboard.writeText(`${window.location.origin}/treinamento-publico?id=chatbot_empatico_001`)
                   alert('Link copiado!')
                 }}
                 className="bg-orange-600 hover:bg-orange-700 text-white whitespace-nowrap"
