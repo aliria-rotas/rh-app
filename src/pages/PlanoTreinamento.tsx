@@ -7,8 +7,9 @@ import { Modal } from '@/components/ui/Modal'
 import { dbTrainings } from '@/lib/db'
 import { TrainingAction, TrainingStatus, TrainingModality } from '@/types'
 import { formatDate, formatCurrency } from '@/lib/utils'
-import { Plus, Pencil, Trash2, BookOpen, Clock, DollarSign, Users, MessageSquare, Link as LinkIcon } from 'lucide-react'
+import { Plus, Pencil, Trash2, BookOpen, Clock, DollarSign, Users, MessageSquare, Link as LinkIcon, BarChart3 } from 'lucide-react'
 import { TrainningResponses } from '@/components/TrainningResponses'
+import { TrainingKPIDashboard } from '@/components/TrainingKPIDashboard'
 
 const STATUS_OPTS = [
   { value: 'planejado', label: 'Planejado' },
@@ -61,7 +62,7 @@ export default function PlanoTreinamento() {
   const [form, setForm] = useState(EMPTY_FORM)
   const [filterStatus, setFilterStatus] = useState('all')
   const [positionInput, setPositionInput] = useState('')
-  const [activeTab, setActiveTab] = useState<'plano' | 'respostas'>('plano')
+  const [activeTab, setActiveTab] = useState<'plano' | 'respostas' | 'kpis'>('plano')
 
   useEffect(() => {
     dbTrainings.list().then(data => { setTrainings(data); setLoading(false) })
@@ -161,6 +162,17 @@ export default function PlanoTreinamento() {
         >
           <MessageSquare className="inline-block mr-2" size={16} />
           Respostas do Treinamento
+        </button>
+        <button
+          onClick={() => setActiveTab('kpis')}
+          className={`px-4 py-3 font-medium text-sm transition-colors ${
+            activeTab === 'kpis'
+              ? 'border-b-2 border-green-600 text-green-600'
+              : 'text-gray-600 hover:text-gray-900'
+          }`}
+        >
+          <BarChart3 className="inline-block mr-2" size={16} />
+          KPIs e Relatórios
         </button>
       </div>
 
@@ -411,6 +423,8 @@ export default function PlanoTreinamento() {
       )}
 
       {activeTab === 'respostas' && <TrainningResponses />}
+
+      {activeTab === 'kpis' && <TrainingKPIDashboard />}
 
       <Modal
         open={modal}
