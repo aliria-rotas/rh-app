@@ -298,14 +298,14 @@ export default function TrainamentReteste() {
   const slide = allSlides[currentStep]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 flex items-center justify-center">
       <div className="w-full max-w-2xl">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-center mb-1 text-gray-900">🎯 Reteste - Atendimento Empático</h1>
-          <p className="text-center text-sm text-blue-600 font-semibold mb-4">Reforço em Gerundismo, Transferência e Empatia</p>
+          <h1 className="text-3xl font-bold text-center mb-1 text-gray-900">Reteste - Atendimento Empático</h1>
+          <p className="text-center text-sm text-orange-600 font-semibold mb-4">Reforço em Gerundismo, Transferência e Empatia</p>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-blue-600 h-2 rounded-full transition-all"
+              className="bg-orange-600 h-2 rounded-full transition-all"
               style={{ width: `${((currentStep + 1) / allSlides.length) * 100}%` }}
             />
           </div>
@@ -317,8 +317,8 @@ export default function TrainamentReteste() {
             {/* SLIDE: INTRO */}
             {slide.type === 'intro' && (
               <div className="space-y-6 text-center">
-                <div className="bg-blue-50 p-8 rounded-lg border-2 border-blue-300">
-                  <h2 className="text-2xl font-bold text-blue-900 mb-4">Olá, Georgea! 👋</h2>
+                <div className="bg-gray-50 p-8 rounded-lg border-2 border-gray-200">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Olá, Georgea!</h2>
                   <p className="text-gray-700 mb-4">
                     Você teve um desempenho de <strong>57%</strong> no primeiro treinamento.
                   </p>
@@ -340,7 +340,7 @@ export default function TrainamentReteste() {
             {/* SLIDE: EXPLANATION */}
             {slide.type === 'explanation' && slide.content && (
               <div className="space-y-6">
-                <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-lg border-l-4 border-purple-500">
+                <div className="bg-white p-6 rounded-lg border-l-4 border-orange-500">
                   <div className="whitespace-pre-wrap text-sm text-gray-800 font-family-mono leading-relaxed">
                     {slide.content}
                   </div>
@@ -366,7 +366,7 @@ export default function TrainamentReteste() {
                         disabled={isAnswered && !isSelected}
                         className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                           isSelected
-                            ? 'border-blue-500 bg-blue-50'
+                            ? 'border-orange-500 bg-orange-50'
                             : isAnswered
                             ? 'border-gray-300 bg-gray-100 cursor-not-allowed opacity-60'
                             : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 cursor-pointer'
@@ -378,8 +378,8 @@ export default function TrainamentReteste() {
                   })}
                 </div>
                 {formData[`question_${slide.questionNum}_response` as keyof typeof formData] && (
-                  <div className="p-3 bg-blue-50 border border-blue-300 rounded-lg">
-                    <p className="text-sm text-blue-800">🔒 Sua resposta foi registrada!</p>
+                  <div className="p-3 bg-orange-50 border border-orange-300 rounded-lg">
+                    <p className="text-sm text-orange-800">✓ Sua resposta foi registrada!</p>
                   </div>
                 )}
               </div>
@@ -425,7 +425,7 @@ export default function TrainamentReteste() {
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">{slide.questionTitle}</h2>
                   <p className="text-sm text-gray-600">{slide.desc}</p>
                 </div>
-                <p className="text-sm font-semibold text-blue-700 bg-blue-50 p-3 rounded-lg">{slide.hint}</p>
+                <p className="text-sm font-semibold text-orange-700 bg-orange-50 p-3 rounded-lg">{slide.hint}</p>
                 <Textarea
                   name={`question_${slide.questionNum}_response`}
                   value={formData[`question_${slide.questionNum}_response` as keyof typeof formData]}
@@ -441,8 +441,8 @@ export default function TrainamentReteste() {
             {/* SLIDE: SUMMARY */}
             {slide.type === 'summary' && (
               <div className="space-y-6 text-center">
-                <div className="bg-gradient-to-br from-green-50 to-blue-50 p-8 rounded-lg border-2 border-green-300">
-                  <h2 className="text-2xl font-bold text-green-900 mb-4">🎓 Você está pronto!</h2>
+                <div className="bg-white p-8 rounded-lg border-2 border-orange-300">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Você está pronto!</h2>
                   <p className="text-gray-700 mb-6">
                     Você revisou os 3 pontos principais e respondeu às questões. Agora é só enviar para análise!
                   </p>
@@ -469,16 +469,16 @@ export default function TrainamentReteste() {
                 <Button
                   onClick={handleSubmit}
                   disabled={loading}
-                  className="bg-green-600 hover:bg-green-700 text-white ml-auto"
+                  className="bg-orange-600 hover:bg-orange-700 text-white ml-auto"
                 >
-                  ✓ Enviar Reteste
+                  Enviar Reteste
                 </Button>
               )}
               {slide.type !== 'summary' && (
                 <Button
                   onClick={handleNext}
                   disabled={currentStep === allSlides.length - 1}
-                  className="bg-blue-600 hover:bg-blue-700 text-white ml-auto"
+                  className="bg-orange-600 hover:bg-orange-700 text-white ml-auto"
                 >
                   Próximo
                   <ChevronRight size={18} className="ml-2" />
