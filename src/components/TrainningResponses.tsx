@@ -108,7 +108,7 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
     return (
       <Card>
         <CardContent className="py-8 flex justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600" />
         </CardContent>
       </Card>
     )
@@ -135,21 +135,21 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">📋 Respostas do Treinamento</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Respostas do Treinamento</h2>
           <p className="text-gray-600 text-sm mt-1">{trainingTitle || 'Atendimento Empático em Chatbot'}</p>
         </div>
         <div className="flex gap-2">
           <Button
             onClick={loadResponses}
             variant="outline"
-            className="border-blue-600 text-blue-600 hover:bg-blue-50"
+            className="border-orange-600 text-orange-600 hover:bg-orange-50"
           >
-            🔄 Atualizar
+            Atualizar
           </Button>
           <Button
             onClick={exportToCSV}
             disabled={responses.length === 0}
-            className="bg-green-600 hover:bg-green-700 text-white"
+            className="bg-orange-600 hover:bg-orange-700 text-white"
           >
             <Download size={16} /> Exportar CSV
           </Button>
@@ -187,15 +187,15 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
           ).map(([trainId, trainResponses]) => (
             <div key={trainId} className="space-y-4">
               <div className="border-b-2 border-orange-300 pb-3">
-                <h3 className="text-xl font-bold text-gray-900">📚 Treinamento: {trainResponses[0]?.training_title || trainId}</h3>
+                <h3 className="text-xl font-bold text-gray-900">Treinamento: {trainResponses[0]?.training_title || trainId}</h3>
               </div>
 
-              <Card className="border-blue-200 bg-blue-50">
+              <Card className="border-gray-200 bg-white">
                 <CardContent className="py-4">
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <p className="text-3xl font-bold text-blue-600">{trainResponses.length}</p>
-                      <p className="text-sm text-blue-700">Respostas recebidas</p>
+                      <p className="text-3xl font-bold text-orange-600">{trainResponses.length}</p>
+                      <p className="text-sm text-gray-700">Respostas recebidas</p>
                     </div>
                     <div>
                       <p className="text-3xl font-bold text-green-600">{trainResponses.length}</p>
@@ -241,7 +241,7 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
                     <div className="mt-6 pt-6 border-t border-gray-200 space-y-4">
                       {/* Perguntas Múltipla Escolha */}
                       <div className="mb-6 pb-6 border-b border-gray-300">
-                        <h4 className="font-bold text-base text-gray-900 mb-4">📋 Múltipla Escolha</h4>
+                        <h4 className="font-bold text-base text-gray-900 mb-4">Múltipla Escolha</h4>
                         <div className="space-y-4">
                           {[
                             { q: 2, title: 'Q2: MAIS vs MAS', resp: response.question_2_response },
@@ -328,9 +328,9 @@ export function TrainningResponses({ trainingId, trainingTitle }: TrainningRespo
                             const body = `Oi ${response.collaborator_name},\n\nObrigado por completar o treinamento! Aqui está meu feedback sobre suas respostas:\n\n...`
                             window.location.href = `mailto:${response.collaborator_email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
                           }}
-                          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                          className="flex-1 bg-orange-600 hover:bg-orange-700 text-white"
                         >
-                          ✉️ Enviar Feedback por Email
+                          Enviar Feedback por Email
                         </Button>
                       </div>
                     </div>

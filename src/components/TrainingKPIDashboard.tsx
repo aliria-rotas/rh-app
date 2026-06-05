@@ -409,11 +409,11 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
     <div className="space-y-6">
       {/* RESUMO EXECUTIVO */}
       <div className="grid grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+        <Card className="bg-white border-gray-200">
           <CardContent className="pt-6">
             <div className="text-center">
-              <p className="text-3xl font-bold text-blue-900">{kpiData.avgScore}%</p>
-              <p className="text-sm text-blue-700 mt-1">Média Geral</p>
+              <p className="text-3xl font-bold text-orange-600">{kpiData.avgScore}%</p>
+              <p className="text-sm text-gray-700 mt-1">Média Geral</p>
             </div>
           </CardContent>
         </Card>
@@ -427,11 +427,11 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+        <Card className="bg-white border-gray-200">
           <CardContent className="pt-6">
             <div className="text-center">
-              <p className="text-3xl font-bold text-purple-900">{kpiData.approved}/{kpiData.totalParticipants}</p>
-              <p className="text-sm text-purple-700 mt-1">Aprovados</p>
+              <p className="text-3xl font-bold text-gray-900">{kpiData.approved}/{kpiData.totalParticipants}</p>
+              <p className="text-sm text-gray-700 mt-1">Aprovados</p>
             </div>
           </CardContent>
         </Card>
@@ -439,8 +439,8 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
         <Card className={`bg-gradient-to-br ${kpiData.approvalRate >= TARGET_RATE ? 'from-emerald-50 to-emerald-100 border-emerald-200' : 'from-yellow-50 to-yellow-100 border-yellow-200'}`}>
           <CardContent className="pt-6">
             <div className="text-center">
-              <p className={`text-3xl font-bold ${kpiData.approvalRate >= TARGET_RATE ? 'text-emerald-900' : 'text-yellow-900'}`}>🎯</p>
-              <p className={`text-sm mt-1 ${kpiData.approvalRate >= TARGET_RATE ? 'text-emerald-700' : 'text-yellow-700'}`}>Meta {TARGET_RATE}% ${kpiData.approvalRate >= TARGET_RATE ? '✅' : '❌'}</p>
+              <p className={`text-3xl font-bold ${kpiData.approvalRate >= TARGET_RATE ? 'text-green-600' : 'text-orange-600'}`}>${kpiData.approvalRate >= TARGET_RATE ? '✓' : '○'}</p>
+              <p className={`text-sm mt-1 ${kpiData.approvalRate >= TARGET_RATE ? 'text-green-700' : 'text-orange-700'}`}>Meta {TARGET_RATE}%</p>
             </div>
           </CardContent>
         </Card>
@@ -477,7 +477,7 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
                 <XAxis dataKey="name" />
                 <YAxis domain={[0, 100]} />
                 <Tooltip />
-                <Bar dataKey="rate" fill="#8b5cf6" />
+                <Bar dataKey="rate" fill="#374151" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

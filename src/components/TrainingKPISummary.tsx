@@ -36,7 +36,7 @@ const QUESTION_CATEGORIES: {[key: number]: string} = {
   13: 'Empatia',
 }
 
-const COLORS = ['#10b981', '#3b82f6', '#8b5cf6']
+const COLORS = ['#f97316', '#ea580c', '#374151']
 
 function KpiCard({
   label, value, unit, icon: Icon, color = 'blue',
@@ -44,9 +44,9 @@ function KpiCard({
   label: string; value: string | number; unit?: string; icon: React.ElementType; color?: string
 }) {
   const colors: Record<string, string> = {
-    blue: 'bg-blue-50 text-blue-600',
-    green: 'bg-green-50 text-green-600',
-    purple: 'bg-purple-50 text-purple-600',
+    blue: 'bg-orange-50 text-orange-600',
+    green: 'bg-orange-50 text-orange-600',
+    purple: 'bg-gray-50 text-gray-700',
   }
   return (
     <Card>
@@ -155,7 +155,7 @@ export function TrainingKPISummary() {
                 <XAxis dataKey="name" tick={{ fontSize: 12 }} />
                 <YAxis domain={[0, 100]} tick={{ fontSize: 12 }} />
                 <Tooltip />
-                <Bar dataKey="value" name="%" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="value" name="%" fill="#f97316" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
