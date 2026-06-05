@@ -185,57 +185,163 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
     const doc = new jsPDF()
     const pageWidth = doc.internal.pageSize.getWidth()
     const pageHeight = doc.internal.pageSize.getHeight()
-    let yPosition = 20
+    const margin = 15
+    let yPosition = 15
+
+    // ===== PÁGINA 1: RESUMO =====
 
     // Cabeçalho
-    doc.setFontSize(18)
-    doc.text('📊 Relatório de KPIs - Treinamento', pageWidth / 2, yPosition, {align: 'center'})
-    yPosition += 15
-
-    // Resumo Executivo
-    doc.setFontSize(12)
-    doc.text('Resumo Executivo', 20, yPosition)
-    yPosition += 8
-
-    doc.setFontSize(10)
-    doc.text(`Média Geral: ${kpiData.avgScore}%`, 25, yPosition)
-    yPosition += 6
-    doc.text(`Aprovação: ${kpiData.approved}/${kpiData.totalParticipants} (${kpiData.approvalRate}%)`, 25, yPosition)
-    yPosition += 6
-    doc.text(`Meta: ${TARGET_RATE}% - Status: ${kpiData.approvalRate >= TARGET_RATE ? '✅ ATINGIDA' : '❌ NÃO ATINGIDA'}`, 25, yPosition)
+    doc.setFontSize(20)
+    doc.setFont(undefined, 'bold')
+    doc.text('RELATORIO DE KPIs - TREINAMENTO', pageWidth / 2, yPosition, {align: 'center'})
     yPosition += 12
 
-    // Performance por Competência
-    doc.setFontSize(12)
-    doc.text('Performance por Competência', 20, yPosition)
+    // Data
+    doc.setFontSize(9)
+    doc.setFont(undefined, 'normal')
+    doc.setTextColor(100, 100, 100)
+    doc.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')}`, margin, yPosition)
+    yPosition += 8
+    doc.setTextColor(0, 0, 0)
+
+    // Linha separadora
+    doc.setDrawColor(200, 200, 200)
+    doc.line(margin, yPosition, pageWidth - margin, yPosition)
     yPosition += 8
 
+    // Resumo Executivo - Cards
+    doc.setFontSize(13)
+    doc.setFont(undefined, 'bold')
+    doc.text('RESUMO EXECUTIVO', margin, yPosition)
+    yPosition += 10
+
     doc.setFontSize(10)
+    doc.setFont(undefined, 'normal')
+
+    // Card 1
+    doc.setFillColor(230, 245, 255)
+    doc.rect(margin, yPosition, 40, 18, 'F')
+    doc.setFont(undefined, 'bold')
+    doc.text(`${kpiData.avgScore}%`, margin + 5, yPosition + 8)
+    doc.setFont(undefined, 'normal')
+    doc.setFontSize(8)
+    doc.text('Media Geral', margin + 5, yPosition + 15)
+
+    // Card 2
+    const statusColor = kpiData.approvalRate >= TARGET_RATE ? [200, 255, 200] : [255, 200, 200]
+    doc.setFillColor(...statusColor)
+    doc.rect(margin + 50, yPosition, 40, 18, 'F')
+    doc.setFontSize(10)
+    doc.setFont(undefined, 'bold')
+    doc.text(`${kpiData.approvalRate}%`, margin + 55, yPosition + 8)
+    doc.setFont(undefined, 'normal')
+    doc.setFontSize(8)
+    doc.text('Taxa Aprovacao', margin + 55, yPosition + 15)
+
+    // Card 3
+    doc.setFillColor(230, 230, 255)
+    doc.rect(margin + 100, yPosition, 40, 18, 'F')
+    doc.setFontSize(10)
+    doc.setFont(undefined, 'bold')
+    doc.text(`${kpiData.approved}/${kpiData.totalParticipants}`, margin + 105, yPosition + 8)
+    doc.setFont(undefined, 'normal')
+    doc.setFontSize(8)
+    doc.text('Aprovados', margin + 105, yPosition + 15)
+
+    yPosition += 28
+
+    // Performance por Competência
+    doc.setFontSize(13)
+    doc.setFont(undefined, 'bold')
+    doc.text('PERFORMANCE POR COMPETENCIA', margin, yPosition)
+    yPosition += 10
+
+    doc.setFontSize(9)
+    doc.setFont(undefined, 'normal')
     Object.entries(kpiData.categoryScores).forEach(([category, scores]) => {
       const rate = Math.round((scores.correct / scores.total) * 100)
-      doc.text(`${category}: ${rate}%`, 25, yPosition)
-      yPosition += 6
+      doc.text(`${category}:`, margin + 5, yPosition)
+      doc.text(`${rate}%`, margin + 60, yPosition)
+
+      // Barra de progresso simples
+      const barWidth = (rate / 100) * 30
+      doc.setDrawColor(150, 150, 150)
+      doc.rect(margin + 70, yPosition - 2, 30, 3)
+      const barColor = rate >= 70 ? [50, 200, 50] : [255, 150, 0]
+      doc.setFillColor(...barColor)
+      doc.rect(margin + 70, yPosition - 2, barWidth, 3, 'F')
+
+      yPosition += 7
     })
 
-    yPosition += 6
+    yPosition += 8
 
-    // Feedback Automático
+    // Feedback/Recomendações
     const feedback = getFeedbackAutomatico()
     if (feedback.length > 0) {
-      doc.setFontSize(12)
-      doc.text('Recomendações', 20, yPosition)
+      doc.setFontSize(13)
+      doc.setFont(undefined, 'bold')
+      doc.text('RECOMENDACOES', margin, yPosition)
       yPosition += 8
 
-      doc.setFontSize(10)
+      doc.setFontSize(9)
+      doc.setFont(undefined, 'normal')
       feedback.forEach(item => {
-        doc.text(`• ${item.message}`, 25, yPosition)
+        const prefix = item.level === 'critical' ? '[CRITICO]' : item.level === 'warning' ? '[AVISO]' : '[INFO]'
+        doc.text(`${prefix} ${item.message}`, margin + 5, yPosition)
         yPosition += 6
-        if (yPosition > pageHeight - 20) {
-          doc.addPage()
-          yPosition = 20
-        }
       })
     }
+
+    yPosition += 8
+
+    // ===== PÁGINA 2: TABELA INDIVIDUAL =====
+    if (yPosition > pageHeight - 40) {
+      doc.addPage()
+      yPosition = 15
+    }
+
+    doc.setFontSize(13)
+    doc.setFont(undefined, 'bold')
+    doc.text('DESEMPENHO INDIVIDUAL', margin, yPosition)
+    yPosition += 10
+
+    // Cabeçalho da tabela
+    doc.setFontSize(9)
+    doc.setFont(undefined, 'bold')
+    doc.setFillColor(230, 150, 20)
+    doc.setTextColor(255, 255, 255)
+    doc.rect(margin, yPosition - 5, pageWidth - 2*margin, 6, 'F')
+    doc.text('Nome', margin + 3, yPosition)
+    doc.text('Email', margin + 70, yPosition)
+    doc.text('Nota', margin + 130, yPosition)
+    doc.text('Status', margin + 160, yPosition)
+    yPosition += 8
+
+    // Dados
+    doc.setFont(undefined, 'normal')
+    doc.setTextColor(0, 0, 0)
+    doc.setFontSize(8)
+
+    kpiData.personScores.forEach((person, idx) => {
+      if (yPosition > pageHeight - 10) {
+        doc.addPage()
+        yPosition = 15
+      }
+
+      // Cor alternada
+      if (idx % 2 === 0) {
+        doc.setFillColor(245, 245, 245)
+        doc.rect(margin, yPosition - 4, pageWidth - 2*margin, 5, 'F')
+      }
+
+      doc.text(person.name.substring(0, 25), margin + 3, yPosition)
+      doc.text(person.email.substring(0, 35), margin + 70, yPosition)
+      doc.text(`${person.score}%`, margin + 130, yPosition)
+      doc.text(person.passed ? 'APROVADO' : 'REPROVADO', margin + 160, yPosition)
+
+      yPosition += 6
+    })
 
     doc.save('relatorio-kpis-treinamento.pdf')
   }
