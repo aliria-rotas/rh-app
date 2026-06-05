@@ -24,41 +24,41 @@ interface Slide {
 }
 
 const CORRECT_ANSWERS: {[key: number]: string} = {
-  3: 'A) Vou estar consultando seu histórico e já retorno com a informação.',
-  4: 'A) Vou estar verificando o status e retorno para você.',
-  13: 'B) Em toda conversa',
+  3: 'B) Vou contatar o seu médico agora e já envio a autorização.',
+  4: 'C) Vou revisar seu pedido e confirmo a disponibilidade em breve.',
+  13: 'B) Sempre, como próximo passo natural da conversa',
 }
 
 const QUESTIONS_DATA = {
   3: {
-    title: '3️⃣ Gerundismo: Uso Incorreto do Gerúndio',
-    desc: 'Qual frase comete o erro de GERUNDISMO?',
-    situation: '',
+    title: '3️⃣ Identifique o Gerundismo',
+    desc: 'Qual frase usa CORRETAMENTE o verbo sem cair em gerundismo?',
+    situation: 'Um paciente precisa de autorização médica para iniciar tratamento.',
     options: [
-      'A) Vou estar consultando seu histórico e já retorno com a informação.',
-      'B) Vou consultar seu histórico agora e retorno com a informação.',
-      'C) Vou verificar seu cadastro e enviarei a resposta em breve.'
+      'A) Vou estar entrando em contato com o médico para conseguir a autorização.',
+      'B) Vou contatar o seu médico agora e já envio a autorização.',
+      'C) Vou estar providenciando a autorização logo mais.'
     ],
   },
   4: {
-    title: '4️⃣ Verbo "Estar" vs "Ir": Presente vs Futuro',
-    desc: 'Qual resposta é INCORRETA?',
-    situation: '',
+    title: '4️⃣ Escolha a Resposta Correta',
+    desc: 'Qual frase expressa melhor a ação futura de forma clara?',
+    situation: 'O cliente pergunta sobre a disponibilidade de um produto.',
     options: [
-      'A) Vou estar verificando o status e retorno para você.',
-      'B) Vou verificar o status agora mesmo e retornarei com você em 2 minutos.',
-      'C) Verifico o status agora e retorno em 2 minutos.'
+      'A) Vou estar analisando o estoque para você em breve.',
+      'B) Vou estar verificando e retorno assim que possível.',
+      'C) Vou revisar seu pedido e confirmo a disponibilidade em breve.'
     ],
   },
   13: {
-    title: '1️⃣3️⃣ Quando o atendimento deve ser transferido para um humano?',
+    title: '1️⃣3️⃣ Melhor Momento para Transferência Humana',
     desc: '',
-    situation: '',
+    situation: 'Você acabou de ajudar o cliente a entender seu problema.',
     options: [
-      'A) Quando o chatbot não consegue resolver a demanda após tentativas adequadas',
-      'B) Em toda conversa',
-      'C) Nunca',
-      'D) Apenas quando o cliente solicitar desconto'
+      'A) Apenas se ele pedir especificamente para falar com alguém',
+      'B) Sempre, como próximo passo natural da conversa',
+      'C) Somente nos casos mais complexos',
+      'D) Nunca, o chatbot resolve tudo'
     ],
   }
 }
@@ -190,23 +190,23 @@ export default function TrainamentReteste() {
     slides.push({
       type: 'openended',
       questionNum: 5,
-      questionTitle: '5️⃣ Situação Complexa: Investigação + Empatia',
-      desc: 'Um cliente irritado diz: "Pedi meu medicamento no início da semana e hoje é sexta! Ainda não chegou! Precisei ontem!"',
-      hint: 'Como você investigaria o problema enquanto acalma o cliente? (Desenvolva bem a resposta)'
+      questionTitle: '5️⃣ Cliente Insatisfeito com Documentação',
+      desc: 'O cliente ligou dizendo: "Tentei três vezes enviar os documentos e a plataforma mantém rejeitando! Vocês estão complicando demais isso!"',
+      hint: 'Como você investigaria o problema tecnicamente ENQUANTO demonstra empatia com a frustração dele?'
     })
     slides.push({
       type: 'openended',
       questionNum: 8,
-      questionTitle: '8️⃣ Reescreva de forma mais cordial',
-      desc: '"Você preencheu os dados errados."',
-      hint: 'Como você tornaria essa mensagem mais empática? (Seja bem educado)'
+      questionTitle: '8️⃣ Reescrever com Cordialidade',
+      desc: '"Seu pedido está incompleto. Faltam informações."',
+      hint: 'Reescreva de forma que o cliente se sinta acolhido e entenda exatamente o que fazer.'
     })
     slides.push({
       type: 'openended',
       questionNum: 10,
-      questionTitle: '🔟 Pergunta Clarificadora + Transferência',
-      desc: 'Depois de entender o problema, como você transferiria para um humano?',
-      hint: 'Demonstre uma pergunta clarificadora útil E como faria a transição pro humano'
+      questionTitle: '🔟 Pergunta Clarificadora + Transição Suave',
+      desc: 'O cliente relata: "Preciso saber se meu medicamento pode ser usado junto com outro que tomo."',
+      hint: 'Faça 1 pergunta para entender melhor o contexto E depois faça a transição natural para conectar com um especialista.'
     })
 
     // Resumo
