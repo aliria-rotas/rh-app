@@ -1,5 +1,6 @@
 ﻿import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
+import { TrainingKPISummary } from '@/components/TrainingKPISummary'
 import { dbKpis } from '@/lib/db'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -356,6 +357,9 @@ export default function KPIs() {
           )}
         </section>
       )}
+
+      {/* ── KPIs de Treinamento Específico ────────────────────────────────── */}
+      <TrainingKPISummary />
 
       {/* ── Pesquisa de Clima ──────────────────────────────────────────────── */}
       {totalSurveys > 0 && (
