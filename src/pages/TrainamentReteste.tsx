@@ -320,7 +320,7 @@ export default function TrainamentReteste() {
                 <div className="bg-blue-50 p-8 rounded-lg border-2 border-blue-300">
                   <h2 className="text-2xl font-bold text-blue-900 mb-4">Olá, Georgea! 👋</h2>
                   <p className="text-gray-700 mb-4">
-                    Você teve um desempenho de <strong>71.4%</strong> no primeiro treinamento. Muito bom!
+                    Você teve um desempenho de <strong>57%</strong> no primeiro treinamento.
                   </p>
                   <p className="text-gray-700 mb-6">
                     Este reteste é um reforço focado em <strong>3 pontos específicos</strong> para você alcançar a excelência:
