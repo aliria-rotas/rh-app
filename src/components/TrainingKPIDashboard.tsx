@@ -192,13 +192,13 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
 
     // Cabeçalho
     doc.setFontSize(20)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text('RELATORIO DE KPIs - TREINAMENTO', pageWidth / 2, yPosition, {align: 'center'})
     yPosition += 12
 
     // Data
     doc.setFontSize(9)
-    doc.setFont(undefined, 'normal')
+    doc.setFont('helvetica', 'normal')
     doc.setTextColor(100, 100, 100)
     doc.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')}`, margin, yPosition)
     yPosition += 8
@@ -211,30 +211,30 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
 
     // Resumo Executivo - Cards
     doc.setFontSize(13)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text('RESUMO EXECUTIVO', margin, yPosition)
     yPosition += 10
 
     doc.setFontSize(10)
-    doc.setFont(undefined, 'normal')
+    doc.setFont('helvetica', 'normal')
 
     // Card 1
     doc.setFillColor(230, 245, 255)
     doc.rect(margin, yPosition, 40, 18, 'F')
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text(`${kpiData.avgScore}%`, margin + 5, yPosition + 8)
-    doc.setFont(undefined, 'normal')
+    doc.setFont('helvetica', 'normal')
     doc.setFontSize(8)
     doc.text('Media Geral', margin + 5, yPosition + 15)
 
     // Card 2
     const statusColor = kpiData.approvalRate >= TARGET_RATE ? [200, 255, 200] : [255, 200, 200]
-    doc.setFillColor(...statusColor)
+    doc.setFillColor(statusColor[0], statusColor[1], statusColor[2])
     doc.rect(margin + 50, yPosition, 40, 18, 'F')
     doc.setFontSize(10)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text(`${kpiData.approvalRate}%`, margin + 55, yPosition + 8)
-    doc.setFont(undefined, 'normal')
+    doc.setFont('helvetica', 'normal')
     doc.setFontSize(8)
     doc.text('Taxa Aprovacao', margin + 55, yPosition + 15)
 
@@ -242,9 +242,9 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
     doc.setFillColor(230, 230, 255)
     doc.rect(margin + 100, yPosition, 40, 18, 'F')
     doc.setFontSize(10)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text(`${kpiData.approved}/${kpiData.totalParticipants}`, margin + 105, yPosition + 8)
-    doc.setFont(undefined, 'normal')
+    doc.setFont('helvetica', 'normal')
     doc.setFontSize(8)
     doc.text('Aprovados', margin + 105, yPosition + 15)
 
@@ -252,12 +252,12 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
 
     // Performance por Competência
     doc.setFontSize(13)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text('PERFORMANCE POR COMPETENCIA', margin, yPosition)
     yPosition += 10
 
     doc.setFontSize(9)
-    doc.setFont(undefined, 'normal')
+    doc.setFont('helvetica', 'normal')
     Object.entries(kpiData.categoryScores).forEach(([category, scores]) => {
       const rate = Math.round((scores.correct / scores.total) * 100)
       doc.text(`${category}:`, margin + 5, yPosition)
@@ -268,7 +268,7 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
       doc.setDrawColor(150, 150, 150)
       doc.rect(margin + 70, yPosition - 2, 30, 3)
       const barColor = rate >= 70 ? [50, 200, 50] : [255, 150, 0]
-      doc.setFillColor(...barColor)
+      doc.setFillColor(barColor[0], barColor[1], barColor[2])
       doc.rect(margin + 70, yPosition - 2, barWidth, 3, 'F')
 
       yPosition += 7
@@ -280,12 +280,12 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
     const feedback = getFeedbackAutomatico()
     if (feedback.length > 0) {
       doc.setFontSize(13)
-      doc.setFont(undefined, 'bold')
+      doc.setFont('helvetica', 'bold')
       doc.text('RECOMENDACOES', margin, yPosition)
       yPosition += 8
 
       doc.setFontSize(9)
-      doc.setFont(undefined, 'normal')
+      doc.setFont('helvetica', 'normal')
       feedback.forEach(item => {
         const prefix = item.level === 'critical' ? '[CRITICO]' : item.level === 'warning' ? '[AVISO]' : '[INFO]'
         doc.text(`${prefix} ${item.message}`, margin + 5, yPosition)
@@ -302,13 +302,13 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
     }
 
     doc.setFontSize(13)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text('DESEMPENHO INDIVIDUAL', margin, yPosition)
     yPosition += 10
 
     // Cabeçalho da tabela
     doc.setFontSize(9)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.setFillColor(230, 150, 20)
     doc.setTextColor(255, 255, 255)
     doc.rect(margin, yPosition - 5, pageWidth - 2*margin, 6, 'F')
@@ -319,7 +319,7 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
     yPosition += 8
 
     // Dados
-    doc.setFont(undefined, 'normal')
+    doc.setFont('helvetica', 'normal')
     doc.setTextColor(0, 0, 0)
     doc.setFontSize(8)
 
