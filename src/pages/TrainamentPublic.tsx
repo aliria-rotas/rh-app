@@ -49,7 +49,7 @@ const MC_QUESTIONS_ORDER = [2, 3, 4, 7, 9, 11, 13]
 
 const QUESTIONS_DATA = {
   2: {
-    title: '2️⃣ Erros de Português: MAIS vs MAS',
+    title: 'Erros de Português: MAIS vs MAS',
     desc: 'Qual é a forma INCORRETA de responder ao paciente?',
     situation: 'Paciente ligou pedindo um medicamento que está temporariamente fora de estoque.',
     options: [
@@ -60,7 +60,7 @@ const QUESTIONS_DATA = {
     hint: ''
   },
   3: {
-    title: '3️⃣ Gerundismo: Uso Incorreto do Gerúndio',
+    title: 'Gerundismo: Uso Incorreto do Gerúndio',
     desc: 'Qual frase comete o erro de GERUNDISMO?',
     situation: '',
     options: [
@@ -71,7 +71,7 @@ const QUESTIONS_DATA = {
     hint: ''
   },
   4: {
-    title: '4️⃣ Verbo "Estar" vs "Ir": Presente vs Futuro',
+    title: 'Verbo "Estar" vs "Ir": Presente vs Futuro',
     desc: 'Qual resposta é INCORRETA?',
     situation: '',
     options: [
@@ -82,7 +82,7 @@ const QUESTIONS_DATA = {
     hint: ''
   },
   7: {
-    title: '7️⃣ Qual característica é ESSENCIAL na comunicação por chat?',
+    title: 'Qual característica é ESSENCIAL na comunicação por chat?',
     desc: '',
     situation: '',
     options: [
@@ -94,7 +94,7 @@ const QUESTIONS_DATA = {
     hint: ''
   },
   9: {
-    title: '9️⃣ Qual frase apresenta melhor comunicação profissional?',
+    title: 'Qual frase apresenta melhor comunicação profissional?',
     desc: '',
     situation: '',
     options: [
@@ -106,7 +106,7 @@ const QUESTIONS_DATA = {
     hint: ''
   },
   11: {
-    title: '1️⃣1️⃣ Diante de uma reclamação, a melhor atitude é:',
+    title: 'Diante de uma reclamação, a melhor atitude é:',
     desc: '',
     situation: '',
     options: [
@@ -118,7 +118,7 @@ const QUESTIONS_DATA = {
     hint: ''
   },
   13: {
-    title: '1️⃣3️⃣ Quando o atendimento deve ser transferido para um humano?',
+    title: 'Quando o atendimento deve ser transferido para um humano?',
     desc: '',
     situation: '',
     options: [
@@ -134,7 +134,7 @@ const QUESTIONS_DATA = {
 const SLIDES_EDUCATIONAL = [
   {
     id: 1,
-    title: '🎯 Os 3 Pilares do Atendimento Empático',
+    title: 'Os 3 Pilares do Atendimento Empático',
     color: 'from-orange-500 to-orange-600',
     content: (
       <div className="space-y-4">
@@ -607,7 +607,7 @@ export default function TrainmentPublic() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-green-50 to-white p-6">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
         <div className="text-center">
           <CheckCircle className="text-green-600 mx-auto mb-4" size={64} />
           <h2 className="text-3xl font-bold text-green-900 mb-2">Obrigado!</h2>
@@ -743,8 +743,8 @@ export default function TrainmentPublic() {
                 </div>
                 {slide.hint && <p className="text-xs text-gray-500 text-center">{slide.hint}</p>}
                 {formData[`question_${slide.questionNum}_response` as keyof typeof formData] && (
-                  <div className="p-3 bg-blue-50 border border-blue-300 rounded-lg">
-                    <p className="text-sm text-blue-800">🔒 Sua resposta foi registrada e não pode ser alterada.</p>
+                  <div className="p-3 bg-orange-50 border border-orange-300 rounded-lg">
+                    <p className="text-sm text-orange-800">✓ Sua resposta foi registrada e não pode ser alterada.</p>
                   </div>
                 )}
               </div>
