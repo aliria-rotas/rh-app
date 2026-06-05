@@ -91,7 +91,7 @@ Não use para ações futuras pontuais!`
     content: `Verbo "ESTAR" (Estado / Condição):
 • Indica uma situação ou estado atual/futuro
 • Exemplo: "Estou trabalhando agora"
-• Futuro: "Estarei libre para a reunião"
+• Futuro: "Estarei livre para a reunião"
 
 Verbo "IR" (Deslocamento / Ação):
 • Indica movimento ou ação futura iminente (futuro imediato)
