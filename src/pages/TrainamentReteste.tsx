@@ -24,12 +24,23 @@ interface Slide {
 }
 
 const CORRECT_ANSWERS: {[key: number]: string} = {
+  2: 'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
   3: 'B) Vou contatar o seu médico agora e já envio a autorização.',
   4: 'C) Vou revisar seu pedido e confirmo a disponibilidade em breve.',
   13: 'B) Sempre, como próximo passo natural da conversa',
 }
 
 const QUESTIONS_DATA = {
+  2: {
+    title: '2️⃣ MAIS vs MAS - Escolha Correta',
+    desc: 'Qual frase usa CORRETAMENTE a conjunção?',
+    situation: 'O cliente está insatisfeito pois o medicamento solicitado não está disponível.',
+    options: [
+      'A) O medicamento não está disponível, mais temos outros que você pode usar.',
+      'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
+      'C) Infelizmente mais produtos deste tipo estão indisponíveis no momento.'
+    ],
+  },
   3: {
     title: '3️⃣ Identifique o Gerundismo',
     desc: 'Qual frase usa CORRETAMENTE o verbo sem cair em gerundismo?',
@@ -64,6 +75,27 @@ const QUESTIONS_DATA = {
 }
 
 const SLIDES_EDUCATIONAL = [
+  {
+    id: 0,
+    title: '📝 MAIS vs MAS',
+    content: `Diferença crucial em português:
+
+"MAIS" = adjetivo/advérbio de quantidade/comparação
+• "Tenho MAIS informações"
+• "Isso é MAIS importante"
+• "Preciso de MAIS tempo"
+
+"MAS" = conjunção adversativa (mas, porém)
+• "Entendo sua frustração, MAS podemos resolver"
+• "Quer ir agora, MAS recomendo esperar"
+• "É difícil, MAS conseguimos"
+
+NO CHATBOT:
+✅ "Não temos este produto, MAS temos opções similares"
+❌ "Não temos este produto, MAIS temos opções similares"
+
+RESUMO: MAS = conexão/contraste. MAIS = quantidade/comparação`
+  },
   {
     id: 1,
     title: '⚠️ GERUNDISMO (Evitar!)',
@@ -137,6 +169,7 @@ export default function TrainamentReteste() {
   const [formData, setFormData] = useState({
     collaborator_name: 'Georgea',
     collaborator_email: '',
+    question_2_response: '',
     question_3_response: '',
     question_4_response: '',
     question_13_response: '',
@@ -156,22 +189,27 @@ export default function TrainamentReteste() {
     // Explicações
     slides.push({
       type: 'explanation',
-      questionNum: 1,
+      questionNum: 0,
       content: SLIDES_EDUCATIONAL[0].content,
     })
     slides.push({
       type: 'explanation',
-      questionNum: 2,
+      questionNum: 1,
       content: SLIDES_EDUCATIONAL[1].content,
     })
     slides.push({
       type: 'explanation',
-      questionNum: 3,
+      questionNum: 2,
       content: SLIDES_EDUCATIONAL[2].content,
     })
+    slides.push({
+      type: 'explanation',
+      questionNum: 3,
+      content: SLIDES_EDUCATIONAL[3].content,
+    })
 
-    // Questões Q3, Q4, Q13
-    for (const qNum of [3, 4, 13]) {
+    // Questões Q2, Q3, Q4, Q13
+    for (const qNum of [2, 3, 4, 13]) {
       const qData = QUESTIONS_DATA[qNum as keyof typeof QUESTIONS_DATA]
       slides.push({
         type: 'question',
@@ -251,6 +289,7 @@ export default function TrainamentReteste() {
         p_training_title: 'Reteste - Atendimento Empático em Chatbot',
         p_collaborator_name: 'Georgea',
         p_collaborator_email: formData.collaborator_email,
+        p_question_2_response: formData.question_2_response,
         p_question_3_response: formData.question_3_response,
         p_question_4_response: formData.question_4_response,
         p_question_13_response: formData.question_13_response,
