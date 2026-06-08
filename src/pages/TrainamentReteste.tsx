@@ -284,19 +284,21 @@ export default function TrainamentReteste() {
     setLoading(true)
 
     try {
-      const { error } = await supabase.rpc('insert_training_response', {
-        p_training_id: 'chatbot_empatico_reteste_georgea',
-        p_training_title: 'Reteste - Atendimento Empático em Chatbot',
-        p_collaborator_name: 'Georgea',
-        p_collaborator_email: formData.collaborator_email,
-        p_question_2_response: formData.question_2_response,
-        p_question_3_response: formData.question_3_response,
-        p_question_4_response: formData.question_4_response,
-        p_question_13_response: formData.question_13_response,
-        p_question_5_response: formData.question_5_response,
-        p_question_8_response: formData.question_8_response,
-        p_question_10_response: formData.question_10_response,
-      })
+      const { error } = await supabase
+        .from('rh_training_responses')
+        .insert([{
+          training_id: 'chatbot_empatico_reteste_georgea',
+          training_title: 'Reteste - Atendimento Empático em Chatbot',
+          collaborator_name: 'Georgea',
+          collaborator_email: formData.collaborator_email,
+          question_2_response: formData.question_2_response,
+          question_3_response: formData.question_3_response,
+          question_4_response: formData.question_4_response,
+          question_13_response: formData.question_13_response,
+          question_5_response: formData.question_5_response,
+          question_8_response: formData.question_8_response,
+          question_10_response: formData.question_10_response,
+        }])
 
       if (error) {
         console.error('Erro ao enviar:', error)
