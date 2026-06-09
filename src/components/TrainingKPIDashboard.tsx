@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx'
 
 interface Response {
   id: string
+  training_id?: string
   collaborator_name: string
   collaborator_email: string
   question_2_response?: string
