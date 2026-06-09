@@ -27,13 +27,13 @@ interface Response {
 }
 
 const CORRECT_ANSWERS: {[key: number]: string} = {
-  2: 'A) O medicamento não está disponível, mais temos outros que você pode usar.',
-  3: 'A) Vou estar consultando seu histórico e já retorno com a informação.',
-  4: 'A) Vou estar verificando o status e retorno para você.',
+  2: 'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
+  3: 'B) Vou contatar o seu médico agora e já envio a autorização.',
+  4: 'C) Vou revisar seu pedido e confirmo a disponibilidade em breve.',
   7: 'B) Clareza e objetividade',
   9: 'B) Favor enviar o documento para análise.',
   11: 'B) Demonstrar compreensão e buscar uma solução',
-  13: 'B) Em toda conversa',
+  13: 'B) Sempre, como próximo passo natural da conversa',
 }
 
 const QUESTION_CATEGORIES: {[key: number]: string} = {
