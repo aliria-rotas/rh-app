@@ -26,14 +26,31 @@ interface Response {
   created_at: string
 }
 
-const CORRECT_ANSWERS: {[key: number]: string} = {
-  2: 'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
-  3: 'B) Vou contatar o seu médico agora e já envio a autorização.',
-  4: 'C) Vou revisar seu pedido e confirmo a disponibilidade em breve.',
+// Respostas corretas para TESTE ORIGINAL
+const CORRECT_ANSWERS_ORIGINAL: {[key: number]: string} = {
+  2: 'A) O medicamento não está disponível, mais temos outros que você pode usar.',
+  3: 'A) Vou estar consultando seu histórico e já retorno com a informação.',
+  4: 'A) Vou estar verificando o status e retorno para você.',
   7: 'B) Clareza e objetividade',
   9: 'B) Favor enviar o documento para análise.',
   11: 'B) Demonstrar compreensão e buscar uma solução',
+  13: 'B) Em toda conversa',
+}
+
+// Respostas corretas para RETESTE
+const CORRECT_ANSWERS_RETESTE: {[key: number]: string} = {
+  2: 'B) Não temos este medicamento, mas posso oferecer outra opção com o mesmo princípio ativo.',
+  3: 'B) Vou contatar o seu médico agora e já envio a autorização.',
+  4: 'C) Vou revisar seu pedido e confirmo a disponibilidade em breve.',
   13: 'B) Sempre, como próximo passo natural da conversa',
+}
+
+// Função para obter CORRECT_ANSWERS baseado no training_id
+const getCorrectAnswers = (trainingId?: string) => {
+  if (trainingId?.includes('reteste')) {
+    return CORRECT_ANSWERS_RETESTE
+  }
+  return CORRECT_ANSWERS_ORIGINAL
 }
 
 const QUESTION_CATEGORIES: {[key: number]: string} = {
@@ -102,6 +119,7 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
     const personScores = data.map(response => {
       let correctCount = 0
       const mcQuestions = [2, 3, 4, 7, 9, 11, 13]
+      const correctAnswers = getCorrectAnswers(response.training_id)
 
       // Filtra apenas as questões que foram respondidas (não NULL/undefined)
       const answeredQuestions = mcQuestions.filter(qNum => {
@@ -112,7 +130,7 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
       answeredQuestions.forEach(qNum => {
         const key = `question_${qNum}_response` as keyof Response
         const userAnswer = response[key]
-        if (userAnswer === CORRECT_ANSWERS[qNum]) {
+        if (userAnswer === correctAnswers[qNum]) {
           correctCount++
           const category = QUESTION_CATEGORIES[qNum]
           categoryScores[category].correct++
