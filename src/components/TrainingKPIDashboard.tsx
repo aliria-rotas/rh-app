@@ -103,7 +103,13 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
       let correctCount = 0
       const mcQuestions = [2, 3, 4, 7, 9, 11, 13]
 
-      mcQuestions.forEach(qNum => {
+      // Filtra apenas as questões que foram respondidas (não NULL/undefined)
+      const answeredQuestions = mcQuestions.filter(qNum => {
+        const key = `question_${qNum}_response` as keyof Response
+        return response[key] !== null && response[key] !== undefined && response[key] !== ''
+      })
+
+      answeredQuestions.forEach(qNum => {
         const key = `question_${qNum}_response` as keyof Response
         const userAnswer = response[key]
         if (userAnswer === CORRECT_ANSWERS[qNum]) {
@@ -114,7 +120,7 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
         categoryScores[QUESTION_CATEGORIES[qNum]].total++
       })
 
-      const score = (correctCount / mcQuestions.length) * 100
+      const score = answeredQuestions.length > 0 ? (correctCount / answeredQuestions.length) * 100 : 0
       return {
         name: response.collaborator_name,
         email: response.collaborator_email,
