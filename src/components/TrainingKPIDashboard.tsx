@@ -71,7 +71,7 @@ interface KPIData {
   disapproved: number
   approvalRate: number
   categoryScores: {[key: string]: {correct: number, total: number}}
-  personScores: Array<{name: string, email: string, score: number, passed: boolean}>
+  personScores: Array<{name: string, email: string, score: number, passed: boolean, trainingId?: string}>
   scoreDistribution: Array<{range: string, count: number}>
 }
 
@@ -144,7 +144,8 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
         name: response.collaborator_name,
         email: response.collaborator_email,
         score: Math.round(score),
-        passed: score >= MIN_APPROVAL
+        passed: score >= MIN_APPROVAL,
+        trainingId: response.training_id
       }
     })
 
@@ -545,6 +546,7 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
                 <tr>
                   <th className="px-4 py-2 text-left">Nome</th>
                   <th className="px-4 py-2 text-left">Email</th>
+                  <th className="px-4 py-2 text-center">Tipo</th>
                   <th className="px-4 py-2 text-center">Nota</th>
                   <th className="px-4 py-2 text-center">Status</th>
                 </tr>
@@ -554,6 +556,13 @@ export function TrainingKPIDashboard({ trainingId }: {trainingId?: string}) {
                   <tr key={idx} className="border-b hover:bg-gray-50">
                     <td className="px-4 py-2 font-medium text-gray-900">{person.name}</td>
                     <td className="px-4 py-2 text-gray-600">{person.email}</td>
+                    <td className="px-4 py-2 text-center text-xs font-semibold">
+                      {person.trainingId?.includes('reteste') ? (
+                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">RETESTE</span>
+                      ) : (
+                        <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded">Original</span>
+                      )}
+                    </td>
                     <td className="px-4 py-2 text-center font-bold text-orange-600">{person.score}%</td>
                     <td className="px-4 py-2 text-center">
                       {person.passed ? (
