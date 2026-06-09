@@ -288,8 +288,8 @@ export default function TrainamentReteste() {
         .from('rh_training_responses')
         .insert([{
           training_id: 'chatbot_empatico_reteste_georgea',
-          training_title: 'Reteste - Atendimento Empático em Chatbot',
-          collaborator_name: 'Georgea',
+          training_title: 'Atendimento Empático em Chatbot (RETESTE)',
+          collaborator_name: 'Georgea Luana Ipolito',
           collaborator_email: formData.collaborator_email,
           question_2_response: formData.question_2_response,
           question_3_response: formData.question_3_response,
