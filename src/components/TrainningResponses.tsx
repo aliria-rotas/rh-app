@@ -12,7 +12,7 @@ const CORRECT_ANSWERS: {[key: number]: string} = {
   7: 'B) Clareza e objetividade',
   9: 'B) Favor enviar o documento para análise.',
   11: 'B) Demonstrar compreensão e buscar uma solução',
-  13: 'B) Em toda conversa',
+  13: 'B) Sempre, como próximo passo natural da conversa',
 }
 
 interface Response {
