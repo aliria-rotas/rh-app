@@ -149,8 +149,6 @@ export async function seedCampanhasEndomarketing() {
       start_date: '2026-12-01', end_date: '2026-12-31', created_at: now() },
   ]
 
-  console.log(`🚀 Verificando campanhas de endomarketing...`)
-
   // Verifica quais campanhas já existem
   const existingTitles = campaigns.map(c => c.title)
   const { data: existing } = await supabase
@@ -162,17 +160,12 @@ export async function seedCampanhasEndomarketing() {
   const campaignsToInsert = campaigns.filter(c => !existingTitleSet.has(c.title))
 
   if (campaignsToInsert.length === 0) {
-    console.log('✅ Todas as campanhas já existem no banco de dados.')
     return
   }
 
-  console.log(`🚀 Inserindo ${campaignsToInsert.length} novas campanhas de endomarketing...`)
   const { error } = await supabase.from('rh_endomarketing_campaigns').insert(campaignsToInsert)
 
   if (error) {
-    console.error('❌ Erro ao inserir campanhas:', error)
     throw error
   }
-
-  console.log(`✅ ${campaignsToInsert.length} campanhas inseridas com sucesso!`)
 }

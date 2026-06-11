@@ -29,7 +29,6 @@ export function useSeedCampanhas() {
 
         // Se não existem as newsletters de 2025, insere todas as campanhas
         if (!newsletters || newsletters.length === 0) {
-          console.log('📢 Populando campanhas de endomarketing...')
           await seedCampanhasEndomarketing()
         }
       } catch (error) {
