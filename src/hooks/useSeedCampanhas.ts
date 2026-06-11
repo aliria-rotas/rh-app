@@ -8,12 +8,14 @@ import { seedCampanhasEndomarketing } from '@/lib/seed-campanhas'
 import { migrateCampaignTypes } from '@/lib/migrate-campaign-types'
 import { cleanupOld2025Newsletters } from '@/lib/cleanup-2025-newsletters'
 import { cleanupOldCampaigns } from '@/lib/cleanup-old-campaigns'
+import { delete2025Newsletters } from '@/lib/delete-2025-newsletters'
 
 export function useSeedCampanhas() {
   useEffect(() => {
     async function populateCampaigns() {
       try {
-        // Remove campanhas antigas (2025 e jan-mai 2026)
+        // Remove todas as campanhas de 2025
+        await delete2025Newsletters()
         await cleanupOldCampaigns()
         await cleanupOld2025Newsletters()
 

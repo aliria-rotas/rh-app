@@ -76,7 +76,7 @@ export default function Endomarketing() {
   }
 
   const filtered = campaigns.filter(c =>
-    (filterType === 'all' || c.type === filterType) &&
+    c.type === filterType &&
     (filterStatus === 'all' || c.status === filterStatus)
   )
 
