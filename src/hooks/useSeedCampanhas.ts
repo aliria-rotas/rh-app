@@ -20,13 +20,15 @@ export function useSeedCampanhas() {
         // Migra tipos de campanhas
         await migrateCampaignTypes()
 
-        // Verifica se já há 20+ campanhas (sinal de que as novas foram inseridas)
-        const { count } = await supabase
+        // Verifica se as newsletters de 2025 já existem
+        const { data: newsletters } = await supabase
           .from('rh_endomarketing_campaigns')
-          .select('*', { count: 'exact', head: true })
+          .select('id')
+          .like('title', '%Newsletter%')
+          .like('title', '%2025%')
 
-        // Se houver menos de 20 campanhas, insere as novas
-        if ((count ?? 0) < 20) {
+        // Se não existem as newsletters de 2025, insere todas as campanhas
+        if (!newsletters || newsletters.length === 0) {
           console.log('📢 Populando campanhas de endomarketing...')
           await seedCampanhasEndomarketing()
         }
