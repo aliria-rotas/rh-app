@@ -39,7 +39,7 @@ export default function Endomarketing() {
     title: '', type: 'comunicado' as CampaignType, status: 'planejada' as CampaignStatus,
     description: '', target_audience: '', channels: [] as string[], start_date: '', end_date: ''
   })
-  const [filterType, setFilterType] = useState('campanha')
+  const [filterType, setFilterType] = useState<string>('comunicado')
   const [filterStatus, setFilterStatus] = useState('all')
 
   useEffect(() => {
