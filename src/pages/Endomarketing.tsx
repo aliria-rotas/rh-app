@@ -38,7 +38,7 @@ export default function Endomarketing() {
     title: '', type: 'comunicado' as CampaignType, status: 'planejada' as CampaignStatus,
     description: '', target_audience: '', channels: [] as string[], start_date: '', end_date: ''
   })
-  const [filterType, setFilterType] = useState('all')
+  const [filterType, setFilterType] = useState('campanha')
   const [filterStatus, setFilterStatus] = useState('all')
 
   useEffect(() => {
@@ -90,10 +90,10 @@ export default function Endomarketing() {
     <div className="space-y-6 max-w-5xl">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
-          {[['all', 'Todas'], ...TYPE_OPTS.map(t => [t.value, t.label])].map(([v, l]) => (
-            <button key={v} onClick={() => setFilterType(v)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === v ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
-              {l}
+          {TYPE_OPTS.map(t => (
+            <button key={t.value} onClick={() => setFilterType(t.value)}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === t.value ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+              {t.label}
             </button>
           ))}
         </div>

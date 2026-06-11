@@ -10,6 +10,36 @@ const now = () => new Date().toISOString()
 
 export async function seedCampanhasEndomarketing() {
   const campaigns = [
+    // NEWSLETTERS 2025
+    { id: generateId(), title: 'Newsletter Junho 2025', type: 'comunicado', status: 'planejada',
+      description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
+      target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
+      start_date: '2025-06-01', end_date: '2025-06-30', created_at: now() },
+    { id: generateId(), title: 'Newsletter Julho 2025', type: 'comunicado', status: 'planejada',
+      description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
+      target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
+      start_date: '2025-07-01', end_date: '2025-07-31', created_at: now() },
+    { id: generateId(), title: 'Newsletter Agosto 2025', type: 'comunicado', status: 'planejada',
+      description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
+      target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
+      start_date: '2025-08-01', end_date: '2025-08-31', created_at: now() },
+    { id: generateId(), title: 'Newsletter Setembro 2025', type: 'comunicado', status: 'planejada',
+      description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
+      target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
+      start_date: '2025-09-01', end_date: '2025-09-30', created_at: now() },
+    { id: generateId(), title: 'Newsletter Outubro 2025', type: 'comunicado', status: 'planejada',
+      description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
+      target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
+      start_date: '2025-10-01', end_date: '2025-10-31', created_at: now() },
+    { id: generateId(), title: 'Newsletter Novembro 2025', type: 'comunicado', status: 'planejada',
+      description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
+      target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
+      start_date: '2025-11-01', end_date: '2025-11-30', created_at: now() },
+    { id: generateId(), title: 'Newsletter Dezembro 2025', type: 'comunicado', status: 'planejada',
+      description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
+      target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
+      start_date: '2025-12-01', end_date: '2025-12-31', created_at: now() },
+
     // JANEIRO
     { id: generateId(), title: 'Janeiro Branco — Saúde Mental', type: 'campanha', status: 'planejada',
       description: 'Sua mente merece cuidado. Fale, ouça, acolha. Conscientização sobre saúde mental e prevenção ao suicídio.',
