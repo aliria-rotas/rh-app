@@ -11,7 +11,8 @@ export function formatCurrency(value: number): string {
 
 export function formatDate(dateStr: string): string {
   if (!dateStr) return '—'
-  return new Date(dateStr).toLocaleDateString('pt-BR')
+  const [year, month, day] = dateStr.split('-')
+  return new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).toLocaleDateString('pt-BR')
 }
 
 export function formatPercent(value: number): string {
