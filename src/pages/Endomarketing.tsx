@@ -33,6 +33,7 @@ export default function Endomarketing() {
   const [campaigns, setCampaigns] = useState<EndomarketingCampaign[]>([])
   const [loading, setLoading] = useState(true)
   const [modal, setModal] = useState(false)
+  // Force rebuild v2
   const [editing, setEditing] = useState<EndomarketingCampaign | null>(null)
   const [form, setForm] = useState({
     title: '', type: 'comunicado' as CampaignType, status: 'planejada' as CampaignStatus,
