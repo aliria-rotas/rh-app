@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { Layout } from '@/components/layout/Layout'
+import { useSeedCampanhas } from '@/hooks/useSeedCampanhas'
 
 import Login from '@/pages/Login'
 import Perfil from '@/pages/Perfil'
@@ -25,6 +26,8 @@ import TrainamentReteste from '@/pages/TrainamentReteste'
 import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 
 export default function App() {
+  useSeedCampanhas()
+
   return (
     <AuthProvider>
       <BrowserRouter>

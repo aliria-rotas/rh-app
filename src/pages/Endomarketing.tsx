@@ -123,7 +123,7 @@ export default function Endomarketing() {
         </CardContent></Card>
       ) : (
         <div className="grid gap-4">
-          {filtered.map(c => (
+          {[...filtered].sort((a, b) => new Date(a.start_date) - new Date(b.start_date)).map(c => (
             <Card key={c.id}>
               <CardContent className="py-4">
                 <div className="flex items-start justify-between gap-4">
