@@ -9,11 +9,15 @@ import { migrateCampaignTypes } from '@/lib/migrate-campaign-types'
 import { cleanupOld2025Newsletters } from '@/lib/cleanup-2025-newsletters'
 import { cleanupOldCampaigns } from '@/lib/cleanup-old-campaigns'
 import { delete2025Newsletters } from '@/lib/delete-2025-newsletters'
+import { purgeOldData } from '@/lib/purge-old-data'
 
 export function useSeedCampanhas() {
   useEffect(() => {
     async function populateCampaigns() {
       try {
+        // Purge all old data first
+        await purgeOldData()
+
         // Remove todas as campanhas de 2025
         await delete2025Newsletters()
         await cleanupOldCampaigns()
