@@ -122,38 +122,52 @@ export default function Endomarketing() {
           <Button className="mt-4" onClick={openNew}><Plus size={16} /> Criar ação</Button>
         </CardContent></Card>
       ) : (
-        <div className="grid gap-4">
-          {[...filtered].sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime()).map(c => (
-            <Card key={c.id}>
-              <CardContent className="py-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="text-lg">{TYPE_ICONS[c.type]}</span>
-                      <h3 className="font-semibold text-slate-800">{c.title}</h3>
-                      <StatusBadge status={c.status} />
-                    </div>
-                    {c.description && <p className="text-sm text-slate-600 mb-2 line-clamp-2">{c.description}</p>}
-                    <div className="flex flex-wrap gap-2 mb-2">
-                      {c.channels.map(ch => <Badge key={ch} variant="outline">{ch}</Badge>)}
-                    </div>
-                    <div className="flex gap-4 text-xs text-slate-500">
-                      {c.target_audience && <span>Público: {c.target_audience}</span>}
-                      {c.start_date && <span>{formatDate(c.start_date)}{c.end_date && ` – ${formatDate(c.end_date)}`}</span>}
-                    </div>
-                  </div>
-                  <div className="flex gap-1">
-                    <Button variant="ghost" size="sm" onClick={() => { setEditing(c); setForm({ title: c.title, type: c.type, status: c.status, description: c.description, target_audience: c.target_audience, channels: [...c.channels], start_date: c.start_date, end_date: c.end_date }); setModal(true) }}>
-                      <Pencil size={14} />
-                    </Button>
-                    <Button variant="ghost" size="sm" className="text-red-500 hover:bg-red-50" onClick={() => remove(c.id)}>
-                      <Trash2 size={14} />
-                    </Button>
-                  </div>
+        <div className="space-y-8">
+          {TYPE_OPTS.map(typeOpt => {
+            const campaignsByType = [...filtered].filter(c => c.type === typeOpt.value).sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
+            if (campaignsByType.length === 0) return null
+            return (
+              <div key={typeOpt.value}>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-2xl">{TYPE_ICONS[typeOpt.value]}</span>
+                  <h2 className="text-lg font-bold text-slate-800">{typeOpt.label}</h2>
+                  <span className="ml-auto text-sm text-slate-500">{campaignsByType.length} ação(ões)</span>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+                <div className="grid gap-4">
+                  {campaignsByType.map(c => (
+                    <Card key={c.id}>
+                      <CardContent className="py-4">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex flex-wrap items-center gap-2 mb-1">
+                              <h3 className="font-semibold text-slate-800">{c.title}</h3>
+                              <StatusBadge status={c.status} />
+                            </div>
+                            {c.description && <p className="text-sm text-slate-600 mb-2 line-clamp-2">{c.description}</p>}
+                            <div className="flex flex-wrap gap-2 mb-2">
+                              {c.channels.map(ch => <Badge key={ch} variant="outline">{ch}</Badge>)}
+                            </div>
+                            <div className="flex gap-4 text-xs text-slate-500">
+                              {c.target_audience && <span>Público: {c.target_audience}</span>}
+                              {c.start_date && <span>{formatDate(c.start_date)}{c.end_date && ` – ${formatDate(c.end_date)}`}</span>}
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            <Button variant="ghost" size="sm" onClick={() => { setEditing(c); setForm({ title: c.title, type: c.type, status: c.status, description: c.description, target_audience: c.target_audience, channels: [...c.channels], start_date: c.start_date, end_date: c.end_date }); setModal(true) }}>
+                              <Pencil size={14} />
+                            </Button>
+                            <Button variant="ghost" size="sm" className="text-red-500 hover:bg-red-50" onClick={() => remove(c.id)}>
+                              <Trash2 size={14} />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
       )}
 
