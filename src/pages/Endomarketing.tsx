@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input, Textarea, Select } from '@/components/ui/Input'
@@ -7,7 +7,7 @@ import { Modal } from '@/components/ui/Modal'
 import { dbEndomarketing } from '@/lib/db'
 import { EndomarketingCampaign, CampaignStatus, CampaignType } from '@/types'
 import { formatDate } from '@/lib/utils'
-import { Plus, Pencil, Trash2, Megaphone, X } from 'lucide-react'
+import { Plus, Pencil, Trash2, Megaphone } from 'lucide-react'
 
 const STATUS_OPTS = [
   { value: 'planejada', label: 'Planejada' },
@@ -33,13 +33,12 @@ export default function Endomarketing() {
   const [campaigns, setCampaigns] = useState<EndomarketingCampaign[]>([])
   const [loading, setLoading] = useState(true)
   const [modal, setModal] = useState(false)
-  // Force rebuild v2
   const [editing, setEditing] = useState<EndomarketingCampaign | null>(null)
   const [form, setForm] = useState({
     title: '', type: 'comunicado' as CampaignType, status: 'planejada' as CampaignStatus,
     description: '', target_audience: '', channels: [] as string[], start_date: '', end_date: ''
   })
-  const [filterType, setFilterType] = useState<string>('comunicado')
+  const [filterType, setFilterType] = useState<CampaignType>('comunicado')
   const [filterStatus, setFilterStatus] = useState('all')
 
   useEffect(() => {
@@ -92,7 +91,7 @@ export default function Endomarketing() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
           {TYPE_OPTS.map(t => (
-            <button key={t.value} onClick={() => setFilterType(t.value)}
+            <button key={t.value} onClick={() => setFilterType(t.value as CampaignType)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === t.value ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
               {t.label}
             </button>
@@ -101,7 +100,6 @@ export default function Endomarketing() {
         <Button onClick={openNew}><Plus size={16} /> Nova Ação</Button>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
           { label: 'Total', value: campaigns.length },
