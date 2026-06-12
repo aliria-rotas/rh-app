@@ -8,6 +8,7 @@ import { dbEndomarketing } from '@/lib/db'
 import { EndomarketingCampaign, CampaignStatus, CampaignType } from '@/types'
 import { formatDate } from '@/lib/utils'
 import { Plus, Pencil, Trash2, Megaphone } from 'lucide-react'
+import { forceSeedNow } from '@/lib/force-seed'
 
 const STATUS_OPTS = [
   { value: 'planejada', label: 'Planejada' },
@@ -75,7 +76,9 @@ export default function Endomarketing() {
   const [filterStatus, setFilterStatus] = useState<string>('all')
 
   useEffect(() => {
-    dbEndomarketing.list().then(data => { setCampaigns(data); setLoading(false) })
+    forceSeedNow().then(() => {
+      dbEndomarketing.list().then(data => { setCampaigns(data); setLoading(false) })
+    })
   }, [])
 
   function openNew() {
