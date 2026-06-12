@@ -65,13 +65,9 @@ export async function seedCampanhasEndomarketing() {
       start_date: '2027-06-01', end_date: '2027-06-30', created_at: now() },
 
     // JUNHO 2026
-    { id: generateId(), title: 'Festa Junina', type: 'evento', status: 'planejada',
-      description: 'Confraternização com tema junino. Comidas típicas, danças e atividades para toda a equipe.',
+    { id: generateId(), title: 'Festa Junina + Jogo da Copa + Aniversariante do Mês', type: 'evento', status: 'planejada',
+      description: 'Celebração de junho com tema junino, transmissão de jogo da Copa e homenagem aos aniversariantes do mês. Confraternização com comidas típicas, danças, jogo ao vivo e reconhecimento dos colaboradores aniversariantes.',
       target_audience: 'Toda a equipe', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'],
-      start_date: '2026-06-15', end_date: '2026-06-25', created_at: now() },
-    { id: generateId(), title: 'Dia de Jogo da Copa', type: 'evento', status: 'planejada',
-      description: 'Transmissão e acompanhamento de jogo da Copa do Mundo. Integração e diversão da equipe.',
-      target_audience: 'Toda a equipe', channels: ['Reunião presencial','WhatsApp (grupo)'],
       start_date: '2026-06-24', end_date: '2026-06-24', created_at: now() },
     { id: generateId(), title: 'Junho Vermelho — Doação de Sangue', type: 'campanha', status: 'planejada',
       description: 'Uma gota vermelha pode salvar uma vida. Campanha de doação de sangue.',
