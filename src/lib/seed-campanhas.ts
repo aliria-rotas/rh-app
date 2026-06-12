@@ -133,6 +133,10 @@ export async function seedCampanhasEndomarketing() {
       start_date: '2026-12-01', end_date: '2026-12-31', created_at: now() },
 
     // JANEIRO 2027
+    { id: generateId(), title: 'Dia do Farmacêutico', type: 'reconhecimento', status: 'planejada',
+      description: 'Reconhecimento e homenagem aos profissionais farmacêuticos. Celebração da contribuição ao cuidado com a saúde.',
+      target_audience: 'Equipe farmacêutica e gestão', channels: ['Reunião presencial','E-mail','Mural físico/digital'],
+      start_date: '2027-01-20', end_date: '2027-01-20', created_at: now() },
     { id: generateId(), title: 'Janeiro Branco — Saúde Mental', type: 'campanha', status: 'planejada',
       description: 'Sua mente merece cuidado. Fale, ouça, acolha. Conscientização sobre saúde mental e prevenção ao suicídio.',
       target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital'],
