@@ -29,9 +29,12 @@ import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 export default function App() {
   useSeedCampanhas() // Force refresh - rebuild v3
 
+  const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('192.')
+  const basename = isProduction ? '' : '/rh-app'
+
   return (
     <AuthProvider>
-      <BrowserRouter basename="/rh-app">
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/treinamento-publico" element={<TrainamentPublic />} />
