@@ -39,8 +39,6 @@ export async function seedCampanhasEndomarketing() {
       description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
       target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
       start_date: '2026-12-01', end_date: '2026-12-31', created_at: now() },
-
-    // NEWSLETTERS 2027 (Janeiro a Junho)
     { id: generateId(), title: 'Newsletter Janeiro 2027', type: 'comunicado', status: 'planejada',
       description: 'Boletim informativo mensal com notícias, dicas e informações sobre saúde e bem-estar.',
       target_audience: 'Toda a equipe', channels: ['E-mail','Newsletter'],
@@ -131,76 +129,6 @@ export async function seedCampanhasEndomarketing() {
       description: 'Segurança em casa e no trabalho salva vidas. Conscientização sobre prevenção de acidentes.',
       target_audience: 'Toda a equipe', channels: ['E-mail','Mural físico/digital'],
       start_date: '2026-12-01', end_date: '2026-12-31', created_at: now() },
-
-    // JANEIRO 2027
-    { id: generateId(), title: 'Dia do Farmacêutico', type: 'reconhecimento', status: 'planejada',
-      description: 'Reconhecimento e homenagem aos profissionais farmacêuticos. Celebração da contribuição ao cuidado com a saúde.',
-      target_audience: 'Equipe farmacêutica e gestão', channels: ['Reunião presencial','E-mail','Mural físico/digital'],
-      start_date: '2027-01-20', end_date: '2027-01-20', created_at: now() },
-    { id: generateId(), title: 'Janeiro Branco — Saúde Mental', type: 'campanha', status: 'planejada',
-      description: 'Sua mente merece cuidado. Fale, ouça, acolha. Conscientização sobre saúde mental e prevenção ao suicídio.',
-      target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital'],
-      start_date: '2027-01-01', end_date: '2027-01-31', created_at: now() },
-    { id: generateId(), title: 'Janeiro Roxo — Hanseníase', type: 'campanha', status: 'planejada',
-      description: 'Hanseníase tem cura. Detecção precoce salva vidas. Conscientização e desmistificação da doença.',
-      target_audience: 'Toda a equipe', channels: ['E-mail','Mural físico/digital'],
-      start_date: '2027-01-01', end_date: '2027-01-31', created_at: now() },
-
-    // FEVEREIRO 2027
-    { id: generateId(), title: 'Fevereiro Laranja — Leucemia e Bullying', type: 'campanha', status: 'planejada',
-      description: 'Cores diferentes. Coração igual. Sem bullying. Conscientização sobre leucemia e combate ao bullying.',
-      target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital','Reunião presencial'],
-      start_date: '2027-02-01', end_date: '2027-02-28', created_at: now() },
-    { id: generateId(), title: 'Fevereiro Roxo — Fibromialgia, Lúpus e Alzheimer', type: 'campanha', status: 'planejada',
-      description: 'Doenças invisíveis. Dor real. Compassão necessária. Dar visibilidade a doenças invisíveis.',
-      target_audience: 'Toda a equipe', channels: ['E-mail','Mural físico/digital','Reunião presencial'],
-      start_date: '2027-02-01', end_date: '2027-02-28', created_at: now() },
-
-    // MARÇO 2027
-    { id: generateId(), title: 'Março Lilás — Prevenção ao Câncer de Colo de Útero', type: 'campanha', status: 'planejada',
-      description: 'Previna-se. Diagnostique cedo. Viva pleno. Promover prevenção e diagnóstico precoce.',
-      target_audience: 'Colaboradoras mulheres', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital'],
-      start_date: '2027-03-01', end_date: '2027-03-31', created_at: now() },
-    { id: generateId(), title: 'Março Azul-Marinho — Câncer Colorretal', type: 'campanha', status: 'planejada',
-      description: 'Prevenção no trabalho começa por você. Conscientização sobre prevenção de câncer colorretal.',
-      target_audience: 'Toda a equipe', channels: ['E-mail','Mural físico/digital','Reunião presencial'],
-      start_date: '2027-03-01', end_date: '2027-03-31', created_at: now() },
-
-    // ABRIL 2027
-    { id: generateId(), title: 'Abril Verde (SIPAT) — Saúde e Segurança no Trabalho', type: 'campanha', status: 'planejada',
-      description: 'Segurança é responsabilidade de todos. Semana de prevenção com palestras, simulado e atividades.',
-      target_audience: 'Toda a equipe', channels: ['Reunião presencial','Mural físico/digital','E-mail','WhatsApp (grupo)'],
-      start_date: '2027-04-01', end_date: '2027-04-07', created_at: now() },
-    { id: generateId(), title: 'Abril Azul — Autismo (TEA)', type: 'campanha', status: 'planejada',
-      description: 'Autismo é diferença, não deficiência. Conscientização e inclusão de pessoas com TEA.',
-      target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital','Reunião presencial'],
-      start_date: '2027-04-01', end_date: '2027-04-30', created_at: now() },
-    { id: generateId(), title: 'Abril Laranja — Prevenção de Amputações', type: 'campanha', status: 'planejada',
-      description: 'Seus dedos valem ouro. Proteja-os. Conscientização sobre acidentes de trabalho.',
-      target_audience: 'Toda a equipe', channels: ['E-mail','Mural físico/digital'],
-      start_date: '2027-04-01', end_date: '2027-04-30', created_at: now() },
-
-    // MAIO 2027
-    { id: generateId(), title: 'Maio Amarelo — Segurança no Trânsito', type: 'campanha', status: 'planejada',
-      description: 'No trânsito, todos somos responsáveis. Redução de acidentes de trânsito.',
-      target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital'],
-      start_date: '2027-05-01', end_date: '2027-05-31', created_at: now() },
-
-    // JUNHO 2027
-    { id: generateId(), title: 'Festa Junina', type: 'evento', status: 'planejada',
-      description: 'Confraternização com tema junino. Comidas típicas, danças e atividades para toda a equipe.',
-      target_audience: 'Toda a equipe', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'],
-      start_date: '2027-06-15', end_date: '2027-06-25', created_at: now() },
-    { id: generateId(), title: 'Junho Vermelho — Doação de Sangue', type: 'campanha', status: 'planejada',
-      description: 'Uma gota vermelha pode salvar uma vida. Campanha de doação de sangue.',
-      target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Reunião presencial'],
-      start_date: '2027-06-01', end_date: '2027-06-30', created_at: now() },
-
-    // DEZEMBRO 2027
-    { id: generateId(), title: 'Confraternização de Fim de Ano', type: 'evento', status: 'planejada',
-      description: 'Celebração do encerramento do ano com toda a equipe. Confraternização, premiações e atividades de integração.',
-      target_audience: 'Toda a equipe', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'],
-      start_date: '2027-12-15', end_date: '2027-12-31', created_at: now() },
   ]
 
   // Verifica quais campanhas já existem
