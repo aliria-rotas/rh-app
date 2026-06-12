@@ -119,6 +119,10 @@ export async function seedCampanhasEndomarketing() {
       start_date: '2026-11-01', end_date: '2026-11-30', created_at: now() },
 
     // DEZEMBRO 2026
+    { id: generateId(), title: 'Confraternização de Fim de Ano', type: 'evento', status: 'planejada',
+      description: 'Celebração do encerramento do ano com toda a equipe. Confraternização, premiações e atividades de integração.',
+      target_audience: 'Toda a equipe', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'],
+      start_date: '2026-12-15', end_date: '2026-12-31', created_at: now() },
     { id: generateId(), title: 'Dezembro Vermelho — HIV/AIDS e ISTs', type: 'campanha', status: 'planejada',
       description: 'Prevenção, Teste e Tratamento. Todos merecem. Conscientização sobre HIV e ISTs.',
       target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital','Reunião presencial'],
@@ -187,6 +191,12 @@ export async function seedCampanhasEndomarketing() {
       description: 'Uma gota vermelha pode salvar uma vida. Campanha de doação de sangue.',
       target_audience: 'Toda a equipe', channels: ['WhatsApp (grupo)','E-mail','Reunião presencial'],
       start_date: '2027-06-01', end_date: '2027-06-30', created_at: now() },
+
+    // DEZEMBRO 2027
+    { id: generateId(), title: 'Confraternização de Fim de Ano', type: 'evento', status: 'planejada',
+      description: 'Celebração do encerramento do ano com toda a equipe. Confraternização, premiações e atividades de integração.',
+      target_audience: 'Toda a equipe', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'],
+      start_date: '2027-12-15', end_date: '2027-12-31', created_at: now() },
   ]
 
   // Verifica quais campanhas já existem
