@@ -11,6 +11,7 @@ import IdentidadeOrganizacional from '@/pages/IdentidadeOrganizacional'
 import Cargos from '@/pages/Cargos'
 import Competencias from '@/pages/Competencias'
 import PesquisaClima from '@/pages/PesquisaClima'
+import ClimateResponse from '@/pages/ClimateResponse'
 import Recrutamento from '@/pages/Recrutamento'
 import Desligamento from '@/pages/Desligamento'
 import AvaliacaoDesempenho from '@/pages/AvaliacaoDesempenho'
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/treinamento-publico" element={<TrainamentPublic />} />
           <Route path="/reteste-treinamento" element={<TrainamentReteste />} />
           <Route path="/treinamentos-publicos" element={<TreinamentosPublicos />} />
+          <Route path="/pesquisa-clima/:surveyId" element={<ClimateResponse />} />
           <Route
             element={
               <ProtectedRoute>
