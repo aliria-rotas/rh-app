@@ -30,7 +30,7 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/rh-app">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/treinamento-publico" element={<TrainamentPublic />} />
