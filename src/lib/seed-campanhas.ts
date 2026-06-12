@@ -99,6 +99,10 @@ export async function seedCampanhasEndomarketing() {
       description: 'Doe órgãos. Doe vida. Doe esperança. Incentivo à doação de órgãos.',
       target_audience: 'Toda a equipe', channels: ['E-mail','Mural físico/digital'],
       start_date: '2026-09-01', end_date: '2026-09-30', created_at: now() },
+    { id: generateId(), title: 'Dia do Farmacêutico', type: 'reconhecimento', status: 'planejada',
+      description: 'Homenagem e reconhecimento aos farmacêuticos da equipe. Valorização profissional e confraternização.',
+      target_audience: 'Farmacêuticos e equipe', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'],
+      start_date: '2026-09-20', end_date: '2026-09-20', created_at: now() },
 
     // OUTUBRO 2026
     { id: generateId(), title: 'Outubro Rosa — Câncer de Mama', type: 'campanha', status: 'planejada',
