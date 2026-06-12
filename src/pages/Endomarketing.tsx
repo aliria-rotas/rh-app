@@ -90,12 +90,15 @@ export default function Endomarketing() {
     <div className="space-y-6 max-w-5xl">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
-          {TYPE_OPTS.map(t => (
-            <button key={t.value} onClick={() => setFilterType(t.value as CampaignType)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === t.value ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
-              {t.label}
-            </button>
-          ))}
+          {TYPE_OPTS.map(t => {
+            if (t.value === 'all') return null
+            return (
+              <button key={t.value} onClick={() => setFilterType(t.value as CampaignType)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === t.value ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                {t.label}
+              </button>
+            )
+          })}
         </div>
         <Button onClick={openNew}><Plus size={16} /> Nova Ação</Button>
       </div>
