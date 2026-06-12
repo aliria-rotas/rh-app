@@ -56,7 +56,6 @@ export async function handleClimateResponse(
     const response: ClimateResponse = {
       id: `resp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       survey_id: payload.survey_id,
-      sector: payload.sector,
       answers,
       submitted_at: new Date().toISOString(),
     }

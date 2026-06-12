@@ -31,7 +31,6 @@ export default function App() {
 
   const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('192.')
   const basename = isProduction ? '' : '/rh-app'
-  console.log('🚀 RH App v2 - basename:', basename, '- hostname:', window.location.hostname)
 
   return (
     <AuthProvider>

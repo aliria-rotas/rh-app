@@ -154,6 +154,15 @@ export const dbClimateSurveys = {
     return (data ?? []) as ClimateSurvey[]
   },
 
+  async get(id: string): Promise<ClimateSurvey | null> {
+    const { data, error } = await supabase
+      .from('rh_climate_surveys')
+      .select('*')
+      .eq('id', id)
+      .single()
+    return (data ?? null) as ClimateSurvey | null
+  },
+
   async create(item: Omit<ClimateSurvey, 'id' | 'created_at'>): Promise<ClimateSurvey> {
     const { data, error } = await supabase
       .from('rh_climate_surveys')
