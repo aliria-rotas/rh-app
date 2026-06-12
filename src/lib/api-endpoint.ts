@@ -25,7 +25,6 @@ import { ClimateResponse } from '@/types'
 
 interface WebhookPayload {
   survey_id: string
-  sector: 'licitacoes' | 'farmacia' | 'financeiro'
   answers: Record<string, string | number>
 }
 

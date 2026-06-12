@@ -66,7 +66,6 @@ export interface ClimateQuestion {
 export interface ClimateResponse {
   id: string
   survey_id: string
-  sector: 'licitacoes' | 'farmacia' | 'financeiro'
   answers: Record<string, string | number>
   submitted_at: string
 }

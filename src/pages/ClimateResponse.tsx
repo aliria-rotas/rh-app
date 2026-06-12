@@ -2,17 +2,10 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { Select } from '@/components/ui/Input'
 import { dbClimateSurveys } from '@/lib/db'
 import { ClimateSurvey, ClimateResponse } from '@/types'
 import { generateId } from '@/lib/storage'
 import { Wind, CheckCircle } from 'lucide-react'
-
-const SECTORS = [
-  { value: 'licitacoes', label: 'Licitações' },
-  { value: 'farmacia', label: 'Farmácia' },
-  { value: 'financeiro', label: 'Financeiro' },
-]
 
 const LIKERT_SCALE = [
   { value: 1, label: '1 - Discordo totalmente', color: 'bg-red-100 hover:bg-red-200' },
@@ -25,7 +18,6 @@ const LIKERT_SCALE = [
 export default function ClimateResponse() {
   const { surveyId } = useParams<{ surveyId: string }>()
   const [survey, setSurvey] = useState<ClimateSurvey | null>(null)
-  const [sector, setSector] = useState<'licitacoes' | 'farmacia' | 'financeiro'>('licitacoes')
   const [answers, setAnswers] = useState<Record<string, number>>({})
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -53,7 +45,6 @@ export default function ClimateResponse() {
     const response: ClimateResponse = {
       id: generateId(),
       survey_id: surveyId,
-      sector,
       answers,
       submitted_at: new Date().toISOString(),
     }
@@ -84,21 +75,6 @@ export default function ClimateResponse() {
           <p className="text-purple-100 mt-2">{survey.description}</p>
         </CardHeader>
         <CardContent className="pt-6">
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-slate-700 mb-3">
-              Qual é seu setor?
-            </label>
-            <select
-              value={sector}
-              onChange={e => setSector(e.target.value as any)}
-              className="w-full md:w-64 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
-            >
-              {SECTORS.map(s => (
-                <option key={s.value} value={s.value}>{s.label}</option>
-              ))}
-            </select>
-          </div>
-
           <div className="space-y-8">
             {survey.questions.map((question, idx) => (
               <div key={question.id} className="border-b pb-6 last:border-b-0">

@@ -7,14 +7,12 @@ import { ClimateResponse } from '@/types'
  */
 export async function submitClimateResponseFromForm(data: {
   survey_id: string
-  sector: 'licitacoes' | 'farmacia' | 'financeiro'
   answers: Record<string, number | string>
 }) {
   try {
     const response: ClimateResponse = {
       id: `resp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       survey_id: data.survey_id,
-      sector: data.sector,
       answers: Object.fromEntries(
         Object.entries(data.answers).map(([k, v]) => [k, typeof v === 'string' ? parseInt(v) : v])
       ),
@@ -39,18 +37,10 @@ export async function submitClimateResponseFromForm(data: {
  */
 export function parseGoogleFormsResponse(formData: {
   timestamp: string
-  sector: string
   [key: string]: string
 }): {
-  sector: 'licitacoes' | 'farmacia' | 'financeiro'
   answers: Record<string, number>
 } {
-  const sector = formData.sector.toLowerCase().includes('licit')
-    ? 'licitacoes'
-    : formData.sector.toLowerCase().includes('farm')
-      ? 'farmacia'
-      : 'financeiro'
-
   const answers: Record<string, number> = {}
   Object.entries(formData).forEach(([key, value]) => {
     // Pega só o número da escala (1-5)
@@ -60,5 +50,5 @@ export function parseGoogleFormsResponse(formData: {
     }
   })
 
-  return { sector, answers }
+  return { answers }
 }
