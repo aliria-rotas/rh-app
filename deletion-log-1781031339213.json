@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-06-09T18:55:39.211Z",
+  "total_deleted": 21,
+  "total_failed": 0,
+  "deleted_ids": [
+    "a48e0d4e-dbdf-458e-8ee9-deec57dc9ddc",
+    "613828b8-5a44-4e8c-b9c4-0fdf8016e4e1",
+    "e32b3379-3300-4ebf-9d13-e4403546226a",
+    "37f723e1-1545-49f0-98e1-e2424b2f3aa8",
+    "3ea9c147-79f6-4a5a-baa2-c9b6ab2ae6d7",
+    "cef5311e-640c-4f83-8385-ed823dcde26a",
+    "38a6c5e3-ed93-4823-a127-d4091fc2d484",
+    "b79317fd-fcf0-4269-b482-9f72f69d6385",
+    "d131b5d8-f165-44b6-bd03-ad1a491be72a",
+    "f029e2c3-befa-4baa-ad9e-31618448b8fd",
+    "ad6c6ebf-8e2d-4f63-9fa9-96739e8191af",
+    "08179716-6707-4a9a-9eef-b4fc90f653e3",
+    "f0349390-128b-4bb0-b602-25e240e438ee",
+    "a01305af-fec8-41f6-a38e-42847740116b",
+    "8784fdb7-1727-4cd8-a189-3e7b88c86d09",
+    "fde8cc65-e65b-401e-aedb-7feb4419bfe1",
+    "060de554-7869-4c43-9657-5198a9fb69f6",
+    "1ca5b1e0-353c-4ddc-9a01-c6c3c579b327",
+    "6fdcbe05-3d51-43a1-81db-b8a4edb30fb0",
+    "6fc48d0e-bc0a-46a6-ba08-5472793cf6f7",
+    "54e471be-e760-4040-846d-ff51871302fa"
+  ],
+  "failed_ids": []
+}

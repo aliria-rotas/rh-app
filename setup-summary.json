@@ -1,0 +1,125 @@
+{
+  "project": "Aliria RH — Cleanup Campanhas Duplicadas",
+  "date": "2026-06-09T18:36:03Z",
+  "status": "PREPARADO PARA EXECUÇÃO (Aguardando Confirmação)",
+  "diagnostico": {
+    "total_campanhas": 47,
+    "campanhas_unicas": 26,
+    "campanhas_duplicadas": 21,
+    "total_duplicatas_a_deletar": 21,
+    "percentual_duplicacao": "44.68%"
+  },
+  "criterio_duplicacao": {
+    "definicao": "Campanhas com MESMO TÍTULO",
+    "padrao": "Cada grupo tem exatamente 2 cópias",
+    "timestamp": "2026-06-09T18:13:43Z",
+    "estrategia": "Mantém a mais recente (por created_at), deleta a cópia mais antiga"
+  },
+  "arquivos_criados": {
+    "documentacao": [
+      "CLEANUP-DUPLICATES.md",
+      "DUPLICATES-SUMMARY.txt",
+      "DELETES-A-EXECUTAR.txt",
+      "CHECKLIST-EXECUCAO.md",
+      "README-DUPLICATES.txt",
+      "setup-summary.json"
+    ],
+    "scripts": [
+      "scripts/find-duplicates.js",
+      "scripts/delete-duplicates.js",
+      "scripts/verify-cleanup.js"
+    ],
+    "dados_gerados": [
+      "duplicates-report.json"
+    ],
+    "dados_futuros": [
+      "deletion-log-TIMESTAMP.json"
+    ]
+  },
+  "processo": {
+    "fase_1": {
+      "nome": "Verificação",
+      "comando": "node scripts/find-duplicates.js",
+      "tipo": "SEGURO",
+      "descricao": "Identifica duplicatas, salva relatório"
+    },
+    "fase_2": {
+      "nome": "Simulação (Opcional)",
+      "comando": "node scripts/delete-duplicates.js",
+      "tipo": "SEGURO",
+      "descricao": "Mostra o que seria deletado sem deletar"
+    },
+    "fase_3": {
+      "nome": "Execução Real",
+      "comando": "node scripts/delete-duplicates.js --confirm",
+      "tipo": "PERIGOSO",
+      "descricao": "Deleta os 21 IDs duplicados"
+    },
+    "fase_4": {
+      "nome": "Verificação Final",
+      "comando": "node scripts/verify-cleanup.js",
+      "tipo": "SEGURO",
+      "descricao": "Confirma que limpeza foi bem-sucedida"
+    }
+  },
+  "seguranca": {
+    "seguro_porque": [
+      "Scripts apenas LEEM via anon key (sem permissão de DELETE)",
+      "Relatório JSON salvo LOCALMENTE antes de qualquer ação",
+      "Modo DRY-RUN permite VERIFICAR tudo antes de deletar",
+      "Logs salvos para AUDITORIA COMPLETA",
+      "Supabase tem BACKUPS AUTOMÁTICOS"
+    ],
+    "sem_risco_de": [
+      "Deletar campanhas únicas",
+      "Deletar a campanha mais recente",
+      "Perder dados sem rastreamento"
+    ]
+  },
+  "campanhas_afetadas": 21,
+  "ids_a_deletar": [
+    "a48e0d4e-dbdf-458e-8ee9-deec57dc9ddc",
+    "613828b8-5a44-4e8c-b9c4-0fdf8016e4e1",
+    "e32b3379-3300-4ebf-9d13-e4403546226a",
+    "37f723e1-1545-49f0-98e1-e2424b2f3aa8",
+    "3ea9c147-79f6-4a5a-baa2-c9b6ab2ae6d7",
+    "cef5311e-640c-4f83-8385-ed823dcde26a",
+    "38a6c5e3-ed93-4823-a127-d4091fc2d484",
+    "b79317fd-fcf0-4269-b482-9f72f69d6385",
+    "d131b5d8-f165-44b6-bd03-ad1a491be72a",
+    "f029e2c3-befa-4baa-ad9e-31618448b8fd",
+    "ad6c6ebf-8e2d-4f63-9fa9-96739e8191af",
+    "08179716-6707-4a9a-9eef-b4fc90f653e3",
+    "f0349390-128b-4bb0-b602-25e240e438ee",
+    "a01305af-fec8-41f6-a38e-42847740116b",
+    "8784fdb7-1727-4cd8-a189-3e7b88c86d09",
+    "fde8cc65-e65b-401e-aedb-7feb4419bfe1",
+    "060de554-7869-4c43-9657-5198a9fb69f6",
+    "1ca5b1e0-353c-4ddc-9a01-c6c3c579b327",
+    "6fdcbe05-3d51-43a1-81db-b8a4edb30fb0",
+    "6fc48d0e-bc0a-46a6-ba08-5472793cf6f7",
+    "54e471be-e760-4040-846d-ff51871302fa"
+  ],
+  "proximos_passos": [
+    "Revisar CLEANUP-DUPLICATES.md",
+    "Executar: node scripts/find-duplicates.js",
+    "Confirmar números coincidem",
+    "Executar: node scripts/delete-duplicates.js (simulação)",
+    "Revisar saída e IDs",
+    "Executar: node scripts/delete-duplicates.js --confirm",
+    "Revisar log em deletion-log-TIMESTAMP.json",
+    "Executar: node scripts/verify-cleanup.js",
+    "Confirmar mensagem de sucesso"
+  ],
+  "resultado_esperado": {
+    "campanhas_restantes": 26,
+    "duplicatas_restantes": 0,
+    "mensagem": "✅ EXCELENTE: Nenhuma campanha duplicada encontrada!"
+  },
+  "supabase": {
+    "url": "https://fmivqhsfkvfunznrlxde.supabase.co",
+    "projeto": "aliria-rotas",
+    "tabela": "rh_endomarketing_campaigns",
+    "chave_usada": "VITE_SUPABASE_ANON_KEY"
+  }
+}

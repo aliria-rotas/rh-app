@@ -1,0 +1,172 @@
+================================================================================
+RELATÓRIO DE CAMPANHAS DUPLICADAS — rh_endomarketing_campaigns
+================================================================================
+
+DATA DO RELATÓRIO: 09/06/2026, 18:36:03
+CONEXÃO SUPABASE: fmivqhsfkvfunznrlxde.supabase.co
+
+================================================================================
+RESUMO EXECUTIVO
+================================================================================
+
+Total de campanhas na tabela: 47
+Campanhas com títulos duplicados: 21
+Total de duplicatas a DELETAR: 21
+Campanhas que serão MANTIDAS: 26
+
+Taxa de duplicação: 44,68% (21 de 47 campanhas têm cópias)
+
+================================================================================
+CAMPANHAS DUPLICADAS (21 grupos)
+================================================================================
+
+1.  Abril Azul — Autismo (TEA)                              [2 cópias → 1 DELETE]
+2.  Abril Laranja — Prevenção de Amputações               [2 cópias → 1 DELETE]
+3.  Abril Verde (SIPAT) — Saúde e Segurança no Trabalho  [2 cópias → 1 DELETE]
+4.  Agosto Lilás — Prevenção à Violência Contra a Mulher [2 cópias → 1 DELETE]
+5.  Dezembro Laranja — Acidentes Domésticos              [2 cópias → 1 DELETE]
+6.  Dezembro Vermelho — HIV/AIDS e ISTs                  [2 cópias → 1 DELETE]
+7.  Fevereiro Laranja — Leucemia e Bullying              [2 cópias → 1 DELETE]
+8.  Fevereiro Roxo — Fibromialgia, Lúpus e Alzheimer    [2 cópias → 1 DELETE]
+9.  Halloween — Festa de Confraternização                [2 cópias → 1 DELETE]
+10. Janeiro Branco — Saúde Mental                         [2 cópias → 1 DELETE]
+11. Janeiro Roxo — Hanseníase                             [2 cópias → 1 DELETE]
+12. Julho Amarelo — Hepatites Virais                      [2 cópias → 1 DELETE]
+13. Julho Verde — Câncer de Cabeça e Pescoço             [2 cópias → 1 DELETE]
+14. Junho Vermelho — Doação de Sangue                     [2 cópias → 1 DELETE]
+15. Maio Amarelo — Segurança no Trânsito                 [2 cópias → 1 DELETE]
+16. Março Azul-Marinho — Câncer Colorretal               [2 cópias → 1 DELETE]
+17. Março Lilás — Prevenção ao Câncer de Colo de Útero   [2 cópias → 1 DELETE]
+18. Novembro Azul — Câncer de Próstata                   [2 cópias → 1 DELETE]
+19. Outubro Rosa — Câncer de Mama                         [2 cópias → 1 DELETE]
+20. Setembro Amarelo — Prevenção ao Suicídio              [2 cópias → 1 DELETE]
+21. Setembro Verde — Doação de Órgãos e Tecidos          [2 cópias → 1 DELETE]
+
+================================================================================
+CRITÉRIO DE DUPLICAÇÃO
+================================================================================
+
+Duplicadas = campanhas com MESMO TÍTULO
+
+Cada grupo tem exatamente 2 campanhas, todas criadas em 09/06/2026, 18:13:43
+
+Estratégia de limpeza:
+• Para cada par, MANTÉM a mais recente
+• DELETA a cópia mais antiga (apenas milissegundos de diferença)
+
+================================================================================
+SCRIPTS DISPONÍVEIS
+================================================================================
+
+1. find-duplicates.js (SEGURO — apenas lê dados)
+   node scripts/find-duplicates.js
+   ├─ Identifica todas as duplicatas
+   ├─ Salva relatório em duplicates-report.json
+   └─ Não faz nenhuma modificação
+
+2. delete-duplicates.js (REQUER --confirm para deletar)
+   node scripts/delete-duplicates.js              [DRY-RUN = simulação]
+   node scripts/delete-duplicates.js --confirm    [REAL = deleta de verdade]
+   ├─ Lê relatório de duplicates-report.json
+   ├─ Deleta as 21 campanhas duplicadas
+   └─ Salva log em deletion-log-TIMESTAMP.json
+
+3. verify-cleanup.js (Verifica resultado final)
+   node scripts/verify-cleanup.js
+   ├─ Compara ANTES vs DEPOIS
+   ├─ Confirma que limpeza foi bem-sucedida
+   └─ Verifica se sobraram duplicatas
+
+================================================================================
+INSTRUÇÕES PASSO A PASSO
+================================================================================
+
+FASE 1: VERIFICAÇÃO
+─────────────────
+1. Execute find-duplicates.js para confirmar o diagnóstico
+   $ node scripts/find-duplicates.js
+
+2. Revise duplicates-report.json e a saída no console
+
+
+FASE 2: SIMULAÇÃO (Recomendado)
+────────────────────────────────
+3. Execute delete-duplicates.js em DRY-RUN para simular
+   $ node scripts/delete-duplicates.js
+
+4. Revise a saída e confirme que está deletando os IDs corretos
+
+
+FASE 3: EXECUÇÃO REAL
+─────────────────────
+5. Execute delete-duplicates.js com --confirm para deletar de verdade
+   $ node scripts/delete-duplicates.js --confirm
+
+6. Monitore a saída para confirmar as 21 deleções
+
+
+FASE 4: VERIFICAÇÃO FINAL
+──────────────────────────
+7. Execute verify-cleanup.js para confirmar que tudo correu bem
+   $ node scripts/verify-cleanup.js
+
+8. Espera: "✅ EXCELENTE: Nenhuma campanha duplicada encontrada!"
+
+
+================================================================================
+ARQUIVOS GERADOS
+================================================================================
+
+duplicates-report.json
+├─ Relatório estruturado de todas as duplicatas
+├─ Contém IDs de campanhas a manter vs deletar
+├─ Salvo após find-duplicates.js
+└─ Usado como entrada para delete-duplicates.js
+
+deletion-log-TIMESTAMP.json
+├─ Log de quais IDs foram deletados
+├─ Salvo após delete-duplicates.js --confirm
+└─ Útil para auditoria e reverão (se necessário)
+
+================================================================================
+SEGURANÇA E RISCO
+================================================================================
+
+✅ SEGURO PORQUE:
+• Scripts apenas LEEM via anon key (sem permissão de escrita)
+• Relatório JSON é salvo LOCALMENTE antes de qualquer ação
+• Modo DRY-RUN permite verificar TUDO antes de deletar
+• Logs salvos para AUDITORIA COMPLETA
+• Supabase tem BACKUPS AUTOMÁTICOS
+
+❌ RISCO ZERO DE:
+• Deletar campanhas únicas
+• Deletar a campanha mais recente
+• Perder dados por engano (há log)
+
+================================================================================
+PRÓXIMOS PASSOS (APÓS LIMPEZA)
+================================================================================
+
+1. Remover scripts de limpeza (ou guardar para futura manutenção)
+2. Adicionar validação no app para evitar duplicatas futuras
+3. Revisar processo de seed/import que gerou as duplicatas
+4. Confirmar com stakeholders que a limpeza foi bem-sucedida
+
+================================================================================
+CONTATO / TROUBLESHOOTING
+================================================================================
+
+"Arquivo duplicates-report.json não encontrado"
+→ Execute find-duplicates.js primeiro
+
+"Erro ao conectar ao Supabase"
+→ Verifique .env (VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY)
+
+"Permissão negada"
+→ Verifique políticas RLS da tabela no Supabase
+
+"Dúvidas sobre qual campanha está sendo mantida"
+→ Abra duplicates-report.json e procure "keep_id"
+
+================================================================================

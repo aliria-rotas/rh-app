@@ -1,0 +1,125 @@
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                    ║
+║                        COMEÇA AQUI - GUIA RÁPIDO                                  ║
+║                                                                                    ║
+║             Limpeza de Campanhas Duplicadas — rh_endomarketing_campaigns         ║
+║                                                                                    ║
+╚════════════════════════════════════════════════════════════════════════════════════╝
+
+
+SITUAÇÃO EM UMA PALAVRA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+47 campanhas no total
+21 têm títulos duplicados (2 cópias cada)
+21 serão deletadas
+26 permanecerão
+
+PRONTO PARA EXECUTAR
+
+
+DOCUMENTOS PARA LER (por ordem)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. README-DUPLICATES.txt ✓ (resumo visual com emojis)
+   └─ Entenda rapidamente o que será feito
+
+2. CLEANUP-DUPLICATES.md ✓ (documentação detalhada)
+   └─ Guia completo com explicações
+
+3. CHECKLIST-EXECUCAO.md ✓ (checklist com fases)
+   └─ Siga passo a passo com checkboxes
+
+4. DUPLICATES-SUMMARY.txt ✓ (números e lista)
+   └─ Quando precisa dos números exatos
+
+5. DELETES-A-EXECUTAR.txt ✓ (lista dos 21 IDs)
+   └─ Referência rápida dos IDs a deletar
+
+
+LINHA DO TEMPO — 5 MINUTOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. VERIFICAR [30 seg]:
+   $ node scripts/find-duplicates.js
+   → Confirma que encontrou 21 duplicatas
+
+2. SIMULAR [1 min]:
+   $ node scripts/delete-duplicates.js
+   → Mostra o que SERIA deletado
+
+3. EXECUTAR [1 min]:
+   $ node scripts/delete-duplicates.js --confirm
+   → Deleta os 21 IDs
+
+4. VERIFICAR [30 seg]:
+   $ node scripts/verify-cleanup.js
+   → Confirma que tudo foi bem
+
+5. PRONTO [tempo variável]:
+   → Notificar stakeholders
+
+
+3 SCRIPTS PRINCIPAIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. find-duplicates.js ✓ SEGURO (apenas lê)
+   └─ node scripts/find-duplicates.js
+
+2. delete-duplicates.js ✓ COM CUIDADO (pode deletar)
+   ├─ node scripts/delete-duplicates.js         [DRY-RUN = simula]
+   └─ node scripts/delete-duplicates.js --confirm [REAL = deleta]
+
+3. verify-cleanup.js ✓ SEGURO (apenas verifica)
+   └─ node scripts/verify-cleanup.js
+
+
+O QUE VAI ACONTECER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ANTES:
+  • 47 campanhas
+  • 21 títulos duplicados (42 cópias extras)
+  • Aplicativo pode ter comportamento estranho
+
+DEPOIS:
+  • 26 campanhas
+  • 0 títulos duplicados
+  • Aplicativo funciona melhor
+
+
+SEGURANÇA — Por que isto é seguro
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Scripts apenas LEEM primeiro (sem DELETE)
+✓ Relatório JSON salvo ANTES de qualquer ação
+✓ DRY-RUN permite verificar TUDO antes de deletar
+✓ Logs salvos para AUDITORIA
+✓ Supabase tem BACKUPS
+✓ Mantém SEMPRE a campanha mais recente
+
+
+RÁPIDO DEMAIS?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Leia README-DUPLICATES.txt antes de começar (10 minutos)
+
+
+DÚVIDA?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Revise CLEANUP-DUPLICATES.md (seção Troubleshooting)
+
+
+PRONTO PARA COMEÇAR?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SIM → Abra README-DUPLICATES.txt (30 sec)
+      Depois execute: node scripts/find-duplicates.js
+
+NÃO → Revise: CLEANUP-DUPLICATES.md (15 min)
+      Depois: CHECKLIST-EXECUCAO.md
+
+╔════════════════════════════════════════════════════════════════════════════════════╗
+║                    VOCÊ ESTÁ SEGURO. VÃO APENAS DELETA DUPLICATAS.               ║
+╚════════════════════════════════════════════════════════════════════════════════════╝
