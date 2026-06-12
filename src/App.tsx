@@ -26,7 +26,7 @@ import TrainamentReteste from '@/pages/TrainamentReteste'
 import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 
 export default function App() {
-  useSeedCampanhas()
+  useSeedCampanhas() // Force refresh - rebuild v3
 
   return (
     <AuthProvider>
