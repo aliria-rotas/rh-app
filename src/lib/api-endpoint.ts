@@ -47,8 +47,8 @@ export async function handleClimateResponse(
       }
     })
 
-    // Validar que todas as perguntas foram respondidas (17 esperadas)
-    if (Object.keys(answers).length < 16) {
+    // Validar que todas as perguntas foram respondidas (15 esperadas)
+    if (Object.keys(answers).length < 15) {
       return { success: false, error: 'Incomplete responses' }
     }
 

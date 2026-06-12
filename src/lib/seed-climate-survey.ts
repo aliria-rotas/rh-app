@@ -118,13 +118,6 @@ export function createLikertClimateSurvey(): ClimateSurvey {
       // Cultura
       {
         id: generateId(),
-        text: 'Os valores da empresa são vivenciados na prática',
-        category: 'cultura',
-        type: 'escala',
-        options: ['1 - Discordo totalmente', '2 - Discordo', '3 - Neutro', '4 - Concordo', '5 - Concordo totalmente'],
-      },
-      {
-        id: generateId(),
         text: 'Tenho orgulho em trabalhar nesta empresa',
         category: 'cultura',
         type: 'escala',
