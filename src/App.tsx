@@ -27,7 +27,7 @@ import TrainamentReteste from '@/pages/TrainamentReteste'
 import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 
 export default function App() {
-  useSeedCampanhas() // Force refresh - rebuild v3
+  useSeedCampanhas() // Force refresh - rebuild v4
 
   const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('192.')
   const basename = isProduction ? '' : '/rh-app'
