@@ -1,10 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { Layout } from '@/components/layout/Layout'
 import { useSeedCampanhas } from '@/hooks/useSeedCampanhas'
-import { forceSeedNow } from '@/lib/force-seed'
 
 import Login from '@/pages/Login'
 import Perfil from '@/pages/Perfil'
@@ -30,10 +28,6 @@ import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 
 export default function App() {
   useSeedCampanhas() // Force refresh - rebuild v3
-
-  useEffect(() => {
-    forceSeedNow()
-  }, [])
 
   return (
     <AuthProvider>
