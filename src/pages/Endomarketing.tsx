@@ -15,7 +15,7 @@ const STATUS_OPTS = [
   { value: 'encerrada', label: 'Encerrada' },
 ]
 
-const TYPE_OPTS = [
+const TYPE_OPTIONS = [
   { value: 'comunicado', label: 'Comunicado' },
   { value: 'celebracao', label: 'Celebração' },
   { value: 'reconhecimento', label: 'Reconhecimento' },
@@ -29,6 +29,39 @@ const TYPE_ICONS: Record<CampaignType, string> = {
   comunicado: '📢', celebracao: '🎉', reconhecimento: '🏆', campanha: '🚀', evento: '📅'
 }
 
+function CampaignCard({ campaign, onEdit, onDelete }: { campaign: EndomarketingCampaign; onEdit: (c: EndomarketingCampaign) => void; onDelete: (id: string) => void }) {
+  return (
+    <Card>
+      <CardContent className="py-4">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              <h3 className="font-semibold text-slate-800">{campaign.title}</h3>
+              <StatusBadge status={campaign.status} />
+            </div>
+            {campaign.description && <p className="text-sm text-slate-600 mb-2 line-clamp-2">{campaign.description}</p>}
+            <div className="flex flex-wrap gap-2 mb-2">
+              {campaign.channels.map(ch => <Badge key={ch} variant="outline">{ch}</Badge>)}
+            </div>
+            <div className="flex gap-4 text-xs text-slate-500">
+              {campaign.target_audience && <span>Público: {campaign.target_audience}</span>}
+              {campaign.start_date && <span>{formatDate(campaign.start_date)}{campaign.end_date && ` – ${formatDate(campaign.end_date)}`}</span>}
+            </div>
+          </div>
+          <div className="flex gap-1">
+            <Button variant="ghost" size="sm" onClick={() => onEdit(campaign)}>
+              <Pencil size={14} />
+            </Button>
+            <Button variant="ghost" size="sm" className="text-red-500 hover:bg-red-50" onClick={() => onDelete(campaign.id)}>
+              <Trash2 size={14} />
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
 export default function Endomarketing() {
   const [campaigns, setCampaigns] = useState<EndomarketingCampaign[]>([])
   const [loading, setLoading] = useState(true)
@@ -39,7 +72,7 @@ export default function Endomarketing() {
     description: '', target_audience: '', channels: [] as string[], start_date: '', end_date: ''
   })
   const [filterType, setFilterType] = useState<CampaignType>('comunicado')
-  const [filterStatus, setFilterStatus] = useState('all')
+  const [filterStatus, setFilterStatus] = useState<string>('all')
 
   useEffect(() => {
     dbEndomarketing.list().then(data => { setCampaigns(data); setLoading(false) })
@@ -75,10 +108,11 @@ export default function Endomarketing() {
     }))
   }
 
-  const filtered = campaigns.filter(c =>
-    c.type === filterType &&
-    (filterStatus === 'all' || c.status === filterStatus)
-  )
+  const filtered = campaigns.filter(c => {
+    const typeMatch = c.type === filterType
+    const statusMatch = filterStatus === 'all' || c.status === filterStatus
+    return typeMatch && statusMatch
+  })
 
   if (loading) return (
     <div className="flex items-center justify-center h-64">
@@ -90,31 +124,35 @@ export default function Endomarketing() {
     <div className="space-y-6 max-w-5xl">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
-          {TYPE_OPTS.map(t => {
-            if (t.value === 'all') return null
-            return (
-              <button key={t.value} onClick={() => setFilterType(t.value as CampaignType)}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === t.value ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
-                {t.label}
-              </button>
-            )
-          })}
+          <button onClick={() => setFilterType('comunicado')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === 'comunicado' ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+            Comunicado
+          </button>
+          <button onClick={() => setFilterType('celebracao')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === 'celebracao' ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+            Celebração
+          </button>
+          <button onClick={() => setFilterType('reconhecimento')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === 'reconhecimento' ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+            Reconhecimento
+          </button>
+          <button onClick={() => setFilterType('campanha')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === 'campanha' ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+            Campanha
+          </button>
+          <button onClick={() => setFilterType('evento')}
+            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${filterType === 'evento' ? 'bg-pink-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+            Evento
+          </button>
         </div>
         <Button onClick={openNew}><Plus size={16} /> Nova Ação</Button>
       </div>
 
       <div className="grid grid-cols-4 gap-4">
-        {[
-          { label: 'Total', value: campaigns.length },
-          { label: 'Ativas', value: campaigns.filter(c => c.status === 'ativa').length, color: 'text-green-600' },
-          { label: 'Planejadas', value: campaigns.filter(c => c.status === 'planejada').length, color: 'text-blue-600' },
-          { label: 'Encerradas', value: campaigns.filter(c => c.status === 'encerrada').length, color: 'text-slate-500' },
-        ].map(s => (
-          <Card key={s.label}><CardContent className="py-4">
-            <p className={`text-2xl font-bold ${s.color ?? 'text-slate-800'}`}>{s.value}</p>
-            <p className="text-sm text-slate-500 mt-1">{s.label}</p>
-          </CardContent></Card>
-        ))}
+        <Card><CardContent className="py-4"><p className="text-2xl font-bold text-slate-800">{campaigns.length}</p><p className="text-sm text-slate-500 mt-1">Total</p></CardContent></Card>
+        <Card><CardContent className="py-4"><p className="text-2xl font-bold text-green-600">{campaigns.filter(c => c.status === 'ativa').length}</p><p className="text-sm text-slate-500 mt-1">Ativas</p></CardContent></Card>
+        <Card><CardContent className="py-4"><p className="text-2xl font-bold text-blue-600">{campaigns.filter(c => c.status === 'planejada').length}</p><p className="text-sm text-slate-500 mt-1">Planejadas</p></CardContent></Card>
+        <Card><CardContent className="py-4"><p className="text-2xl font-bold text-slate-500">{campaigns.filter(c => c.status === 'encerrada').length}</p><p className="text-sm text-slate-500 mt-1">Encerradas</p></CardContent></Card>
       </div>
 
       {filtered.length === 0 ? (
@@ -124,52 +162,10 @@ export default function Endomarketing() {
           <Button className="mt-4" onClick={openNew}><Plus size={16} /> Criar ação</Button>
         </CardContent></Card>
       ) : (
-        <div className="space-y-8">
-          {TYPE_OPTS.map(typeOpt => {
-            const campaignsByType = [...filtered].filter(c => c.type === typeOpt.value).sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
-            if (campaignsByType.length === 0) return null
-            return (
-              <div key={typeOpt.value}>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl">{TYPE_ICONS[typeOpt.value]}</span>
-                  <h2 className="text-lg font-bold text-slate-800">{typeOpt.label}</h2>
-                  <span className="ml-auto text-sm text-slate-500">{campaignsByType.length} ação(ões)</span>
-                </div>
-                <div className="grid gap-4">
-                  {campaignsByType.map(c => (
-                    <Card key={c.id}>
-                      <CardContent className="py-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1">
-                            <div className="flex flex-wrap items-center gap-2 mb-1">
-                              <h3 className="font-semibold text-slate-800">{c.title}</h3>
-                              <StatusBadge status={c.status} />
-                            </div>
-                            {c.description && <p className="text-sm text-slate-600 mb-2 line-clamp-2">{c.description}</p>}
-                            <div className="flex flex-wrap gap-2 mb-2">
-                              {c.channels.map(ch => <Badge key={ch} variant="outline">{ch}</Badge>)}
-                            </div>
-                            <div className="flex gap-4 text-xs text-slate-500">
-                              {c.target_audience && <span>Público: {c.target_audience}</span>}
-                              {c.start_date && <span>{formatDate(c.start_date)}{c.end_date && ` – ${formatDate(c.end_date)}`}</span>}
-                            </div>
-                          </div>
-                          <div className="flex gap-1">
-                            <Button variant="ghost" size="sm" onClick={() => { setEditing(c); setForm({ title: c.title, type: c.type, status: c.status, description: c.description, target_audience: c.target_audience, channels: [...c.channels], start_date: c.start_date, end_date: c.end_date }); setModal(true) }}>
-                              <Pencil size={14} />
-                            </Button>
-                            <Button variant="ghost" size="sm" className="text-red-500 hover:bg-red-50" onClick={() => remove(c.id)}>
-                              <Trash2 size={14} />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            )
-          })}
+        <div className="space-y-4">
+          {[...filtered].sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime()).map(c => (
+            <CampaignCard key={c.id} campaign={c} onEdit={(campaign) => { setEditing(campaign); setForm({ title: campaign.title, type: campaign.type, status: campaign.status, description: campaign.description, target_audience: campaign.target_audience, channels: [...campaign.channels], start_date: campaign.start_date, end_date: campaign.end_date }); setModal(true) }} onDelete={remove} />
+          ))}
         </div>
       )}
 
@@ -177,20 +173,18 @@ export default function Endomarketing() {
         <div className="space-y-4">
           <Input label="Título *" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="Ex: Semana do Colaborador" />
           <div className="grid grid-cols-2 gap-4">
-            <Select label="Tipo" value={form.type} onChange={v => setForm(f => ({ ...f, type: v as CampaignType }))} options={TYPE_OPTS} />
+            <Select label="Tipo" value={form.type} onChange={v => setForm(f => ({ ...f, type: v as CampaignType }))} options={TYPE_OPTIONS} />
             <Select label="Status" value={form.status} onChange={v => setForm(f => ({ ...f, status: v as CampaignStatus }))} options={STATUS_OPTS} />
           </div>
           <Textarea label="Descrição" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} />
-          <Input label="Público-alvo" value={form.target_audience} onChange={e => setForm(f => ({ ...f, target_audience: e.target.value }))} placeholder="Ex: Todos os colaboradores, Equipe de vendas..." />
+          <Input label="Público-alvo" value={form.target_audience} onChange={e => setForm(f => ({ ...f, target_audience: e.target.value }))} placeholder="Ex: Todos os colaboradores" />
 
           <div>
-            <label className="text-sm font-medium text-slate-700 block mb-2">Canais de comunicação</label>
+            <label className="text-sm font-medium text-slate-700 block mb-2">Canais</label>
             <div className="flex flex-wrap gap-2">
               {CHANNEL_OPTS.map(ch => (
                 <button key={ch} onClick={() => toggleChannel(ch)}
-                  className={`px-3 py-1.5 rounded-lg text-sm border transition-colors ${
-                    form.channels.includes(ch) ? 'bg-pink-600 text-white border-pink-600' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                  }`}>
+                  className={`px-3 py-1.5 rounded-lg text-sm border transition-colors ${form.channels.includes(ch) ? 'bg-pink-600 text-white border-pink-600' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
                   {ch}
                 </button>
               ))}
@@ -198,13 +192,13 @@ export default function Endomarketing() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Data de início" type="date" value={form.start_date} onChange={e => setForm(f => ({ ...f, start_date: e.target.value }))} />
-            <Input label="Data de encerramento" type="date" value={form.end_date} onChange={e => setForm(f => ({ ...f, end_date: e.target.value }))} />
+            <Input label="Data início" type="date" value={form.start_date} onChange={e => setForm(f => ({ ...f, start_date: e.target.value }))} />
+            <Input label="Data fim" type="date" value={form.end_date} onChange={e => setForm(f => ({ ...f, end_date: e.target.value }))} />
           </div>
 
           <div className="flex justify-end gap-2 pt-2">
             <Button variant="secondary" onClick={() => setModal(false)}>Cancelar</Button>
-            <Button onClick={save}>Salvar ação</Button>
+            <Button onClick={save}>Salvar</Button>
           </div>
         </div>
       </Modal>
