@@ -105,10 +105,14 @@ export async function seedCampanhasEndomarketing() {
       description: 'Outubro Rosa. Mês de conscientização e cuidado. Promover prevenção e diagnóstico de câncer de mama.',
       target_audience: 'Colaboradoras mulheres', channels: ['WhatsApp (grupo)','E-mail','Mural físico/digital','Reunião presencial'],
       start_date: '2026-10-01', end_date: '2026-10-31', created_at: now() },
+    { id: generateId(), title: 'Dia do Farmacêutico', type: 'celebracao', status: 'planejada',
+      description: 'Homenagem e reconhecimento aos farmacêuticos e profissionais da farmácia pela dedicação e contribuição na saúde.',
+      target_audience: 'Equipe de Farmácia', channels: ['Reunião presencial','E-mail','Mural físico/digital'],
+      start_date: '2026-10-20', end_date: '2026-10-20', created_at: now() },
     { id: generateId(), title: 'Halloween — Festa de Confraternização', type: 'evento', status: 'planejada',
       description: 'Diversão e integração da equipe com tema Halloween. Confraternização com fantasia, decoração e atividades temáticas.',
       target_audience: 'Toda a equipe', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'],
-      start_date: '2026-10-20', end_date: '2026-10-31', created_at: now() },
+      start_date: '2026-10-31', end_date: '2026-10-31', created_at: now() },
 
     // NOVEMBRO 2026
     { id: generateId(), title: 'Novembro Azul — Câncer de Próstata', type: 'campanha', status: 'planejada',
