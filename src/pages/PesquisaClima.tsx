@@ -1,4 +1,5 @@
 ﻿import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input, Textarea, Select } from '@/components/ui/Input'
@@ -9,7 +10,7 @@ import { dbClimateSurveys } from '@/lib/db'
 import { generateId } from '@/lib/storage'
 import { ClimateSurvey, ClimateQuestion, SurveyStatus } from '@/types'
 import { formatDate } from '@/lib/utils'
-import { Plus, Pencil, Trash2, Wind, Play, Square, Eye, X } from 'lucide-react'
+import { Plus, Pencil, Trash2, Wind, Play, Square, Eye, X, BarChart3 } from 'lucide-react'
 
 const STATUS_OPTS = [
   { value: 'rascunho', label: 'Rascunho' },
@@ -29,6 +30,7 @@ const CATEGORY_OPTS = [
 ]
 
 export default function PesquisaClima() {
+  const navigate = useNavigate()
   const [surveys, setSurveys] = useState<ClimateSurvey[]>([])
   const [loading, setLoading] = useState(true)
   const [modal, setModal] = useState(false)
@@ -151,6 +153,9 @@ export default function PesquisaClima() {
                   </div>
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <Button variant="ghost" size="sm" onClick={() => setViewModal(s)}><Eye size={14} /></Button>
+                    {s.responses_count > 0 && (
+                      <Button variant="ghost" size="sm" className="text-blue-600" onClick={() => navigate(`/clima/respostas/${s.id}`)}><BarChart3 size={14} /></Button>
+                    )}
                     {s.status === 'rascunho' && (
                       <Button variant="ghost" size="sm" className="text-green-600" onClick={() => changeStatus(s.id, 'ativo')}>
                         <Play size={14} />

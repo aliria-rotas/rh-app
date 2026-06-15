@@ -25,6 +25,7 @@ import Relatorios from '@/pages/Relatorios'
 import TrainamentPublic from '@/pages/TrainamentPublic'
 import TrainamentReteste from '@/pages/TrainamentReteste'
 import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
+import ClimateResponsesView from '@/pages/ClimateResponsesView'
 
 export default function App() {
   useSeedCampanhas() // Force refresh - rebuild v4
@@ -54,6 +55,7 @@ export default function App() {
             <Route path="/cargos" element={<Cargos />} />
             <Route path="/competencias" element={<Competencias />} />
             <Route path="/clima" element={<PesquisaClima />} />
+            <Route path="/clima/respostas/:surveyId" element={<ClimateResponsesView />} />
             <Route path="/recrutamento" element={<Recrutamento />} />
             <Route path="/desligamento" element={<Desligamento />} />
             <Route path="/desempenho" element={<AvaliacaoDesempenho />} />
