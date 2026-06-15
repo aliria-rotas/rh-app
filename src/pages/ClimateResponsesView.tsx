@@ -27,6 +27,8 @@ const QUESTION_LABELS: Record<string, string> = {
   P15: 'Existe respeito à diversidade no ambiente de trabalho',
 }
 
+const SCALE_LABELS = ['😢 Discordo Totalmente', '😕 Discordo', '😐 Neutro', '🙂 Concordo', '😄 Concordo Totalmente']
+
 export default function ClimateResponsesView() {
   const { surveyId } = useParams<{ surveyId: string }>()
   const [responses, setResponses] = useState<Response[]>([])
@@ -48,65 +50,74 @@ export default function ClimateResponsesView() {
 
   if (loading) return <div className="p-6">Carregando...</div>
 
-  return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Respostas da Pesquisa</h1>
-        <p className="text-slate-500 mt-2">Total: {responses.length} resposta{responses.length !== 1 ? 's' : ''}</p>
-      </div>
-
-      {responses.length === 0 ? (
+  if (responses.length === 0) {
+    return (
+      <div className="p-6">
+        <h1 className="text-3xl font-bold mb-4">Respostas da Pesquisa</h1>
         <Card>
           <CardContent className="p-6 text-center text-slate-500">
             Nenhuma resposta coletada ainda
           </CardContent>
         </Card>
-      ) : (
-        <div className="space-y-4">
-          {responses.map((response, idx) => (
-            <Card key={response.id}>
-              <CardHeader>
-                <div className="flex justify-between items-center">
-                  <h3 className="font-semibold">Resposta #{idx + 1}</h3>
-                  <span className="text-sm text-slate-500">
-                    {new Date(response.submitted_at).toLocaleString('pt-BR')}
-                  </span>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {Object.entries(response.answers)
-                    .sort((a, b) => a[0].localeCompare(b[0]))
-                    .map(([question, answer]) => (
-                      <div key={question} className="border-b pb-3 last:border-0">
-                        <p className="text-sm font-medium text-slate-700">
-                          {QUESTION_LABELS[question] || question}
-                        </p>
-                        <div className="mt-2 flex items-center gap-2">
-                          <div className="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
-                            <div
-                              className={`h-full rounded-full transition-all ${
-                                answer <= 2
-                                  ? 'bg-red-500'
-                                  : answer === 3
-                                    ? 'bg-yellow-500'
-                                    : 'bg-green-500'
-                              }`}
-                              style={{ width: `${(answer / 5) * 100}%` }}
-                            />
-                          </div>
-                          <span className="text-sm font-semibold min-w-6">
-                            {answer}/5
+      </div>
+    )
+  }
+
+  // Agregar respostas por pergunta
+  const aggregated: Record<string, number[]> = {}
+  responses.forEach(response => {
+    Object.entries(response.answers).forEach(([q, answer]) => {
+      if (!aggregated[q]) aggregated[q] = [0, 0, 0, 0, 0]
+      aggregated[q][answer - 1]++
+    })
+  })
+
+  return (
+    <div className="p-6 space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold">Resultados da Pesquisa</h1>
+        <p className="text-slate-500 mt-2">Total de respostas: {responses.length}</p>
+      </div>
+
+      <div className="space-y-6">
+        {Object.entries(aggregated)
+          .sort((a, b) => a[0].localeCompare(b[0]))
+          .map(([question, counts]) => {
+            const total = counts.reduce((a, b) => a + b, 0)
+            return (
+              <Card key={question}>
+                <CardHeader>
+                  <h3 className="font-semibold text-slate-800">{QUESTION_LABELS[question]}</h3>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {counts.map((count, idx) => {
+                    const percentage = total > 0 ? Math.round((count / total) * 100) : 0
+                    return (
+                      <div key={idx}>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-sm text-slate-700">{SCALE_LABELS[idx]}</span>
+                          <span className="text-sm font-semibold text-slate-900">
+                            {percentage}% ({count})
                           </span>
                         </div>
+                        <div className="w-full h-6 bg-slate-200 rounded overflow-hidden">
+                          <div
+                            className={`h-full flex items-center justify-end pr-2 text-xs font-semibold text-white transition-all ${
+                              idx <= 1 ? 'bg-red-500' : idx === 2 ? 'bg-yellow-500' : 'bg-green-500'
+                            }`}
+                            style={{ width: `${percentage}%` }}
+                          >
+                            {percentage > 10 && `${percentage}%`}
+                          </div>
+                        </div>
                       </div>
-                    ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+                    )
+                  })}
+                </CardContent>
+              </Card>
+            )
+          })}
+      </div>
     </div>
   )
 }
