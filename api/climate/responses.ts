@@ -59,12 +59,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       submitted_at: new Date().toISOString(),
     }
 
-    // Salvar no Supabase
-    const { error } = await supabase.from('climate_responses').insert([response])
+    // Salvar resposta
+    const { error: insertError } = await supabase.from('climate_responses').insert([response])
 
-    if (error) {
-      console.error('Database error:', error)
+    if (insertError) {
+      console.error('Database insert error:', insertError)
       return res.status(500).json({ success: false, error: 'Failed to save response' })
+    }
+
+    // Atualizar contador de respostas na pesquisa
+    const { error: updateError } = await supabase.rpc('increment_climate_responses', {
+      p_survey_id: survey_id
+    })
+
+    if (updateError) {
+      console.error('Failed to increment counter:', updateError)
+      // Não falha a requisição, apenas loga o erro
     }
 
     return res.status(200).json({ success: true, id: response.id })
