@@ -5,7 +5,7 @@ import { dbClimateSurveys } from '@/lib/db'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { ClimateSurvey } from '@/types'
-import { Wind, Download, FileText, BarChart3 } from 'lucide-react'
+import { Wind, Download, FileText, BarChart3, Loader } from 'lucide-react'
 
 interface ResponseData {
   id: string
@@ -54,6 +54,8 @@ export default function ClimateReport() {
   const [loading, setLoading] = useState(true)
   const [questionStats, setQuestionStats] = useState<QuestionStats[]>([])
   const [categoryStats, setCategoryStats] = useState<CategoryStats[]>([])
+  const [generatingWord, setGeneratingWord] = useState(false)
+  const [generatingPdf, setGeneratingPdf] = useState(false)
 
   useEffect(() => {
     if (!surveyId) return
@@ -78,6 +80,162 @@ export default function ClimateReport() {
       setLoading(false)
     })
   }, [surveyId])
+
+  async function downloadWord() {
+    if (!survey) return
+    setGeneratingWord(true)
+
+    try {
+      const html = generateHTMLReport()
+      const link = document.createElement('a')
+      const blob = new Blob([html], { type: 'application/msword' })
+      link.href = URL.createObjectURL(blob)
+      link.download = `Relatorio-Clima-${survey.id.slice(-8)}.doc`
+      link.click()
+    } catch (error) {
+      alert('Erro ao gerar Word: ' + (error as any).message)
+    } finally {
+      setGeneratingWord(false)
+    }
+  }
+
+  function generateHTMLReport(): string {
+    if (!survey) return ''
+
+    const generalAverage =
+      questionStats.reduce((a, b) => a + b.average, 0) / (questionStats.length || 1)
+
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+    h1 { color: #5b21b6; text-align: center; border-bottom: 3px solid #5b21b6; padding-bottom: 10px; }
+    h2 { color: #7c3aed; margin-top: 30px; }
+    .header { background-color: #f3e8ff; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+    .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+    .stat-box { text-align: center; padding: 15px; background-color: #f8f9fa; border-radius: 5px; min-width: 150px; }
+    .stat-number { font-size: 28px; font-weight: bold; color: #5b21b6; }
+    .stat-label { font-size: 12px; color: #666; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background-color: #f3e8ff; font-weight: bold; }
+    .bar { height: 20px; background-color: #5b21b6; border-radius: 3px; }
+    .question { margin: 20px 0; page-break-inside: avoid; }
+    .distribution { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+    .dist-item { flex: 1; min-width: 100px; }
+    .dist-bar { height: 15px; background-color: #e5e7eb; border-radius: 2px; margin: 3px 0; }
+  </style>
+</head>
+<body>
+  <h1>📊 ${survey.title} - Relatório de Pesquisa de Clima</h1>
+
+  <div class="header">
+    <p><strong>${survey.description}</strong></p>
+    <p>📅 ${new Date(survey.start_date).toLocaleDateString('pt-BR')} a ${new Date(survey.end_date).toLocaleDateString('pt-BR')}</p>
+    <p>📊 Total de Respostas: ${responses.length}</p>
+  </div>
+
+  <h2>📋 Resumo Executivo</h2>
+  <div class="stats">
+    <div class="stat-box">
+      <div class="stat-number">${responses.length}</div>
+      <div class="stat-label">Total de Respostas</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">${generalAverage.toFixed(2)}</div>
+      <div class="stat-label">Média Geral (/ 5.0)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">${categoryStats.length}</div>
+      <div class="stat-label">Categorias</div>
+    </div>
+  </div>
+
+  <p><strong>Interpretação:</strong> 1-2 = Discordância | 3 = Neutro | 4-5 = Concordância</p>
+
+  <h2>📊 Resultados por Categoria</h2>
+  <table>
+    <tr>
+      <th>Categoria</th>
+      <th>Média</th>
+      <th>Gráfico</th>
+    </tr>
+    ${categoryStats
+      .map(
+        (cat) => `
+    <tr>
+      <td>${cat.name}</td>
+      <td><strong>${cat.average.toFixed(2)}/5.0</strong></td>
+      <td>
+        <div style="width: 100%; height: 15px; background-color: #e5e7eb; border-radius: 2px;">
+          <div style="width: ${(cat.average / 5) * 100}%; height: 100%; background-color: ${
+            cat.average <= 2 ? '#ef4444' : cat.average <= 3 ? '#eab308' : '#22c55e'
+          }; border-radius: 2px;"></div>
+        </div>
+      </td>
+    </tr>
+    `
+      )
+      .join('')}
+  </table>
+
+  <h2>📈 Análise Detalhada por Pergunta</h2>
+  ${questionStats
+    .map(
+      (q, idx) => `
+  <div class="question">
+    <h3>${idx + 1}. ${q.text}</h3>
+    <p><small>Categoria: <strong>${q.category}</strong> | Média: <strong>${q.average.toFixed(2)}/5.0</strong></small></p>
+    <table>
+      <tr>
+        <th>Resposta</th>
+        <th>Quantidade</th>
+        <th>Percentual</th>
+        <th>Visualização</th>
+      </tr>
+      ${q.distribution
+        .map(
+          (count, i) => `
+      <tr>
+        <td>${i + 1} - ${['Discordo Totalmente', 'Discordo', 'Neutro', 'Concordo', 'Concordo Totalmente'][i]}</td>
+        <td>${count}</td>
+        <td>${q.distribution.reduce((a, b) => a + b, 0) > 0 ? Math.round((count / q.distribution.reduce((a, b) => a + b)) * 100) : 0}%</td>
+        <td>
+          <div style="width: 100%; height: 15px; background-color: #e5e7eb; border-radius: 2px;">
+            <div style="width: ${(count / Math.max(1, q.distribution.reduce((a, b) => a + b))) * 100}%; height: 100%; background-color: ${
+            ['#ef4444', '#f97316', '#eab308', '#84cc16', '#22c55e'][i]
+          }; border-radius: 2px;"></div>
+          </div>
+        </td>
+      </tr>
+      `
+        )
+        .join('')}
+    </table>
+  </div>
+  `
+    )
+    .join('')}
+
+  <hr style="margin-top: 40px;">
+  <p style="color: #666; font-size: 12px;">Relatório gerado automaticamente em ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}</p>
+</body>
+</html>
+    `
+    return html
+  }
+
+  async function downloadPDF() {
+    setGeneratingPdf(true)
+    try {
+      alert('PDF será implementado em breve. Por enquanto, use "Imprimir > Salvar como PDF" no navegador.')
+    } finally {
+      setGeneratingPdf(false)
+    }
+  }
 
   function calculateStats(survey: ClimateSurvey, responses: ResponseData[]) {
     const questions: QuestionStats[] = []
@@ -257,13 +415,22 @@ export default function ClimateReport() {
 
       {/* Botões de Ação */}
       <div className="flex gap-3">
-        <Button className="gap-2">
-          <Download size={16} />
-          Gerar Word
+        <Button
+          onClick={downloadWord}
+          disabled={generatingWord}
+          className="gap-2"
+        >
+          {generatingWord ? <Loader size={16} className="animate-spin" /> : <Download size={16} />}
+          {generatingWord ? 'Gerando...' : 'Gerar Word'}
         </Button>
-        <Button variant="outline" className="gap-2">
-          <FileText size={16} />
-          Gerar PDF
+        <Button
+          onClick={downloadPDF}
+          disabled={generatingPdf}
+          variant="outline"
+          className="gap-2"
+        >
+          {generatingPdf ? <Loader size={16} className="animate-spin" /> : <FileText size={16} />}
+          {generatingPdf ? 'Gerando...' : 'Gerar PDF'}
         </Button>
       </div>
     </div>
