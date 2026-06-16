@@ -62,29 +62,53 @@ export default function ClimateReport() {
   useEffect(() => {
     if (!surveyId) return
 
-    Promise.all([
-      dbClimateSurveys.get(surveyId),
+    // Carregar dados iniciais
+    loadSurveyData()
+
+    // Inscrever para atualizações em tempo real
+    const subscription = supabase
+      .channel(`climate-responses:${surveyId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'climate_responses',
+          filter: `survey_id=eq.${surveyId}`,
+        },
+        () => {
+          // Recarregar dados quando nova resposta chega
+          loadSurveyData()
+        }
+      )
+      .subscribe()
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [surveyId])
+
+  async function loadSurveyData() {
+    const [surveyData, { data: responsesData }] = await Promise.all([
+      dbClimateSurveys.get(surveyId!),
       supabase
         .from('climate_responses')
         .select('id, answers')
-        .eq('survey_id', surveyId)
-    ]).then(([surveyData, { data: responsesData }]) => {
-      setSurvey(surveyData)
-      setResponses((responsesData || []) as ResponseData[])
+        .eq('survey_id', surveyId!),
+    ])
 
-      // Calcular estatísticas
-      if (surveyData && responsesData && responsesData.length > 0) {
-        const stats = calculateStats(surveyData, responsesData as ResponseData[])
-        setQuestionStats(stats.questions)
-        setCategoryStats(stats.categories)
+    setSurvey(surveyData)
+    setResponses((responsesData || []) as ResponseData[])
 
-        // Carregar análise
-        loadAnalysis(surveyData, responsesData.length, stats.categories, stats.questions)
-      }
+    if (surveyData && responsesData && responsesData.length > 0) {
+      const stats = calculateStats(surveyData, responsesData as ResponseData[])
+      setQuestionStats(stats.questions)
+      setCategoryStats(stats.categories)
+      // NÃO carregar análise automaticamente - deixar para o botão
+    }
 
-      setLoading(false)
-    })
-  }, [surveyId])
+    setLoading(false)
+  }
 
   async function loadAnalysis(
     survey: any,
@@ -449,18 +473,56 @@ export default function ClimateReport() {
       </Card>
 
       {/* Análise Textual */}
-      {analysis && (
-        <Card>
-          <CardHeader className="bg-slate-50">
+      <Card>
+        <CardHeader className="bg-slate-50">
+          <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-slate-800">🧠 Análise e Insights</h2>
-          </CardHeader>
+            {!analysis && (
+              <Button
+                onClick={() =>
+                  loadAnalysis(survey!, responses.length, categoryStats, questionStats)
+                }
+                disabled={loadingAnalysis}
+                className="gap-2"
+              >
+                {loadingAnalysis ? (
+                  <>
+                    <Loader size={16} className="animate-spin" />
+                    Gerando análise...
+                  </>
+                ) : (
+                  '🚀 Gerar Análise'
+                )}
+              </Button>
+            )}
+          </div>
+        </CardHeader>
+        {analysis ? (
           <CardContent className="pt-6 prose prose-sm max-w-none">
             <div className="text-slate-700 leading-relaxed whitespace-pre-wrap">
               {analysis}
             </div>
+            <Button
+              onClick={() => setAnalysis('')}
+              variant="outline"
+              size="sm"
+              className="mt-4"
+            >
+              Gerar Análise Novamente
+            </Button>
           </CardContent>
-        </Card>
-      )}
+        ) : (
+          <CardContent className="pt-6">
+            <p className="text-slate-600 text-center py-6">
+              ⏳ Clique em <strong>"Gerar Análise"</strong> quando todas as respostas forem coletadas.
+              <br />
+              <span className="text-sm text-slate-500 mt-2 block">
+                Respostas coletadas: <strong>{responses.length}</strong>
+              </span>
+            </p>
+          </CardContent>
+        )}
+      </Card>
 
       {/* Botões de Ação */}
       <div className="flex gap-3">
