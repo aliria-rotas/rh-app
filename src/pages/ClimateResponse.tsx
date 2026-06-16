@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { dbClimateSurveys } from '@/lib/db'
+import { supabase } from '@/lib/supabase'
 import { ClimateSurvey, ClimateResponse } from '@/types'
 import { generateId } from '@/lib/storage'
 import { Wind, CheckCircle } from 'lucide-react'
@@ -36,7 +37,10 @@ export default function ClimateResponse() {
   }
 
   async function submit() {
-    if (!survey || !surveyId) return
+    if (!survey || !surveyId) {
+      console.error('Survey ou surveyId inválido', { survey: !!survey, surveyId })
+      return
+    }
     if (Object.keys(answers).length !== survey.questions.length) {
       alert('Por favor, responda todas as perguntas')
       return
@@ -49,8 +53,33 @@ export default function ClimateResponse() {
       submitted_at: new Date().toISOString(),
     }
 
-    // TODO: Salvar resposta no banco de dados
-    console.log('Resposta da pesquisa:', response)
+    console.log('🔵 Enviando resposta:', response)
+
+    // Salvar resposta no banco de dados
+    const { error: insertError, data } = await supabase
+      .from('climate_responses')
+      .insert([response])
+
+    console.log('🟢 Resposta inserida:', { data, error: insertError })
+
+    if (insertError) {
+      console.error('❌ Erro ao inserir:', insertError)
+      alert('Erro ao salvar resposta: ' + insertError.message)
+      return
+    }
+
+    // Incrementar contador com UPDATE direto
+    const { error: updateError } = await supabase
+      .from('rh_climate_surveys')
+      .update({ responses_count: (survey.responses_count || 0) + 1 })
+      .eq('id', surveyId)
+
+    console.log('🟡 Contador atualizado:', { error: updateError })
+
+    if (updateError) {
+      console.error('❌ Erro ao incrementar contador:', updateError)
+    }
+
     setSubmitted(true)
   }
 
