@@ -56,6 +56,8 @@ export default function ClimateReport() {
   const [categoryStats, setCategoryStats] = useState<CategoryStats[]>([])
   const [generatingWord, setGeneratingWord] = useState(false)
   const [generatingPdf, setGeneratingPdf] = useState(false)
+  const [analysis, setAnalysis] = useState<string>('')
+  const [loadingAnalysis, setLoadingAnalysis] = useState(false)
 
   useEffect(() => {
     if (!surveyId) return
@@ -75,11 +77,44 @@ export default function ClimateReport() {
         const stats = calculateStats(surveyData, responsesData as ResponseData[])
         setQuestionStats(stats.questions)
         setCategoryStats(stats.categories)
+
+        // Carregar análise
+        loadAnalysis(surveyData, responsesData.length, stats.categories, stats.questions)
       }
 
       setLoading(false)
     })
   }, [surveyId])
+
+  async function loadAnalysis(
+    survey: any,
+    responseCount: number,
+    categories: CategoryStats[],
+    questions: QuestionStats[]
+  ) {
+    setLoadingAnalysis(true)
+    try {
+      const response = await fetch('/api/climate/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          survey,
+          responses: responseCount,
+          categoryStats: categories,
+          questionStats: questions,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setAnalysis(data.analysis)
+      }
+    } catch (error) {
+      console.error('Erro ao carregar análise:', error)
+    } finally {
+      setLoadingAnalysis(false)
+    }
+  }
 
   async function downloadWord() {
     if (!survey) return
@@ -412,6 +447,20 @@ export default function ClimateReport() {
           })}
         </CardContent>
       </Card>
+
+      {/* Análise Textual */}
+      {analysis && (
+        <Card>
+          <CardHeader className="bg-slate-50">
+            <h2 className="text-xl font-bold text-slate-800">🧠 Análise e Insights</h2>
+          </CardHeader>
+          <CardContent className="pt-6 prose prose-sm max-w-none">
+            <div className="text-slate-700 leading-relaxed whitespace-pre-wrap">
+              {analysis}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Botões de Ação */}
       <div className="flex gap-3">
