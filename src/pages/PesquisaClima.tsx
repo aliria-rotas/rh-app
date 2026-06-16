@@ -10,7 +10,7 @@ import { dbClimateSurveys } from '@/lib/db'
 import { generateId } from '@/lib/storage'
 import { ClimateSurvey, ClimateQuestion, SurveyStatus } from '@/types'
 import { formatDate } from '@/lib/utils'
-import { Plus, Pencil, Trash2, Wind, Play, Square, Eye, X, BarChart3 } from 'lucide-react'
+import { Plus, Pencil, Trash2, Wind, Play, Square, Eye, X, BarChart3, FileText } from 'lucide-react'
 
 const STATUS_OPTS = [
   { value: 'rascunho', label: 'Rascunho' },
@@ -154,7 +154,10 @@ export default function PesquisaClima() {
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <Button variant="ghost" size="sm" onClick={() => setViewModal(s)}><Eye size={14} /></Button>
                     {s.responses_count > 0 && (
-                      <Button variant="ghost" size="sm" className="text-blue-600" onClick={() => navigate(`/clima/respostas/${s.id}`)}><BarChart3 size={14} /></Button>
+                      <>
+                        <Button variant="ghost" size="sm" className="text-blue-600" onClick={() => navigate(`/clima/respostas/${s.id}`)}><BarChart3 size={14} /></Button>
+                        <Button variant="ghost" size="sm" className="text-purple-600" onClick={() => navigate(`/clima/relatorio/${s.id}`)}><FileText size={14} /></Button>
+                      </>
                     )}
                     {s.status === 'rascunho' && (
                       <Button variant="ghost" size="sm" className="text-green-600" onClick={() => changeStatus(s.id, 'ativo')}>
