@@ -472,7 +472,7 @@ export default function ClimateReport() {
         </CardContent>
       </Card>
 
-      {/* Análise Textual */}
+      {/* Análise e Insights Textual */}
       <Card>
         <CardHeader className="bg-slate-50">
           <div className="flex items-center justify-between">
