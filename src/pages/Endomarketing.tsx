@@ -7,7 +7,7 @@ import { Modal } from '@/components/ui/Modal'
 import { dbEndomarketing } from '@/lib/db'
 import { EndomarketingCampaign, CampaignStatus, CampaignType } from '@/types'
 import { formatDate } from '@/lib/utils'
-import { Plus, Pencil, Trash2, Megaphone } from 'lucide-react'
+import { Plus, Pencil, Trash2, Megaphone, Paperclip, Download, X } from 'lucide-react'
 
 const STATUS_OPTS = [
   { value: 'planejada', label: 'Planejada' },
@@ -29,7 +29,7 @@ const TYPE_ICONS: Record<CampaignType, string> = {
   comunicado: '📢', celebracao: '🎉', reconhecimento: '🏆', campanha: '🚀', evento: '📅'
 }
 
-function CampaignCard({ campaign, onEdit, onDelete }: { campaign: EndomarketingCampaign; onEdit: (c: EndomarketingCampaign) => void; onDelete: (id: string) => void }) {
+function CampaignCard({ campaign, onEdit, onDelete, onManageAttachments }: { campaign: EndomarketingCampaign; onEdit: (c: EndomarketingCampaign) => void; onDelete: (id: string) => void; onManageAttachments: (c: EndomarketingCampaign) => void }) {
   return (
     <Card>
       <CardContent className="py-4">
@@ -47,8 +47,17 @@ function CampaignCard({ campaign, onEdit, onDelete }: { campaign: EndomarketingC
               {campaign.target_audience && <span>Público: {campaign.target_audience}</span>}
               {campaign.start_date && <span>{formatDate(campaign.start_date)}{campaign.end_date && ` – ${formatDate(campaign.end_date)}`}</span>}
             </div>
+            {campaign.attachments && campaign.attachments.length > 0 && (
+              <div className="mt-3 flex items-center gap-2 text-xs text-blue-600">
+                <Paperclip size={12} />
+                {campaign.attachments.length} documento{campaign.attachments.length !== 1 ? 's' : ''}
+              </div>
+            )}
           </div>
           <div className="flex gap-1">
+            <Button variant="ghost" size="sm" onClick={() => onManageAttachments(campaign)} title="Gerenciar anexos">
+              <Paperclip size={14} />
+            </Button>
             <Button variant="ghost" size="sm" onClick={() => onEdit(campaign)}>
               <Pencil size={14} />
             </Button>
@@ -73,6 +82,9 @@ export default function Endomarketing() {
   })
   const [filterType, setFilterType] = useState<CampaignType>('comunicado')
   const [filterStatus, setFilterStatus] = useState<string>('all')
+  const [attachmentsModal, setAttachmentsModal] = useState(false)
+  const [selectedCampaign, setSelectedCampaign] = useState<EndomarketingCampaign | null>(null)
+  const [uploading, setUploading] = useState(false)
 
   useEffect(() => {
     dbEndomarketing.list().then(data => { setCampaigns(data); setLoading(false) })
@@ -164,7 +176,7 @@ export default function Endomarketing() {
       ) : (
         <div className="space-y-4">
           {[...filtered].sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime()).map(c => (
-            <CampaignCard key={c.id} campaign={c} onEdit={(campaign) => { setEditing(campaign); setForm({ title: campaign.title, type: campaign.type, status: campaign.status, description: campaign.description, target_audience: campaign.target_audience, channels: [...campaign.channels], start_date: campaign.start_date, end_date: campaign.end_date }); setModal(true) }} onDelete={remove} />
+            <CampaignCard key={c.id} campaign={c} onEdit={(campaign) => { setEditing(campaign); setForm({ title: campaign.title, type: campaign.type, status: campaign.status, description: campaign.description, target_audience: campaign.target_audience, channels: [...campaign.channels], start_date: campaign.start_date, end_date: campaign.end_date }); setModal(true) }} onDelete={remove} onManageAttachments={(campaign) => { setSelectedCampaign(campaign); setAttachmentsModal(true) }} />
           ))}
         </div>
       )}
@@ -199,6 +211,76 @@ export default function Endomarketing() {
           <div className="flex justify-end gap-2 pt-2">
             <Button variant="secondary" onClick={() => setModal(false)}>Cancelar</Button>
             <Button onClick={save}>Salvar</Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Modal Attachments */}
+      <Modal open={attachmentsModal} onClose={() => setAttachmentsModal(false)} title={`Documentos: ${selectedCampaign?.title}`} size="lg">
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">Adicionar Documento</label>
+            <input
+              type="file"
+              multiple
+              accept=".pdf,.pptx,.ppt,.doc,.docx,.png,.jpg,.jpeg"
+              disabled={uploading}
+              onChange={(e) => {
+                if (!e.target.files || !selectedCampaign) return
+                setUploading(true)
+                // TODO: Implementar upload real para Supabase Storage
+                const newAttachments = Array.from(e.target.files).map(file => ({
+                  name: file.name,
+                  url: URL.createObjectURL(file),
+                  type: file.type,
+                  uploadedAt: new Date().toISOString()
+                }))
+                const updated = { ...selectedCampaign, attachments: [...(selectedCampaign.attachments || []), ...newAttachments] }
+                setCampaigns(prev => prev.map(c => c.id === selectedCampaign.id ? updated : c))
+                setSelectedCampaign(updated)
+                setUploading(false)
+              }}
+              className="block w-full text-sm border border-slate-300 rounded-lg p-2"
+            />
+          </div>
+
+          {selectedCampaign?.attachments && selectedCampaign.attachments.length > 0 ? (
+            <div>
+              <h3 className="font-medium text-slate-800 mb-3">Documentos ({selectedCampaign.attachments.length})</h3>
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {selectedCampaign.attachments.map((attachment, idx) => (
+                  <div key={idx} className="flex items-center justify-between bg-slate-50 p-3 rounded-lg">
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <Paperclip size={16} className="text-slate-500 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-800 truncate">{attachment.name}</p>
+                        <p className="text-xs text-slate-500">{new Date(attachment.uploadedAt).toLocaleDateString('pt-BR')}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 flex-shrink-0">
+                      <a href={attachment.url} download={attachment.name}>
+                        <Button variant="ghost" size="sm" className="text-blue-600">
+                          <Download size={14} />
+                        </Button>
+                      </a>
+                      <Button variant="ghost" size="sm" className="text-red-500" onClick={() => {
+                        const updated = { ...selectedCampaign, attachments: selectedCampaign.attachments!.filter((_, i) => i !== idx) }
+                        setCampaigns(prev => prev.map(c => c.id === selectedCampaign.id ? updated : c))
+                        setSelectedCampaign(updated)
+                      }}>
+                        <X size={14} />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm text-slate-500 text-center py-4">Nenhum documento anexado</p>
+          )}
+
+          <div className="flex justify-end gap-2 pt-2">
+            <Button variant="secondary" onClick={() => setAttachmentsModal(false)}>Fechar</Button>
           </div>
         </div>
       </Modal>

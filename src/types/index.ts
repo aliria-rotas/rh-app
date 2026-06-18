@@ -174,6 +174,7 @@ export interface EndomarketingCampaign {
   start_date: string
   end_date: string
   created_at: string
+  attachments?: Array<{ name: string; url: string; type: string; uploadedAt: string }>
 }
 
 // ─── Plano de Treinamento ─────────────────────────────────────────────────────
