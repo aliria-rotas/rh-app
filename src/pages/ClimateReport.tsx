@@ -476,7 +476,7 @@ export default function ClimateReport() {
       <Card>
         <CardHeader className="bg-slate-50">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-slate-800">🧠 Análise e Insights</h2>
+            <h2 className="text-xl font-bold text-slate-800">🧠 Análise e Insights v2</h2>
             {!analysis && (
               <Button
                 onClick={() =>
