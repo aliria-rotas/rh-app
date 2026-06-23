@@ -1579,21 +1579,19 @@ function FlashCalculatorSummary({
 
             {/* ─ Validation Status and Button ─ */}
             {monthlyValidation?.is_validated ? (
-              <div className="bg-green-50 border-2 border-green-200 rounded-lg px-5 py-4 flex items-center gap-3">
-                <Lock size={20} className="text-green-600 flex-shrink-0" />
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-green-800">
-                    ✓ De Acordo em {new Date(monthlyValidation.validated_at).toLocaleDateString('pt-BR')} às {new Date(monthlyValidation.validated_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-                  </p>
-                  <p className="text-xs text-green-700 mt-1">Validado por {monthlyValidation.validated_by} • Cálculos congelados (clique em Editar para modificar)</p>
+              <div className="bg-green-50 border-2 border-green-200 rounded-lg px-5 py-4">
+                <div className="flex items-center gap-3">
+                  <Lock size={20} className="text-green-600 flex-shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-green-800">
+                      ✓ De Acordo em {new Date(monthlyValidation.validated_at).toLocaleDateString('pt-BR')} às {new Date(monthlyValidation.validated_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    <p className="text-xs text-green-700 mt-1">Validado por {monthlyValidation.validated_by} • Cálculos congelados</p>
+                  </div>
+                  <button onClick={() => setMonthlyValidation(null)} className="bg-orange-500 text-white px-4 py-2 rounded font-medium hover:bg-orange-600">
+                    ✏️ Editar
+                  </button>
                 </div>
-                <button
-                  onClick={() => setMonthlyValidation(null)}
-                  className="flex-shrink-0 px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-1"
-                >
-                  <Pencil size={14} />
-                  Editar
-                </button>
               </div>
             ) : (
               <button
