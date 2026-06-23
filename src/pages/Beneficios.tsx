@@ -1587,6 +1587,13 @@ function FlashCalculatorSummary({
                   </p>
                   <p className="text-xs text-green-700 mt-1">Validado por {monthlyValidation.validated_by} • Cálculos congelados</p>
                 </div>
+                <button
+                  onClick={() => setMonthlyValidation(null)}
+                  className="flex-shrink-0 px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-1"
+                >
+                  <Pencil size={14} />
+                  Editar
+                </button>
               </div>
             ) : (
               <button
