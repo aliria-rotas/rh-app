@@ -1579,6 +1579,8 @@ function FlashCalculatorSummary({
 
             {/* ─ Validation Status and Button ─ */}
             {monthlyValidation?.is_validated ? (
+              <>
+              <h2 style={{color: 'red', fontSize: '20px'}}>🔴 TESTE - BOTÃO EDITAR APARECE ABAIXO</h2>
               <div className="bg-green-50 border-2 border-green-200 rounded-lg px-5 py-4">
                 <div className="flex items-center gap-3">
                   <Lock size={20} className="text-green-600 flex-shrink-0" />
