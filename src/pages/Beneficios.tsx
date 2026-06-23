@@ -1620,7 +1620,7 @@ function FlashCalculatorSummary({
               <p className="text-sm font-semibold text-green-800">
                 ✓ De Acordo em {new Date(monthlyValidation.validated_at).toLocaleDateString('pt-BR')} às {new Date(monthlyValidation.validated_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
               </p>
-              <p className="text-xs text-green-700 mt-1">Validado por {monthlyValidation.validated_by} • Cálculos congelados</p>
+              <p className="text-xs text-green-700 mt-1">Validado por {monthlyValidation.validated_by} • Cálculos congelados (desça para editar novamente)</p>
             </div>
           </div>
         </div>
