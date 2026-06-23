@@ -1579,18 +1579,18 @@ function FlashCalculatorSummary({
 
             {/* ─ Validation Status and Button ─ */}
             {monthlyValidation?.is_validated ? (
-              <>
-              <h2 style={{color: 'red', fontSize: '20px'}}>🔴 TESTE - BOTÃO EDITAR APARECE ABAIXO</h2>
               <div className="bg-green-50 border-2 border-green-200 rounded-lg px-5 py-4">
-                <div className="flex items-center gap-3">
-                  <Lock size={20} className="text-green-600 flex-shrink-0" />
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-green-800">
-                      ✓ De Acordo em {new Date(monthlyValidation.validated_at).toLocaleDateString('pt-BR')} às {new Date(monthlyValidation.validated_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-                    </p>
-                    <p className="text-xs text-green-700 mt-1">Validado por {monthlyValidation.validated_by} • Cálculos congelados</p>
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 flex-1">
+                    <Lock size={20} className="text-green-600 flex-shrink-0" />
+                    <div>
+                      <p className="text-sm font-semibold text-green-800">
+                        ✓ De Acordo em {new Date(monthlyValidation.validated_at).toLocaleDateString('pt-BR')} às {new Date(monthlyValidation.validated_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                      </p>
+                      <p className="text-xs text-green-700 mt-1">Validado por {monthlyValidation.validated_by} • Cálculos congelados</p>
+                    </div>
                   </div>
-                  <button onClick={() => setMonthlyValidation(null)} className="bg-orange-500 text-white px-4 py-2 rounded font-medium hover:bg-orange-600">
+                  <button onClick={() => setMonthlyValidation(null)} className="whitespace-nowrap bg-orange-500 text-white px-4 py-2 rounded font-medium hover:bg-orange-600 flex-shrink-0">
                     ✏️ Editar
                   </button>
                 </div>
