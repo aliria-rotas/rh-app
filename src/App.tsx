@@ -29,7 +29,7 @@ import ClimateResponsesView from '@/pages/ClimateResponsesView'
 import ClimateReport from '@/pages/ClimateReport'
 
 export default function App() {
-  useSeedCampanhas() // Force refresh - rebuild v4
+  // useSeedCampanhas() // Disabled: was recreating all campaigns on every load, causing duplicates
 
   const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('192.')
   const basename = isProduction ? '' : '/rh-app'
