@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { Layout } from '@/components/layout/Layout'
-import { useSeedCampanhas } from '@/hooks/useSeedCampanhas'
+// REMOVED: useSeedCampanhas - caused duplicate campaigns
+// To seed campaigns initially, run: npm run seed-campaigns
 
 import Login from '@/pages/Login'
 import Perfil from '@/pages/Perfil'
