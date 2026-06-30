@@ -37,6 +37,18 @@ const CAMPANHAS = [
   { title: 'Newsletter Novembro 2026', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2026-11-01', end_date: '2026-11-30' },
   { title: 'Newsletter Dezembro 2026', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2026-12-01', end_date: '2026-12-31' },
   { title: 'Newsletter Janeiro 2027', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2027-01-01', end_date: '2027-01-31' },
+  { title: 'Newsletter Fevereiro 2027', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2027-02-01', end_date: '2027-02-28' },
+  { title: 'Newsletter Março 2027', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2027-03-01', end_date: '2027-03-31' },
+  { title: 'Newsletter Abril 2027', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2027-04-01', end_date: '2027-04-30' },
+  { title: 'Newsletter Maio 2027', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2027-05-01', end_date: '2027-05-31' },
+  { title: 'Newsletter Junho 2027', type: 'comunicado', channels: ['E-mail','Newsletter'], start_date: '2027-06-01', end_date: '2027-06-30' },
+
+  // EVENTOS E CELEBRAÇÕES
+  { title: 'Festa Junina + Jogo da Copa + Aniversariante do Mês', type: 'evento', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'], start_date: '2026-06-24', end_date: '2026-06-24' },
+  { title: 'Dia do Farmacêutico', type: 'celebracao', channels: ['Reunião presencial','E-mail','Mural físico/digital'], start_date: '2026-10-20', end_date: '2026-10-20' },
+  { title: 'Halloween — Festa de Confraternização', type: 'evento', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'], start_date: '2026-10-31', end_date: '2026-10-31' },
+  { title: 'Confraternização de Fim de Ano', type: 'evento', channels: ['Reunião presencial','Mural físico/digital','WhatsApp (grupo)'], start_date: '2026-12-15', end_date: '2026-12-31' },
+
   // CAMPANHAS DE SAÚDE
   { title: 'Junho Vermelho — Doação de Sangue', type: 'campanha', channels: ['WhatsApp (grupo)','E-mail','Reunião presencial'], start_date: '2026-06-01', end_date: '2026-06-30' },
   { title: 'Julho Amarelo — Hepatites Virais', type: 'campanha', channels: ['E-mail','Mural físico/digital','Reunião presencial'], start_date: '2026-07-01', end_date: '2026-07-31' },
@@ -65,7 +77,7 @@ async function seed() {
       process.exit(0)
     }
 
-    console.log('\n🌱 Inserindo 19 campanhas...\n')
+    console.log('\n🌱 Inserindo 27 campanhas...\n')
 
     const toInsert = CAMPANHAS.map(c => ({
       id: generateId(),
