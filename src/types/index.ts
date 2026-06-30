@@ -319,3 +319,21 @@ export interface KpiData {
   target?: number
   color?: string
 }
+
+// ─── Feedback / Reclamações, Sugestões, Elogios ────────────────────────────────
+export type FeedbackType = 'reclamacao' | 'sugestao' | 'elogio'
+export type FeedbackStatus = 'novo' | 'em_andamento' | 'resolvido'
+
+export interface Feedback {
+  id: string
+  type: FeedbackType
+  status: FeedbackStatus
+  title: string
+  message: string
+  sender_email?: string
+  sender_name?: string
+  response?: string
+  response_date?: string
+  created_at: string
+  updated_at: string
+}

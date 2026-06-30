@@ -4,7 +4,7 @@ import type { LucideIcon } from 'lucide-react'
 import {
   Building2, Users, Award, Wind, UserSearch, UserX,
   BarChart3, Megaphone, BookOpen, DollarSign, TrendingUp,
-  ChevronRight, LayoutDashboard, Contact, ShieldCheck, FileBarChart2
+  ChevronRight, LayoutDashboard, Contact, ShieldCheck, FileBarChart2, MessageSquare
 } from 'lucide-react'
 
 type NavLeaf = { label: string; icon: LucideIcon; to: string }
@@ -30,6 +30,7 @@ const navItems: NavItem[] = [
       { label: 'Gestão de Desligamento', icon: UserX, to: '/desligamento' },
       { label: 'Avaliação de Desempenho', icon: BarChart3, to: '/desempenho' },
       { label: 'Endomarketing', icon: Megaphone, to: '/endomarketing' },
+      { label: 'Canal de Feedback', icon: MessageSquare, to: '/reclamacoes' },
       { label: 'Plano de Treinamento', icon: BookOpen, to: '/treinamento' },
       { label: 'Cargos e Salários', icon: DollarSign, to: '/cargos-salarios' },
     ]

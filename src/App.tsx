@@ -28,6 +28,7 @@ import TrainamentReteste from '@/pages/TrainamentReteste'
 import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 import ClimateResponsesView from '@/pages/ClimateResponsesView'
 import ClimateReport from '@/pages/ClimateReport'
+import Reclamacoes from '@/pages/Reclamacoes'
 
 export default function App() {
   // useSeedCampanhas() // Disabled: was recreating all campaigns on every load, causing duplicates
@@ -71,6 +72,7 @@ export default function App() {
             <Route path="/beneficios/detalhamento" element={<Beneficios />} />
             <Route path="/beneficios/calculadora" element={<Beneficios />} />
             <Route path="/relatorios" element={<Relatorios />} />
+            <Route path="/reclamacoes" element={<Reclamacoes />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -19,6 +19,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/colaboradores': 'Colaboradores',
   '/beneficios': 'Benefícios',
   '/relatorios': 'Relatórios',
+  '/reclamacoes': 'Canal de Feedback',
 }
 
 export function Layout() {
