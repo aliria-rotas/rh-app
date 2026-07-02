@@ -7,7 +7,7 @@ import { Modal } from '@/components/ui/Modal'
 import { supabase } from '@/lib/supabase'
 import { Feedback, FeedbackType, FeedbackStatus } from '@/types'
 import { formatDate } from '@/lib/utils'
-import { Plus, MessageSquare, CheckCircle, Clock, AlertCircle } from 'lucide-react'
+import { MessageSquare, CheckCircle, Clock, AlertCircle } from 'lucide-react'
 
 const TYPE_LABELS: Record<FeedbackType, { label: string; icon: string; color: string }> = {
   reclamacao: { label: 'Reclamação', icon: '🚨', color: 'red' },
@@ -160,12 +160,9 @@ export default function Reclamacoes() {
 
   return (
     <div className="space-y-6 max-w-6xl">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-800">Canal de Feedback</h1>
-          <p className="text-slate-600 mt-1">Compartilhe reclamações, sugestões e elogios de forma anônima</p>
-        </div>
-        <Button onClick={() => setModalOpen(true)}><Plus size={16} /> Enviar Feedback</Button>
+      <div>
+        <h1 className="text-3xl font-bold text-slate-800">Canal de Feedback</h1>
+        <p className="text-slate-600 mt-1">Feedbacks recebidos via Google Forms</p>
       </div>
 
       {/* Stats */}
@@ -240,35 +237,6 @@ export default function Reclamacoes() {
         )}
       </div>
 
-      {/* Modal - Enviar Feedback */}
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Enviar Feedback" size="lg">
-        <div className="space-y-4">
-          <Select
-            label="Tipo *"
-            value={form.type}
-            onChange={(v) => setForm(f => ({ ...f, type: v as FeedbackType }))}
-            options={[
-              { value: 'reclamacao', label: '🚨 Reclamação' },
-              { value: 'sugestao', label: '💡 Sugestão' },
-              { value: 'elogio', label: '👏 Elogio' },
-            ]}
-          />
-          <Input label="Título *" value={form.title} onChange={(e) => setForm(f => ({ ...f, title: e.target.value }))} placeholder="Resumo do feedback" />
-          <Textarea label="Mensagem *" value={form.message} onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))} rows={4} placeholder="Detalhe sua reclamação, sugestão ou elogio..." />
-
-          <div className="bg-blue-50 border border-blue-200 rounded p-3 text-sm text-blue-800">
-            ℹ️ Os campos abaixo são <strong>opcionais</strong>. Deixe em branco para enviar de forma totalmente anônima.
-          </div>
-
-          <Input label="Seu Nome (opcional)" value={form.sender_name} onChange={(e) => setForm(f => ({ ...f, sender_name: e.target.value }))} placeholder="Deixe em branco para ser anônimo" />
-          <Input label="Email (opcional - para receber resposta)" type="email" value={form.sender_email} onChange={(e) => setForm(f => ({ ...f, sender_email: e.target.value }))} placeholder="seu.email@eualiria.com.br" />
-
-          <div className="flex justify-end gap-2 pt-2">
-            <Button variant="secondary" onClick={() => setModalOpen(false)}>Cancelar</Button>
-            <Button onClick={submitFeedback}>Enviar</Button>
-          </div>
-        </div>
-      </Modal>
 
       {/* Modal - Detalhes + Resposta */}
       <Modal open={detailsOpen} onClose={() => setDetailsOpen(false)} title={`${TYPE_LABELS[selectedFeedback?.type || 'sugestao'].icon} ${selectedFeedback?.title}`} size="xl">
