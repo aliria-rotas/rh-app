@@ -29,6 +29,7 @@ import TreinamentosPublicos from '@/pages/TreinamentosPublicos'
 import ClimateResponsesView from '@/pages/ClimateResponsesView'
 import ClimateReport from '@/pages/ClimateReport'
 import Reclamacoes from '@/pages/Reclamacoes'
+import EnviarFeedback from '@/pages/EnviarFeedback'
 
 export default function App() {
   // useSeedCampanhas() // Disabled: was recreating all campaigns on every load, causing duplicates
@@ -41,6 +42,7 @@ export default function App() {
       <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/enviar-feedback" element={<EnviarFeedback />} />
           <Route path="/treinamento-publico" element={<TrainamentPublic />} />
           <Route path="/reteste-treinamento" element={<TrainamentReteste />} />
           <Route path="/treinamentos-publicos" element={<TreinamentosPublicos />} />
