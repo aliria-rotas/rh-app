@@ -43,25 +43,8 @@ export default function EnviarFeedback() {
             status: 'novo',
           },
         ])
-        .select()
 
       if (error) throw error
-
-      // Envia email (via função Supabase)
-      try {
-        await supabase.functions.invoke('send-feedback-email', {
-          body: {
-            feedbackId: data[0].id,
-            type,
-            title,
-            message,
-            senderName: senderName || 'Anônimo',
-            senderEmail: senderEmail || 'Não informado',
-          },
-        })
-      } catch (emailErr) {
-        console.warn('Email não foi enviado, mas feedback foi salvo:', emailErr)
-      }
 
       setSuccess(true)
       setTitle('')
